@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="greeting">Hello {{name}}{{exclamationMarks}}</div>
-        <button @click="decrement">-</button>
-        <button @click="increment">+</button>
+        <md-button class="md-raised" @click="decrement">-</md-button>
+        <md-button class="md-raised" @click="increment">+</md-button>
     </div>
 </template>
 
