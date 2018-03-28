@@ -1,12 +1,21 @@
-# Koneko Client
-[![Build Status](https://travis-ci.org/gedorinku/koneko-client.svg?branch=master)](https://travis-ci.org/gedorinku/koneko-client)
+# koneko-client
 
-[Koneko Online Judge](https://github.com/gedorinku/koneko-online-judge)のクライアントです😸😸
+> Koneko Online Judgeのクライアントです😸😸
 
-## Usage
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
-    git clone https://github.com/gedorinku/koneko-client.git
-    cd koneko-client
-    npm install
-    npm run build -- --watch --mode=development
-```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
