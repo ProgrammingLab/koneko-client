@@ -6,7 +6,7 @@
           <h3 class="title has-text-grey">Login</h3>
           <p class="subtitle has-text-grey">Please login to proceed.</p>
           <div class="box">
-            <form>
+            <form v-on:submit.prevent="onLogin">
               <div class="field">
                 <div class="control">
                   <input
@@ -30,8 +30,8 @@
                 </div>
               </div>
               <button
+                type="submit"
                 class="button is-block is-info is-large is-fullwidth"
-                @click="onLogin"
               >
                 Login
               </button>
