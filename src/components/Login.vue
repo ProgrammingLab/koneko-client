@@ -31,6 +31,7 @@
                   >
                 </div>
               </div>
+              <p class="error">{{ errorMsg }}</p>
               <button
                 type="submit"
                 class="button is-block is-info is-large is-fullwidth"
@@ -50,11 +51,49 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
   name: 'Login',
+  data() {
+    return {
+      email: null,
+      password: null,
+    };
+  },
+  computed: {
+    ...mapState('auth', [
+      'error',
+      'sessionID',
+    ]),
+    errorMsg() {
+      if (this.error == null) return null;
+      // eslint-disable-next-line no-console
+      console.error(this.error.response);
+      if (this.error.response) {
+        return `${this.error.response.data.message}(${this.error.response.status})`;
+      }
+      return 'サーバーと通信できてないかも(汗)';
+    },
+  },
+  methods: {
+    ...mapActions('auth', ['login']),
+    async onLogin() {
+      await this.login({
+        email: this.email,
+        password: this.password,
+      });
+      if (this.sessionID !== null) {
+        this.$router.push({ name: 'top' });
+      }
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.error{
+  color:red;
+}
 </style>
