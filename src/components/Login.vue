@@ -15,6 +15,7 @@
                     placeholder="Your Email"
                     autofocus=""
                     v-model="email"
+                    required
                   >
                 </div>
               </div>
@@ -22,6 +23,7 @@
               <div class="field">
                 <div class="control">
                   <input
+                    required
                     class="input is-large"
                     type="password"
                     placeholder="Your Password"
