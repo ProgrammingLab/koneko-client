@@ -1,5 +1,5 @@
 <template lang="html">
-  <h1>Topだよ</h1>
+  <p><router-link to="/admin">Go to Foo</router-link></p>
 </template>
 
 <script>

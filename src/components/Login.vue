@@ -84,7 +84,7 @@ export default {
         password: this.password,
       });
       if (this.sessionID !== null) {
-        this.$router.push({ name: 'top' });
+        this.$router.push({ name: 'Top' });
       }
     },
   },
