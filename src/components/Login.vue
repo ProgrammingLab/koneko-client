@@ -10,12 +10,14 @@
               <div class="field">
                 <div class="control">
                   <input
+                    required
                     class="input is-large"
                     type="email"
                     placeholder="Your Email"
                     autofocus=""
                     v-model="email"
-                    required
+                    @focus="clearLog"
+                    @keydown="clearLog"
                   >
                 </div>
               </div>
@@ -28,6 +30,8 @@
                     type="password"
                     placeholder="Your Password"
                     v-model="password"
+                    @focus="clearLog"
+                    @keydown="clearLog"
                   >
                 </div>
               </div>
@@ -35,6 +39,7 @@
               <button
                 type="submit"
                 class="button is-block is-info is-large is-fullwidth"
+                :disabled="sending"
               >
                 Login
               </button>
@@ -59,6 +64,8 @@ export default {
     return {
       email: null,
       password: null,
+      errorMsg: '',
+      sending: false,
     };
   },
   computed: {
@@ -66,26 +73,32 @@ export default {
       'error',
       'sessionID',
     ]),
-    errorMsg() {
-      if (this.error == null) return null;
-      // eslint-disable-next-line no-console
-      console.error(this.error.response);
-      if (this.error.response) {
-        return `${this.error.response.data.message}(${this.error.response.status})`;
-      }
-      return 'サーバーと通信できてないかも(汗)';
-    },
   },
   methods: {
     ...mapActions('auth', ['login']),
+    clearLog() {
+      this.errorMsg = '';
+    },
     async onLogin() {
+      if (this.sending) return false;
+      this.sending = true;
       await this.login({
         email: this.email,
         password: this.password,
       });
-      if (this.sessionID !== null) {
-        this.$router.push({ name: 'Top' });
+      if (this.error != null) {
+        // eslint-disable-next-line no-console
+        console.error(this.error.response);
+        if (this.error.response) {
+          this.errorMsg = `${this.error.response.data.message}(${this.error.response.status})`;
+        } else {
+          this.errorMsg = 'サーバーと通信できてないかも(汗)';
+        }
+        this.sending = false;
+        return false;
       }
+      this.$router.push({ name: 'Top' });
+      return true;
     },
   },
 };

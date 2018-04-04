@@ -19,6 +19,7 @@ export default {
       try {
         const res = await api.login(email, password);
         commit('setSessionID', res.data.token);
+        commit('setError', null);
       } catch (e) {
         commit('setError', e);
       }
