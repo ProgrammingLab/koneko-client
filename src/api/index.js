@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:9000';
+const API_ENDPOINT = process.env.API_ENDPOINT;
 
 export default {
   async login(email, password) {
-    const res = await axios.post(`${baseURL}/sessions/login`, {
+    const res = await axios.post(`${API_ENDPOINT}/sessions/login`, {
       email,
       password,
     });
