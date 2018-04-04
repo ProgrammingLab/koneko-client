@@ -39,6 +39,7 @@
               <button
                 type="submit"
                 class="button is-block is-info is-large is-fullwidth"
+                :disabled="sending"
               >
                 Login
               </button>
@@ -64,6 +65,7 @@ export default {
       email: null,
       password: null,
       errorMsg: '',
+      sending: false,
     };
   },
   computed: {
@@ -78,6 +80,8 @@ export default {
       this.errorMsg = '';
     },
     async onLogin() {
+      if (this.sending) return false;
+      this.sending = true;
       await this.login({
         email: this.email,
         password: this.password,
@@ -90,6 +94,7 @@ export default {
         } else {
           this.errorMsg = 'サーバーと通信できてないかも(汗)';
         }
+        this.sending = false;
         return false;
       }
       this.$router.push({ name: 'Top' });
