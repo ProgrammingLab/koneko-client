@@ -1,5 +1,7 @@
 <template>
-  <worker-dashboard></worker-dashboard>
+  <div class="columns">
+    <worker-dashboard class="column"></worker-dashboard>
+  </div>
 </template>
 
 <script>
