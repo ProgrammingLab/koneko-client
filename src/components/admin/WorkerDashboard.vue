@@ -47,16 +47,15 @@ import { mapActions, mapState } from 'vuex';
 export default {
   name: 'WorkerDashboard',
   created() {
-    this.getWorkers({ sessionID: this.sessionID });
+    this.getWorkers();
   },
   computed: {
-    ...mapState('auth', ['sessionID']),
-    ...mapState('dashboard', ['workers']),
+    ...mapState('koneko/dashboard', ['workers']),
   },
   methods: {
-    ...mapActions('dashboard', ['getWorkers']),
+    ...mapActions('koneko/dashboard', ['getWorkers']),
     onRefresh() {
-      this.getWorkers({ sessionID: this.sessionID });
+      this.getWorkers();
     },
   },
 };

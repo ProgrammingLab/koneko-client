@@ -69,13 +69,13 @@ export default {
     };
   },
   computed: {
-    ...mapState('auth', [
+    ...mapState('koneko', [
       'error',
       'sessionID',
     ]),
   },
   methods: {
-    ...mapActions('auth', ['login']),
+    ...mapActions('koneko', ['login']),
     clearLog() {
       this.errorMsg = '';
     },

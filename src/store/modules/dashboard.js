@@ -15,9 +15,9 @@ export default {
     },
   },
   actions: {
-    async getWorkers({ commit }, { sessionID }) {
+    async getWorkers({ commit, rootState }) {
       try {
-        const res = await api.getWorkers(sessionID);
+        const res = await api.getWorkers(rootState.koneko.sessionID);
         commit('setWorkers', res.data);
       } catch (e) {
         commit('setError', e);
