@@ -22,4 +22,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/workers`, getConfig(sessionID));
     return res;
   },
+  async getWhiteEmails(sessionID) {
+    const res = await axios.get(`${API_ENDPOINT}/white_emails`, getConfig(sessionID));
+    return res;
+  },
 };
