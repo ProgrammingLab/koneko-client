@@ -1,4 +1,6 @@
 import api from '@/api';
+import dashboard from './dashboard';
+import whiteEmails from './white-emails';
 
 export default {
   namespaced: true,
@@ -16,6 +18,7 @@ export default {
   },
   actions: {
     async login({ commit }, { email, password }) {
+      // エラーハンドリングの方法これでいいかわからない
       try {
         const res = await api.login(email, password);
         commit('setSessionID', res.data.token);
@@ -24,5 +27,9 @@ export default {
         commit('setError', e);
       }
     },
+  },
+  modules: {
+    dashboard,
+    whiteEmails,
   },
 };

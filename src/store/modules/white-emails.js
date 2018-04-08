@@ -18,9 +18,9 @@ export default {
     },
   },
   actions: {
-    async fetchWhiteEmails({ commit }, { sessionID }) {
+    async fetchWhiteEmails({ commit, rootState }) {
       try {
-        const res = await api.getWhiteEmails(sessionID);
+        const res = await api.getWhiteEmails(rootState.koneko.sessionID);
         // ソート済みかどうかは保証されていないので
         res.data.sort((a, b) => {
           if (a.id < b.id) {
@@ -37,17 +37,17 @@ export default {
         commit('setError', e);
       }
     },
-    async addWhiteEmail({ commit }, { sessionID, email }) {
+    async addWhiteEmail({ commit, rootState }, { email }) {
       try {
-        await api.addWhiteEmail(sessionID, email);
+        await api.addWhiteEmail(rootState.koneko.sessionID, email);
         commit('setError', null);
       } catch (e) {
         commit('setError', e);
       }
     },
-    async deleteWhiteEmail({ commit }, { sessionID, id }) {
+    async deleteWhiteEmail({ commit, rootState }, { id }) {
       try {
-        await api.deleteWhiteEmail(sessionID, id);
+        await api.deleteWhiteEmail(rootState.koneko.sessionID, id);
         commit('setError', null);
       } catch (e) {
         commit('setError', e);

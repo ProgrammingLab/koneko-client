@@ -56,8 +56,7 @@ export default {
     this.fetchWhiteEmails({ sessionID: this.sessionID });
   },
   computed: {
-    ...mapState('auth', ['sessionID']),
-    ...mapState('whiteEmails', [
+    ...mapState('koneko/whiteEmails', [
       'whiteEmails',
       'error',
     ]),
@@ -72,7 +71,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('whiteEmails', [
+    ...mapActions('koneko/whiteEmails', [
       'fetchWhiteEmails',
       'addWhiteEmail',
       'deleteWhiteEmail',
@@ -82,20 +81,20 @@ export default {
         return false;
       }
       this.sending = true;
-      await this.addWhiteEmail({ sessionID: this.sessionID, email: this.email });
+      await this.addWhiteEmail({ email: this.email });
       this.email = '';
       if (this.error) {
         this.sending = false;
         return false;
       }
-      await this.fetchWhiteEmails({ sessionID: this.sessionID });
+      await this.fetchWhiteEmails();
       this.sending = false;
       return true;
     },
     async onDelete(email) {
       this.sending = true;
-      await this.deleteWhiteEmail({ sessionID: this.sessionID, id: email.id });
-      await this.fetchWhiteEmails({ sessionID: this.sessionID });
+      await this.deleteWhiteEmail({ id: email.id });
+      await this.fetchWhiteEmails();
       this.sending = false;
     },
   },
