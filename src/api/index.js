@@ -30,4 +30,8 @@ export default {
     const res = await axios.post(`${API_ENDPOINT}/white_emails`, { Email: email }, getConfig(sessionID));
     return res;
   },
+  async deleteWhiteEmail(sessionID, id) {
+    const res = await axios.delete(`${API_ENDPOINT}/white_emails/${id}`, getConfig(sessionID));
+    return res;
+  },
 };

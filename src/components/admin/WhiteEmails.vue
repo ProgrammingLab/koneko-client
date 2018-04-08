@@ -17,7 +17,9 @@
           <td>{{ email.email }}</td>
           <td>{{ email.createdBy.name }}</td>
           <td>{{ email.createdAt }}</td>
-          <td><a class="delete"></a></td>
+          <td>
+            <button class="delete" @click="onDelete(email)" :disabled="sending"></button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -73,6 +75,7 @@ export default {
     ...mapActions('whiteEmails', [
       'fetchWhiteEmails',
       'addWhiteEmail',
+      'deleteWhiteEmail',
     ]),
     async onAdd() {
       if (this.sending) {
@@ -87,6 +90,12 @@ export default {
       await this.fetchWhiteEmails({ sessionID: this.sessionID });
       this.sending = false;
       return true;
+    },
+    async onDelete(email) {
+      this.sending = true;
+      await this.deleteWhiteEmail({ sessionID: this.sessionID, id: email.id });
+      await this.fetchWhiteEmails({ sessionID: this.sessionID });
+      this.sending = false;
     },
   },
 };

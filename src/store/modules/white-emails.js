@@ -45,5 +45,13 @@ export default {
         commit('setError', e);
       }
     },
+    async deleteWhiteEmail({ commit }, { sessionID, id }) {
+      try {
+        await api.deleteWhiteEmail(sessionID, id);
+        commit('setError', null);
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
   },
 };
