@@ -26,4 +26,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/white_emails`, getConfig(sessionID));
     return res;
   },
+  async addWhiteEmail(sessionID, email) {
+    const res = await axios.post(`${API_ENDPOINT}/white_emails`, { Email: email }, getConfig(sessionID));
+    return res;
+  },
 };

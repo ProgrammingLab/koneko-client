@@ -22,16 +22,19 @@
       </tbody>
     </table>
     <div class="column is-4">
-      <from>
+      <p class="notification is-danger" :hidden="errorMessage === null">{{ errorMessage }}</p>
+      <form v-on:submit.prevent="onAdd">
         <div class="field has-addons">
           <div class="control is-expanded">
-            <input class="input" required type="email" placeholder="Email">
+            <input class="input" required type="email" placeholder="Email" v-model="email">
           </div>
           <div class="control">
-            <button class="button is-primary" type="submit">Add</button>
+            <button class="button is-primary" :class="{ 'is-loading': sending }" type="submit">
+              Add
+            </button>
           </div>
         </div>
-      </from>
+      </form>
     </div>
   </section>
 </template>
@@ -41,15 +44,50 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'WhiteEmails',
+  data() {
+    return {
+      email: null,
+      sending: false,
+    };
+  },
   created() {
     this.fetchWhiteEmails({ sessionID: this.sessionID });
   },
   computed: {
     ...mapState('auth', ['sessionID']),
-    ...mapState('whiteEmails', ['whiteEmails']),
+    ...mapState('whiteEmails', [
+      'whiteEmails',
+      'error',
+    ]),
+    errorMessage() {
+      if (this.error) {
+        if (this.error.response) {
+          return `${this.error.response.data.message}(${this.error.response.status})`;
+        }
+        return 'サーバーに接続できません';
+      }
+      return null;
+    },
   },
   methods: {
-    ...mapActions('whiteEmails', ['fetchWhiteEmails']),
+    ...mapActions('whiteEmails', [
+      'fetchWhiteEmails',
+      'addWhiteEmail',
+    ]),
+    async onAdd() {
+      if (this.sending) {
+        return false;
+      }
+      this.sending = true;
+      await this.addWhiteEmail({ sessionID: this.sessionID, email: this.email });
+      if (this.error) {
+        this.sending = false;
+        return false;
+      }
+      await this.fetchWhiteEmails({ sessionID: this.sessionID });
+      this.sending = false;
+      return true;
+    },
   },
 };
 </script>

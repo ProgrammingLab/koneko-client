@@ -21,7 +21,26 @@ export default {
     async fetchWhiteEmails({ commit }, { sessionID }) {
       try {
         const res = await api.getWhiteEmails(sessionID);
+        // ソート済みかどうかは保証されていないので
+        res.data.sort((a, b) => {
+          if (a.id < b.id) {
+            return -1;
+          }
+          if (b.id < a.id) {
+            return 1;
+          }
+          return 0;
+        });
         commit('setWhiteEmails', res.data);
+        commit('setError', null);
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
+    async addWhiteEmail({ commit }, { sessionID, email }) {
+      try {
+        await api.addWhiteEmail(sessionID, email);
+        commit('setError', null);
       } catch (e) {
         commit('setError', e);
       }
