@@ -83,6 +83,7 @@ export default {
       }
       this.sending = true;
       await this.addWhiteEmail({ sessionID: this.sessionID, email: this.email });
+      this.email = '';
       if (this.error) {
         this.sending = false;
         return false;
