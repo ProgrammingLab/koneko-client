@@ -22,4 +22,16 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/workers`, getConfig(sessionID));
     return res;
   },
+  async getWhiteEmails(sessionID) {
+    const res = await axios.get(`${API_ENDPOINT}/white_emails`, getConfig(sessionID));
+    return res;
+  },
+  async addWhiteEmail(sessionID, email) {
+    const res = await axios.post(`${API_ENDPOINT}/white_emails`, { Email: email }, getConfig(sessionID));
+    return res;
+  },
+  async deleteWhiteEmail(sessionID, id) {
+    const res = await axios.delete(`${API_ENDPOINT}/white_emails/${id}`, getConfig(sessionID));
+    return res;
+  },
 };

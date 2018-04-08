@@ -1,14 +1,19 @@
 <template>
-  <div class="columns">
-    <worker-dashboard class="column"></worker-dashboard>
+  <div class="container">
+    <white-emails></white-emails>
+    <worker-dashboard></worker-dashboard>
   </div>
 </template>
 
 <script>
 import WorkerDashboard from './WorkerDashboard';
+import WhiteEmails from './WhiteEmails';
 
 export default {
   name: 'Admin',
-  components: { WorkerDashboard },
+  components: {
+    WorkerDashboard,
+    WhiteEmails,
+  },
 };
 </script>

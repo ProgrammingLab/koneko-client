@@ -1,5 +1,6 @@
 import api from '@/api';
 import dashboard from './dashboard';
+import whiteEmails from './white-emails';
 
 export default {
   namespaced: true,
@@ -29,5 +30,6 @@ export default {
   },
   modules: {
     dashboard,
+    whiteEmails,
   },
 };
