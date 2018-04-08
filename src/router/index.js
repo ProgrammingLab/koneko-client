@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Login from '@/components/Login';
 import Admin from '@/components/admin/Admin';
 import Top from '@/components/Top';
+import NotFound from '@/components/NotFound';
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: Admin,
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound,
     },
   ],
 });
