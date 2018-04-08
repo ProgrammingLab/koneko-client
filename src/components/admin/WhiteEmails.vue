@@ -53,7 +53,7 @@ export default {
     };
   },
   created() {
-    this.fetchWhiteEmails({ sessionID: this.sessionID });
+    this.fetchWhiteEmails();
   },
   computed: {
     ...mapState('koneko/whiteEmails', [
