@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Login from '@/components/Login';
 import Admin from '@/components/admin/Admin';
 import Top from '@/components/Top';
-import NotFound from '@/components/404';
+import NotFound from '@/components/NotFound';
 
 Vue.use(Router);
 
@@ -28,7 +28,7 @@ export default new Router({
     },
     {
       path: '*',
-      name: '404',
+      name: 'NotFound',
       component: NotFound,
     },
   ],
