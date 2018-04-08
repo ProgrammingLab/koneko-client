@@ -3,7 +3,7 @@
     <h1 class="title">
       ホワイトリスト
     </h1>
-    <table class="table is-striped is-hoverable">
+    <table class="table is-striped is-hoverable is-fullwidth">
       <thead>
         <th>ID</th>
         <th>Email</th>
@@ -21,6 +21,18 @@
         </tr>
       </tbody>
     </table>
+    <div class="column is-4">
+      <from>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input" required type="email" placeholder="Email">
+          </div>
+          <div class="control">
+            <button class="button is-primary" type="submit">Add</button>
+          </div>
+        </div>
+      </from>
+    </div>
   </section>
 </template>
 

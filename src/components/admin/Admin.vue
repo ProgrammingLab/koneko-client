@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <white-emails></white-emails>
     <worker-dashboard></worker-dashboard>
   </div>

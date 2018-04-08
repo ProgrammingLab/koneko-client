@@ -10,6 +10,9 @@ export default {
     setWhiteEmails(state, emails) {
       state.whiteEmails = emails;
     },
+    addWhiteEmail(state, email) {
+      state.whiteEmails.push(email);
+    },
     setError(state, error) {
       state.error = error;
     },
