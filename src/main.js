@@ -9,7 +9,6 @@ import store from './store';
 Vue.use(VueHead);
 
 Vue.config.productionTip = false;
-
 /* eslint-disable no-new */
 new Vue({
   store,
