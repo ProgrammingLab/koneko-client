@@ -1,8 +1,9 @@
 <template>
-  <div v-html="this.compiledMarkdown" class="markdown-body" id="latexBody"></div>
+  <div v-html="this.compiledMarkdown" class="markdown-body" :id="id"></div>
 </template>
 
 <script>
+import uuidv4 from 'uuid/v4';
 import renderer from './renderer';
 
 export default {
@@ -10,7 +11,11 @@ export default {
   data() {
     return {
       mathJax: null,
+      id: null,
     };
+  },
+  created() {
+    this.id = uuidv4();
   },
   computed: {
     compiledMarkdown() {
@@ -27,7 +32,7 @@ export default {
     compiledMarkdown() {
       this.$nextTick(() => {
         if (window.MathJax) {
-          window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, 'latexBody']);
+          window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, this.id]);
         }
       });
     },
