@@ -1,5 +1,5 @@
 <template>
-  <div v-html="this.compiledMarkdown" class="markdown-body"></div>
+  <div v-html="this.compiledMarkdown" class="markdown-body" id="latexBody"></div>
 </template>
 
 <script>
@@ -7,6 +7,11 @@ import renderer from './renderer';
 
 export default {
   name: 'Markdown',
+  data() {
+    return {
+      mathJax: null,
+    };
+  },
   computed: {
     compiledMarkdown() {
       return renderer.render(this.body);
@@ -16,6 +21,15 @@ export default {
     body: {
       type: String,
       required: true,
+    },
+  },
+  watch: {
+    compiledMarkdown() {
+      this.$nextTick(() => {
+        if (window.MathJax) {
+          window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, 'latexBody']);
+        }
+      });
     },
   },
   head: {
