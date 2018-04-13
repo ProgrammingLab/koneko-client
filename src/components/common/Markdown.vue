@@ -16,6 +16,7 @@ export default {
   },
   created() {
     this.id = uuidv4();
+    this.renderMathJax();
   },
   computed: {
     compiledMarkdown() {
@@ -30,6 +31,11 @@ export default {
   },
   watch: {
     compiledMarkdown() {
+      this.renderMathJax();
+    },
+  },
+  methods: {
+    renderMathJax() {
       this.$nextTick(() => {
         if (window.MathJax) {
           window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, this.id]);
