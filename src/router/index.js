@@ -40,10 +40,11 @@ router.beforeEach(async (to, from, next) => {
   const { loginStatus, isAdmin } = store.state.koneko;
   const reqAuth = to.matched.some(record => record.meta.requiresAuth);
   const reqAdmin = to.matched.some(record => record.meta.admin);
-  if (
-    (reqAuth && !loginStatus) ||
-    (reqAdmin && !isAdmin)
-  ) {
+  if (reqAdmin && !isAdmin) {
+    next({ name: 'NotFound' });
+    return;
+  }
+  if (reqAuth && !loginStatus) {
     next({ name: 'Login', query: { redirect: to.fullPath } });
   } else {
     next();
