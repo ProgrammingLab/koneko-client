@@ -1,4 +1,5 @@
 # koneko-client
+[![Build Status](https://travis-ci.org/gedorinku/koneko-client.svg?branch=master)](https://travis-ci.org/gedorinku/koneko-client)
 
 > Koneko Online Judgeのクライアントです😸😸
 
