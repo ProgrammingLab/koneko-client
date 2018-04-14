@@ -41,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
   const reqAuth = to.matched.some(record => record.meta.requiresAuth);
   const reqAdmin = to.matched.some(record => record.meta.admin);
   if (reqAdmin && !isAdmin) {
-    next({ name: 'NotFound' });
+    next({ name: 'NotFound', params: { 0: to.fullPath } });
     return;
   }
   if (reqAuth && !loginStatus) {
