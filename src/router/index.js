@@ -46,9 +46,9 @@ router.beforeEach(async (to, from, next) => {
   }
   if (reqAuth && !loginStatus) {
     next({ name: 'Login', query: { redirect: to.fullPath } });
-  } else {
-    next();
+    return;
   }
+  next();
 });
 
 export default router;
