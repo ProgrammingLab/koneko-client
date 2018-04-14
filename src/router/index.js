@@ -4,11 +4,11 @@ import Login from '@/components/Login';
 import Admin from '@/components/admin/Admin';
 import Top from '@/components/Top';
 import NotFound from '@/components/NotFound';
+import store from '@/store';
 
 Vue.use(Router);
 
-export default new Router({
-// TODO:権限の確認とログインページの読み飛ばしやって
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -25,6 +25,7 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: Admin,
+      meta: { requiresAuth: true, admin: true },
     },
     {
       path: '*',
@@ -33,3 +34,21 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach(async (to, from, next) => {
+  await store.dispatch('koneko/updateLoginStatus');
+  const { loginStatus, isAdmin } = store.state.koneko;
+  const reqAuth = to.matched.some(record => record.meta.requiresAuth);
+  const reqAdmin = to.matched.some(record => record.meta.admin);
+  if (reqAdmin && !isAdmin) {
+    next({ name: 'NotFound', params: { 0: to.fullPath } });
+    return;
+  }
+  if (reqAuth && !loginStatus) {
+    next({ name: 'Login', query: { redirect: to.fullPath } });
+    return;
+  }
+  next();
+});
+
+export default router;

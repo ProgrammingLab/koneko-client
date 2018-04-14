@@ -18,6 +18,10 @@ export default {
     });
     return res;
   },
+  async getSelf(sessionID) {
+    const res = await axios.get(`${API_ENDPOINT}/user`, getConfig(sessionID));
+    return res;
+  },
   async getWorkers(sessionID) {
     const res = await axios.get(`${API_ENDPOINT}/workers`, getConfig(sessionID));
     return res;
