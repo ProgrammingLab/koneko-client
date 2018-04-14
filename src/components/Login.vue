@@ -97,7 +97,7 @@ export default {
         this.sending = false;
         return false;
       }
-      this.$router.push({ name: 'Top' });
+      this.$router.push(this.$route.query.redirect || '/');
       return true;
     },
   },
