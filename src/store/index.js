@@ -10,7 +10,6 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       paths: ['koneko.sessionID'],
-      storage: window.sessionStorage,
     }),
   ],
   modules: {
