@@ -2,22 +2,22 @@
   <nav class="navbar is-white has-shadow" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand navbar-start">
-        <a class="navbar-item brand-text" href="./">
+        <router-link class="navbar-item brand-text" to="/">
           Koneko
-        </a>
+        </router-link>
       </div>
       <div class="navbar-end">
         <div id="navMenu" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" href="#">
+            <router-link class="navbar-item" to="#">
               Contests
-            </a>
-            <a class="navbar-item" href="#">
+            </router-link>
+            <router-link class="navbar-item" to="#">
               Problems
-            </a>
-            <a class="navbar-item" href="#">
+            </router-link>
+            <router-link class="navbar-item" to="#">
               icon?
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
