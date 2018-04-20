@@ -7,7 +7,9 @@ function getAuthHeader(sessionID) {
 }
 
 function getConfig(sessionID) {
-  return { headers: getAuthHeader(sessionID) };
+  return {
+    headers: getAuthHeader(sessionID),
+  };
 }
 
 export default {
@@ -36,6 +38,14 @@ export default {
   },
   async deleteWhiteEmail(sessionID, id) {
     const res = await axios.delete(`${API_ENDPOINT}/white_emails/${id}`, getConfig(sessionID));
+    return res;
+  },
+  async getUsers(sessionID) {
+    const res = await axios.get(`${API_ENDPOINT}/users`, getConfig(sessionID));
+    return res;
+  },
+  async createContest(sessionID, contest) {
+    const res = await axios.post(`${API_ENDPOINT}/contests`, contest, getConfig(sessionID));
     return res;
   },
 };
