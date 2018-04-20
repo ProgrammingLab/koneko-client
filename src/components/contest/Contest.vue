@@ -106,8 +106,7 @@
           </aside>
         </div>
         <div class="column">
-          <!-- ここは問題描画用のコンポーネントを使う -->
-          <h1 class="title underline"><a href="#">#1</a>進捗どうですか</h1>
+          <Problem/>
         </div>
       </div>
     </div>
@@ -115,12 +114,14 @@
 </template>
 
 <script>
+import Problem from '@/components/common/Problem';
 import Tag from './Tag';
 
 export default {
   name: 'Contest',
   components: {
     Tag,
+    Problem,
   },
 };
 </script>
@@ -145,9 +146,5 @@ export default {
   }
   .margin-bottom{
     margin-bottom: 20px;
-  }
-  .underline{
-    padding-bottom:10px;
-    border-bottom: 1px solid gray;
   }
 </style>
