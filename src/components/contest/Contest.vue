@@ -35,7 +35,7 @@
             昨日、commit0回,push0回であったことをここに謝罪します。
           </p>
         </div>
-    </article>
+      </article>
     </div>
     <div class="container">
       <div class="columns">
