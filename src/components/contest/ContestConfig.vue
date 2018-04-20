@@ -76,6 +76,9 @@
           <button type="submit" class="button is-link" :disabled="sending">Create</button>
         </div>
       </div>
+      <div>
+        <p class="notification is-danger" :hidden="errorMessage === null">{{ errorMessage }}</p>
+      </div>
   </form>
 </template>
 
@@ -101,6 +104,7 @@ export default {
       contest,
       selected: null,
       sending: false,
+      error: null,
     };
   },
   computed: {
@@ -110,6 +114,15 @@ export default {
     ...mapState('koneko/users', [
       'users',
     ]),
+    errorMessage() {
+      if (this.error) {
+        if (this.error.response) {
+          return `${this.error.response.data.message}(${this.error.response.status})`;
+        }
+        return 'サーバーに接続できません';
+      }
+      return null;
+    },
   },
   async created() {
     await this.fetchUsers();
@@ -133,9 +146,15 @@ export default {
     },
     async onSubmit() {
       this.sending = true;
-      const res = await api.createContest(this.sessionID, this.contest);
-      this.$emit('submited', res.data);
-      this.sending = false;
+      try {
+        const res = await api.createContest(this.sessionID, this.contest);
+        this.error = null;
+        this.$emit('submited', res.data);
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.sending = false;
+      }
     },
   },
 };
