@@ -73,7 +73,7 @@
       </div>
       <div class="field">
         <div class="control">
-          <button type="submit" class="button is-link">Create</button>
+          <button type="submit" class="button is-link" :disabled="sending">Create</button>
         </div>
       </div>
   </form>
@@ -132,7 +132,10 @@ export default {
       this.$delete(this.contest.writers, index);
     },
     async onSubmit() {
-      await api.createContest(this.sessionID, this.contest);
+      this.sending = true;
+      const res = await api.createContest(this.sessionID, this.contest);
+      this.$emit('submited', res.data);
+      this.sending = false;
     },
   },
 };
