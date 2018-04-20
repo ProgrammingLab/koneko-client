@@ -1,5 +1,9 @@
 <template>
-  <nav class="navbar is-white has-shadow" role="navigation" aria-label="main navigation">
+  <nav
+    class="navbar is-white has-shadow is-fixed-top"
+    role="navigation"
+    aria-label="main navigation"
+  >
     <div class="container">
       <div class="navbar-brand navbar-start">
         <router-link class="navbar-item brand-text" to="/">

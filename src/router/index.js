@@ -4,6 +4,7 @@ import Login from '@/components/Login';
 import Admin from '@/components/admin/Admin';
 import Top from '@/components/Top';
 import NewContest from '@/components/contest/NewContest';
+import Contest from '@/components/contest/Contest';
 import NotFound from '@/components/NotFound';
 import store from '@/store';
 
@@ -21,6 +22,12 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/Contest',
+      name: 'Contest',
+      component: Contest,
+      meta: { requiresAuth: true },
     },
     {
       path: '/admin',
