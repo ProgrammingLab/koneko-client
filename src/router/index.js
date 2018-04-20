@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Login from '@/components/Login';
 import Admin from '@/components/admin/Admin';
 import Top from '@/components/Top';
-import NewContest from '@/components/NewContest';
+import NewContest from '@/components/contest/NewContest';
 import NotFound from '@/components/NotFound';
 import store from '@/store';
 
