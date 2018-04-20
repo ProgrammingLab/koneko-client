@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div class="container margin-bottom">
@@ -11,7 +10,7 @@
                 <h2 class="subtitle is-6">完成予定: 2018/4/18~2018/5/18</h2>
               </div>
             </div>
-            <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-menu">
               <div class="navbar-end">
                 <span class="navbar-item">
                   <button class="button is-outlined" href="#">
@@ -127,9 +126,6 @@ export default {
 </script>
 
 <style scoped>
-  #contest-title{
-    margin-bottom: 10px;
-  }
   .tab {
     padding-right: 0;
     border-right: 5px solid hsl(204, 86%, 53%);
@@ -139,12 +135,6 @@ export default {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     background-color: white;
-  }
-  .ac{
-    background-color: hsl(141, 71%, 48%);
-  }
-  .ac:hover{
-    background-color: hsl(141, 71%, 48%);
   }
   .active-tab-button{
     border-right-color: hsl(204, 86%, 53%);
