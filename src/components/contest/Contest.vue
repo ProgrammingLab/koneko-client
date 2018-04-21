@@ -78,6 +78,9 @@ export default {
       problemStatus: [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     };
   },
+  created() {
+    this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
+  },
   methods: {
     toggleDescription() {
       this.showDescription = !this.showDescription;
