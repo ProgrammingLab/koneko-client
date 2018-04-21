@@ -27,9 +27,9 @@
       </section>
       <article class="message is-light">
         <div class="message-header">
-          <p>詳細</p>
+          <a  @click="toggleDescription">{{ showDescription ? "閉じる" : "詳細" }}</a>
         </div>
-        <div class="message-body" v-if="true">
+        <div class="message-body" v-show="showDescription">
           <p>
             福さんの実装の遅さのために進捗が全く出ていないこと<br>
             昨日、commit0回,push0回であったことをここに謝罪します。
@@ -119,6 +119,16 @@ import Tag from './Tag';
 
 export default {
   name: 'Contest',
+  data() {
+    return {
+      showDescription: false,
+    };
+  },
+  methods: {
+    toggleDescription() {
+      this.showDescription = !this.showDescription;
+    },
+  },
   components: {
     Tag,
     Problem,
