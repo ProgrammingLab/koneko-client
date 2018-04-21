@@ -13,10 +13,10 @@
             <div class="navbar-menu">
               <div class="navbar-end">
                 <span class="navbar-item">
-                  <button class="button is-outlined" href="#">
+                  <button class="button is-outlined">
                     提出一覧
                   </button>
-                  <button class="button is-outlined" href="#">
+                  <button class="button is-outlined">
                     順位
                   </button>
                 </span>
