@@ -24,12 +24,6 @@ const router = new Router({
       component: Login,
     },
     {
-      path: '/Contest',
-      name: 'Contest',
-      component: Contest,
-      meta: { requiresAuth: true },
-    },
-    {
       path: '/admin',
       name: 'Admin',
       component: Admin,
@@ -40,6 +34,12 @@ const router = new Router({
       name: 'NewContest',
       component: NewContest,
       meta: { requiresAuth: true, admin: false },
+    },
+    {
+      path: '/contests/:id',
+      name: 'Contest',
+      component: Contest,
+      meta: { requiresAuth: true },
     },
     {
       path: '*',
