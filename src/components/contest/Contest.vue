@@ -42,64 +42,14 @@
         <div class="column is-1 tab">
           <aside>
             <ul class="menu-list">
-              <li>
-                <a href="#a" class="tab-button active-tab-button">
-                  A
-                  <tag :status="0"/>
-                </a>
-              </li>
-              <li>
-                <a href="#b" class="tab-button">
-                  B
-                  <tag :status="1"/>
-                </a>
-              </li>
-              <li>
-                <a href="#c" class="tab-button">
-                  C
-                  <tag :status="2"/>
-                </a>
-              </li>
-              <li>
-                <a href="#d" class="tab-button">
-                  D
-                  <tag :status="3"/>
-                </a>
-              </li>
-              <li>
-                <a href="#e" class="tab-button">
-                  E
-                  <tag :status="4"/>
-                </a>
-              </li>
-              <li>
-                <a href="#e" class="tab-button">
-                  F
-                  <tag :status="5"/>
-                </a>
-              </li>
-              <li>
-                <a href="#e" class="tab-button">
-                  G
-                  <tag :status="6"/>
-                </a>
-              </li>
-              <li>
-                <a href="#e" class="tab-button">
-                  H
-                  <tag :status="7"/>
-                </a>
-              </li>
-              <li>
-                <a href="#e" class="tab-button">
-                  I
-                  <tag :status="8"/>
-                </a>
-              </li>
-              <li>
-                <a href="#e" class="tab-button">
-                  J
-                  <tag :status="9"/>
+              <li v-for="(status, index) in problemStatus" :key="index">
+                <a
+                  :href= "'#' + num2alpha(index)"
+                  :class= "['tab-button',index == activeTab ? 'active-tab-button': '']"
+                  @click="activeTab = index"
+                >
+                  {{ num2alpha(index).toUpperCase() }}
+                  <tag :status="status"/>
                 </a>
               </li>
             </ul>
@@ -122,11 +72,16 @@ export default {
   data() {
     return {
       showDescription: false,
+      activeTab: 0,
+      problemStatus: [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     };
   },
   methods: {
     toggleDescription() {
       this.showDescription = !this.showDescription;
+    },
+    num2alpha(num) {
+      return String.fromCharCode(97 + num);
     },
   },
   components: {
