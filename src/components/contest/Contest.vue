@@ -27,7 +27,9 @@
       </section>
       <article class="message is-light">
         <div class="message-header">
-          <a  @click="toggleDescription">{{ showDescription ? "閉じる" : "詳細" }}</a>
+          <button class="button is-text is-small" @click="toggleDescription">
+            {{ showDescription ? "閉じる" : "詳細" }}
+          </button>
         </div>
         <div class="message-body" v-show="showDescription">
           <p>
