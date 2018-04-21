@@ -44,8 +44,8 @@
             <ul class="menu-list">
               <li v-for="(status, index) in problemStatus" :key="index">
                 <a
-                  :href= "'#' + num2alpha(index)"
-                  :class= "['tab-button',index == activeTab ? 'active-tab-button': '']"
+                  :href="'#' + num2alpha(index)"
+                  :class="['tab-button', index == activeTab ? 'active-tab-button': '']"
                   @click="activeTab = index"
                 >
                   {{ num2alpha(index).toUpperCase() }}
