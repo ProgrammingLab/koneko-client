@@ -56,4 +56,12 @@ export default {
     const res = await axios.put(`${API_ENDPOINT}/contests/${contest.id}`, contest, getConfig(sessionID));
     return res;
   },
+  async createContestProblem(sessionID, contestID, problem) {
+    const res = await axios.post(`${API_ENDPOINT}/contests/${contestID}/problems/new`, problem, getConfig(sessionID));
+    return res;
+  },
+  async deleteProblem(sessionID, problemID) {
+    const res = await axios.delete(`${API_ENDPOINT}/problems/${problemID}`, getConfig(sessionID));
+    return res;
+  },
 };
