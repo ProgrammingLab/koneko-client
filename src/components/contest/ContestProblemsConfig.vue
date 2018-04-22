@@ -13,7 +13,11 @@
         <tbody>
           <tr v-for="(problem, index) in this.contest.problems" :key="problem.id">
             <th>{{ problem.id }}</th>
-            <td>{{ problem.title }}</td>
+            <td>
+              <router-link :to="`./problems/${problem.id}/edit`">
+                {{ problem.title }}
+              </router-link>
+            </td>
             <td>{{ problem.timeLimit / 1000000000.0 }}s</td>
             <td>{{ problem.memoryLimit }}MiB</td>
             <td>TODO</td>

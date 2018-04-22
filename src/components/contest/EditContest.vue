@@ -3,7 +3,6 @@
     <div class="container">
       <h1 class="title">
         Contest settings
-        <router-link to="../7/edit">hoge</router-link>
       </h1>
       <div class="tabs">
           <ul>
