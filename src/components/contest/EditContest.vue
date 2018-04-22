@@ -1,6 +1,9 @@
 <template>
   <section class="section">
     <div class="container">
+      <div class="notification is-info" :hidden="this.message === null">
+        {{ this.message }}
+      </div>
       <div>
         <error-notification :error="error"/>
       </div>
@@ -18,7 +21,7 @@ import ContestConfig from './ContestConfig';
 import ErrorNotification from '../common/ErrorNotification';
 
 export default {
-  name: 'NewContest',
+  name: 'EditContest',
   components: {
     ContestConfig,
     ErrorNotification,
@@ -33,8 +36,9 @@ export default {
     };
     return {
       contest,
-      sending: false,
       error: null,
+      sending: false,
+      message: null,
     };
   },
   computed: {
@@ -42,14 +46,25 @@ export default {
       'sessionID',
     ]),
   },
+  async created() {
+    try {
+      this.contest = (await api.getContest(this.sessionID, this.$route.params.id)).data;
+      this.error = null;
+    } catch (e) {
+      this.error = e;
+      if (e.response && e.response.status === 404) {
+        this.$router.push('/404');
+      }
+    }
+  },
   methods: {
     async onSubmit() {
       this.sending = true;
+      this.message = null;
       try {
-        const res = await api.createContest(this.sessionID, this.contest);
+        await api.updateContest(this.sessionID, this.contest);
         this.error = null;
-        this.contest = res.data;
-        this.$router.push(`/contests/${this.contest.id}`);
+        this.message = '保存しました';
       } catch (e) {
         this.error = e;
       } finally {
