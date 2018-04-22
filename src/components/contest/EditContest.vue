@@ -29,7 +29,7 @@
         <contest-config :contest="contest" :sending="sending" v-on:onSubmit="onSubmit"/>
       </div>
       <div :hidden="activeTab !== 'problems'">
-        <contest-problems-config/>
+        <contest-problems-config :contest="contest"/>
       </div>
     </div>
   </section>
@@ -56,6 +56,7 @@ export default {
       startAt: null,
       endAt: null,
       writers: [],
+      problems: [],
     };
     return {
       contest,
