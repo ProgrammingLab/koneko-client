@@ -18,13 +18,13 @@
             </li>
           </ul>
       </div>
-      <div class="notification is-info" :hidden="this.message === null">
-        {{ this.message }}
-      </div>
       <div>
         <error-notification :error="error"/>
       </div>
       <div :hidden="activeTab !== 'config'">
+        <div class="notification is-info" :hidden="this.message === null">
+          {{ this.message }}
+        </div>
         <contest-config :contest="contest" :sending="sending" v-on:onSubmit="onSubmit"/>
       </div>
       <div :hidden="activeTab !== 'problems'">
