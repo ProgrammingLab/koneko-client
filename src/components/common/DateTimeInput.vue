@@ -12,17 +12,28 @@
 <script>
 import moment from 'moment';
 
+const format = 'YYYY-MM-DDTHH:mm:ssZ';
+
 export default {
   name: 'DateTimeInput',
+  data() {
+    return {
+      rawValue: null,
+    };
+  },
   props: [
     'value',
-    'rawValue',
     'required',
     'placeholder',
   ],
+  watch: {
+    value(val) {
+      this.rawValue = moment(val, format).format('YYYY-MM-DDTHH:mm');
+    },
+  },
   methods: {
     updateValue(value) {
-      const formattedValue = moment(new Date(value)).format('YYYY-MM-DDTHH:mm:ssZ');
+      const formattedValue = moment(new Date(value)).format(format);
       this.$emit('input', formattedValue);
     },
   },

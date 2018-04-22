@@ -35,7 +35,12 @@
       <div class="field">
         <label class="label">Description</label>
         <div class="control">
-          <textarea class="textarea" placeholder="Description" rows="10"/>
+          <textarea
+            class="textarea"
+            placeholder="Description"
+            rows="10"
+            v-model="contest.description"
+          />
         </div>
       </div>
       <div class="field">
@@ -73,7 +78,7 @@
       </div>
       <div class="field">
         <div class="control">
-          <button type="submit" class="button is-link" :disabled="sending">Create</button>
+          <button type="submit" class="button is-link" :disabled="sending">Submit</button>
         </div>
       </div>
       <div>
@@ -84,7 +89,6 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import api from '@/api';
 import DateTimeInput from '../common/DateTimeInput';
 
 export default {
@@ -93,24 +97,16 @@ export default {
     DateTimeInput,
   },
   data() {
-    const contest = {
-      title: null,
-      description: '',
-      startAt: null,
-      endAt: null,
-      writers: [],
-    };
     return {
-      contest,
       selected: null,
-      sending: false,
       error: null,
     };
   },
+  props: [
+    'contest',
+    'sending',
+  ],
   computed: {
-    ...mapState('koneko', [
-      'sessionID',
-    ]),
     ...mapState('koneko/users', [
       'users',
     ]),
@@ -145,16 +141,7 @@ export default {
       this.$delete(this.contest.writers, index);
     },
     async onSubmit() {
-      this.sending = true;
-      try {
-        const res = await api.createContest(this.sessionID, this.contest);
-        this.error = null;
-        this.$emit('submited', res.data);
-      } catch (e) {
-        this.error = e;
-      } finally {
-        this.sending = false;
-      }
+      this.$emit('onSubmit', this.contest);
     },
   },
 };
