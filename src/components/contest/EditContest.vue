@@ -21,13 +21,13 @@
       <div>
         <error-notification :error="error"/>
       </div>
-      <div :hidden="activeTab !== 'config'">
-        <div class="notification is-info" :hidden="this.message === null">
+      <div v-show="activeTab === 'config'">
+        <div class="notification is-info" v-show="this.message !== null">
           {{ this.message }}
         </div>
         <contest-config :contest="contest" :sending="sending" v-on:onSubmit="onSubmit"/>
       </div>
-      <div :hidden="activeTab !== 'problems'">
+      <div v-show="activeTab === 'problems'">
         <contest-problems-config :contest="contest"/>
       </div>
     </div>
