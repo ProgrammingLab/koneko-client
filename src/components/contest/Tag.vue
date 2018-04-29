@@ -1,11 +1,6 @@
 <template>
   <span :class="getStatusStyle" v-if="0 <= status && status <= 10">
-    <span class="icon" v-if="status <= 1">
-      <i class="fas fa-spinner fa-spin"></i>
-    </span>
-    <template v-else>
-      {{ getStatusCode }}
-    </template>
+    {{ getStatusCode }}
   </span>
 </template>
 
@@ -17,7 +12,7 @@ export default {
   computed: {
     getStatusCode() {
       const code = [
-        'WJ', 'WJ', 'AC', 'PE', 'WA', 'TLE',
+        'IQ', 'WJ', 'AC', 'PE', 'WA', 'TLE',
         'MLE', 'RE', 'CE', 'OLE', 'UE',
       ];
       return code[this.status];
@@ -27,7 +22,7 @@ export default {
         '', '', 'is-success', 'is-warning', 'is-warning', 'is-warning',
         'is-warning', 'is-danger', 'is-danger', 'is-danger', 'is-danger',
       ];
-      return [style[this.status], 'tag is-rounded', 'is-pulled-right'];
+      return [style[this.status], 'tag', 'is-rounded', 'is-pulled-right'];
     },
   },
 };
