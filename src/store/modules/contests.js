@@ -3,13 +3,14 @@ import api from '@/api';
 export default {
   namespaced: true,
   state: {
-    createdAt: null,
-    updatedAt: null,
+    createdAt: (new Date(0)),
+    updatedAt: (new Date(0)),
     title: null,
     description: null,
-    startAt: null,
-    endAt: null,
+    startAt: (new Date(0)),
+    endAt: (new Date(0)),
     writers: [],
+    problems: [],
     error: null,
   },
   mutations: {

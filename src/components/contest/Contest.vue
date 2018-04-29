@@ -6,8 +6,16 @@
           <nav class="navbar">
             <div class="navbar-brand">
               <div>
-                <h1 class="title">未実装ガバガバコンテスト</h1>
-                <h2 class="subtitle is-6">完成予定: 2018/4/18~2018/5/18</h2>
+                <h1 class="title">{{title}}</h1>
+                <div class="subtitle is-6">
+                  <span class="is-size-5 has-text-weight-bold">
+                    期間: {{formatDate(startAt)}} ~ {{formatDate(endAt)}}<br>
+                  </span>
+                  <span class="is-size-7">
+                    作成日時: {{formatDate(createdAt)}}<br>
+                    最終更新: {{formatDate(updatedAt)}}
+                  </span>
+                </div>
               </div>
             </div>
             <div class="navbar-menu">
@@ -32,10 +40,7 @@
           </button>
         </div>
         <div class="message-body" v-show="showDescription">
-          <p>
-            福さんの実装の遅さのために進捗が全く出ていないこと<br>
-            昨日、commit0回,push0回であったことをここに謝罪します。
-          </p>
+          <p>{{description}}</p>
         </div>
       </article>
     </div>
@@ -44,14 +49,14 @@
         <div class="column is-1 tab">
           <aside>
             <ul class="menu-list">
-              <li v-for="(status, index) in problemStatus" :key="index">
+              <li v-for="(problem, index) in problems" :key="index">
                 <a
                   :href="'#' + num2alpha(index)"
                   :class="['tab-button', index == activeTab ? 'active-tab-button': '']"
                   @click="activeTab = index"
                 >
                   {{ num2alpha(index).toUpperCase() }}
-                  <tag :status="status"/>
+                  <tag :status="problem.status"/>
                 </a>
               </li>
             </ul>
@@ -66,6 +71,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import Problem from '@/components/common/Problem';
 import Tag from './Tag';
 
@@ -75,18 +81,45 @@ export default {
     return {
       showDescription: false,
       activeTab: 0,
-      problemStatus: [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     };
+  },
+  computed: {
+    ...mapState('koneko/contests', [
+      'createdAt',
+      'updatedAt',
+      'title',
+      'description',
+      'startAt',
+      'endAt',
+      'writers',
+      'problems',
+      'error',
+    ]),
   },
   created() {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
+    this.getContest(this.$route.params.id);
   },
   methods: {
+    ...mapActions('koneko/contests', [
+      'getContest',
+    ]),
     toggleDescription() {
       this.showDescription = !this.showDescription;
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
+    },
+    formatDate(date) {
+      const week = ['日', '月', '火', '水', '木', '金', '土'];
+      return (
+        `${date.getFullYear()}/` +
+        `${date.getMonth() + 1}/` +
+        `${`00${date.getDate()}`.slice(-2)} (` +
+        `${week[date.getDay()]}) ` +
+        `${`00${date.getHours()}`.slice(-2)}:` +
+        `${`00${date.getMinutes()}`.slice(-2)}`
+      );
     },
   },
   components: {
