@@ -21,12 +21,9 @@ export default {
       state.endAt = new Date(contestData.endAt);
       state.title = contestData.title;
       state.description = contestData.description;
-      contestData.writers.forEach((v, i) => {
-        state.writers[i] = {
-          name: v.name,
-          displayName: v.displayName,
-        };
-      });
+      state.problems = contestData.problems.map(v => ({ ...v, status: 0 }));
+      state.writers = contestData.writers.map(v => ({ name: v.name, displayName: v.displayName }));
+    },
     },
     setError(state, error) {
       state.error = error;
