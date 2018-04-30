@@ -1,5 +1,5 @@
 <template>
-  <span :class="getStatusStyle" v-if="0 <= status && status <= 10">
+  <span :class="getStyleClass" v-if="0 <= status && status <= 10">
     {{ getStatusCode }}
   </span>
 </template>
@@ -17,7 +17,7 @@ export default {
       ];
       return code[this.status];
     },
-    getStatusStyle() {
+    getStyleClass() {
       const style = [
         '', '', 'is-success', 'is-warning', 'is-warning', 'is-warning',
         'is-warning', 'is-danger', 'is-danger', 'is-danger', 'is-danger',
