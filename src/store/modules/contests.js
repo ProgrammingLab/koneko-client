@@ -24,7 +24,6 @@ export default {
       state.problems = contestData.problems.map(v => ({ ...v, status: 0 }));
       state.writers = contestData.writers.map(v => ({ name: v.name, displayName: v.displayName }));
     },
-    },
     setError(state, error) {
       state.error = error;
     },
