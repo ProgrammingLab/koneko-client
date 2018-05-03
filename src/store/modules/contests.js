@@ -13,7 +13,7 @@ export default {
     writers: [],
     problems: [],
     statusesWatcherFlag: false,
-    requiredWatching: true,
+    requiredWatching: false,
     isWaitingJudge: false,
     error: null,
   },
