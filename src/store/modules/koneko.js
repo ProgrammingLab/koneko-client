@@ -3,6 +3,8 @@ import dashboard from './dashboard';
 import whiteEmails from './white-emails';
 import users from './users';
 import contests from './contests';
+import informationModal from './information-modal';
+import deleteConfirmationModal from './delete-confirmation-modal';
 
 export default {
   namespaced: true,
@@ -61,5 +63,7 @@ export default {
     whiteEmails,
     users,
     contests,
+    informationModal,
+    deleteConfirmationModal,
   },
 };
