@@ -1,5 +1,6 @@
 <template>
   <div>
+    <delete-confirmation-modal @onClickDelete="onProceddToDelete"/>
     <div>
       <table class="table is-striped is-hoverable is-fullwidth">
         <thead>
@@ -25,7 +26,7 @@
               <button
                 class="button is-danger"
                 :disabled="sending"
-                @click="onDelete(index)"
+                @click="onClickDelete(index)"
                 >
                 Delete
               </button>
@@ -44,14 +45,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import api from '@/api';
 import ErrorNotification from '../common/ErrorNotification';
+import DeleteConfirmationModal from '../common/DeleteConfirmationModal';
 
 export default {
   name: 'ContestProblemsConfig',
   components: {
     ErrorNotification,
+    DeleteConfirmationModal,
   },
   data() {
     return {
@@ -68,6 +71,9 @@ export default {
     'contest',
   ],
   methods: {
+    ...mapActions('koneko/deleteConfirmationModal', [
+      'openDeleteConfirmationModal',
+    ]),
     async onAdd() {
       const problem = {
         title: '新しい問題',
@@ -92,7 +98,12 @@ export default {
         this.sending = false;
       }
     },
-    async onDelete(index) {
+    onClickDelete(index) {
+      const problemTitle = this.contest.problems[index].title;
+      const body = `This action cannot be undone. This will permanently delete the ${problemTitle} problem, test cases, and submissions.`;
+      this.openDeleteConfirmationModal({ body, argument: index });
+    },
+    async onProceddToDelete(index) {
       this.sending = true;
       try {
         await api.deleteProblem(this.sessionID, this.contest.problems[index].id);

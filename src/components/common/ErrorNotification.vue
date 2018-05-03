@@ -1,5 +1,5 @@
 <template>
-  <p class="notification is-danger" :hidden="errorMessage === null">{{ errorMessage }}</p>
+  <p class="notification is-danger" v-show="errorMessage !== null">{{ errorMessage }}</p>
 </template>
 
 <script>

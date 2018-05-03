@@ -2,6 +2,8 @@ import api from '@/api';
 import dashboard from './dashboard';
 import whiteEmails from './white-emails';
 import users from './users';
+import informationModal from './information-modal';
+import deleteConfirmationModal from './delete-confirmation-modal';
 
 export default {
   namespaced: true,
@@ -59,5 +61,7 @@ export default {
     dashboard,
     whiteEmails,
     users,
+    informationModal,
+    deleteConfirmationModal,
   },
 };

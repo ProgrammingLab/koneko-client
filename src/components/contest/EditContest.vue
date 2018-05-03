@@ -1,5 +1,6 @@
 <template>
   <section class="section">
+    <information-modal/>
     <div class="container">
       <h1 class="title">
         Contest settings
@@ -21,13 +22,10 @@
       <div>
         <error-notification :error="error"/>
       </div>
-      <div :hidden="activeTab !== 'config'">
-        <div class="notification is-info" :hidden="this.message === null">
-          {{ this.message }}
-        </div>
+      <div v-show="activeTab === 'config'">
         <contest-config :contest="contest" :sending="sending" v-on:onSubmit="onSubmit"/>
       </div>
-      <div :hidden="activeTab !== 'problems'">
+      <div v-show="activeTab === 'problems'">
         <contest-problems-config :contest="contest"/>
       </div>
     </div>
@@ -35,11 +33,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import api from '@/api';
 import ContestConfig from './ContestConfig';
 import ContestProblemsConfig from './ContestProblemsConfig';
 import ErrorNotification from '../common/ErrorNotification';
+import InformationModal from '../common/InformationModal';
 
 export default {
   name: 'EditContest',
@@ -47,6 +46,7 @@ export default {
     ContestConfig,
     ErrorNotification,
     ContestProblemsConfig,
+    InformationModal,
   },
   data() {
     const contest = {
@@ -61,7 +61,6 @@ export default {
       contest,
       error: null,
       sending: false,
-      message: null,
     };
   },
   computed: {
@@ -83,9 +82,13 @@ export default {
     if (to.params.id !== from.params.id) {
       await this.onUpdate(to.params.id);
     }
+    this.error = null;
     next();
   },
   methods: {
+    ...mapActions('koneko/informationModal', [
+      'openInformationModel',
+    ]),
     async onUpdate(contestID) {
       try {
         this.contest = (await api.getContest(this.sessionID, contestID)).data;
@@ -99,11 +102,11 @@ export default {
     },
     async onSubmit() {
       this.sending = true;
-      this.message = null;
       try {
         await api.updateContest(this.sessionID, this.contest);
         this.error = null;
-        this.message = '保存しました';
+        const body = '保存しました';
+        this.openInformationModel(body);
       } catch (e) {
         this.error = e;
       } finally {
