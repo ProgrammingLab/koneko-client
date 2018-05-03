@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 import Problem from '@/components/common/Problem';
 import Tag from './Tag';
 
@@ -96,13 +96,19 @@ export default {
       'error',
     ]),
   },
-  created() {
+  async created() {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
-    this.getContest(this.$route.params.id);
+    await this.getContest(this.$route.params.id);
+  },
+  beforeDestroy() {
+    this.setRequiredWatching(false);
   },
   methods: {
     ...mapActions('koneko/contests', [
       'getContest',
+    ]),
+    ...mapMutations('koneko/contests', [
+      'setRequiredWatching',
     ]),
     toggleDescription() {
       this.showDescription = !this.showDescription;

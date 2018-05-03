@@ -52,6 +52,10 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}`, getConfig(sessionID));
     return res;
   },
+  async getContestStatuses(sessionID, contestID) {
+    const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}/statuses`, getConfig(sessionID));
+    return res;
+  },
   async updateContest(sessionID, contest) {
     const res = await axios.put(`${API_ENDPOINT}/contests/${contest.id}`, contest, getConfig(sessionID));
     return res;
