@@ -96,9 +96,9 @@ export default {
       'error',
     ]),
   },
-  async created() {
+  created() {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
-    await this.getContest(this.$route.params.id);
+    this.getContest(this.$route.params.id);
   },
   beforeDestroy() {
     this.setRequiredWatching(false);
