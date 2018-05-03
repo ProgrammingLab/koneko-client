@@ -69,6 +69,10 @@ export default {
             // eslint-disable-next-line no-await-in-loop
             await sleep(state.isWaitingJudge ? 2000 : 60000);
           }
+        } else {
+        // すでにループが回っていたときはとりあえず現状を把握する
+          const statuses = await api.getContestStatuses(rootState.koneko.sessionID, state.id);
+          commit('setStatuses', statuses.data);
         }
       } catch (e) {
         commit('setError', e);
