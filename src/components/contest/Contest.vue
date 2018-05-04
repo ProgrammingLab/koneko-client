@@ -137,6 +137,7 @@ export default {
   .tab {
     padding-right: 0;
     border-right: 5px solid hsl(204, 86%, 53%);
+    min-width: 100px;
   }
   .tab-button{
     border: 1px solid silver;
