@@ -38,6 +38,7 @@
           </button>
         </div>
         <div class="message-body" v-show="showDescription">
+            <li v-for="(writer, index) in writers" :key="index">{{writer.displayName}}</li>
           <p>{{description}}</p>
         </div>
       </article>
