@@ -64,4 +64,8 @@ export default {
     const res = await axios.delete(`${API_ENDPOINT}/problems/${problemID}`, getConfig(sessionID));
     return res;
   },
+  async getProblem(sessionID, problemID) {
+    const res = await axios.get(`${API_ENDPOINT}/problems/${problemID}`, getConfig(sessionID));
+    return res;
+  },
 };
