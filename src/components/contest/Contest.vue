@@ -18,17 +18,15 @@
                 </div>
               </div>
             </div>
-            <div class="navbar-menu">
-              <div class="navbar-end">
-                <span class="navbar-item">
-                  <button class="button is-outlined">
-                    提出一覧
-                  </button>
-                  <button class="button is-outlined">
-                    順位
-                  </button>
-                </span>
-              </div>
+            <div class="navbar-end">
+              <span class="navbar-item">
+                <button @click="showSubmitList" class="button is-outlined">
+                  提出一覧
+                </button>
+                <button @click="showRanking" class="button is-outlined">
+                  順位
+                </button>
+              </span>
             </div>
           </nav>
         </div>
@@ -45,7 +43,7 @@
       </article>
     </div>
     <div class="container">
-      <div class="columns">
+      <div class="columns is-mobile">
         <div class="column is-1 tab">
           <aside>
             <ul class="menu-list">
