@@ -20,10 +20,26 @@
       <div v-for="(sample, index) in problem.samples" :key="sample.id">
         <hr>
         <h2>Sample #{{ index + 1 }}</h2>
-        <h3>Input</h3>
+        <h3>
+          Input
+          <button
+            class="button is-small"
+            v-clipboard:copy="sample.input"
+            >
+              Copy
+          </button>
+          </h3>
         <p>
           <pre>{{sample.input}}</pre>
-        <h3>Output</h3>
+        <h3>
+          Output
+          <button
+            class="button is-small"
+            v-clipboard:copy="sample.output"
+            >
+              Copy
+          </button>
+        </h3>
         <p>
           <pre>{{sample.output}}</pre>
         </p>
