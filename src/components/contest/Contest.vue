@@ -100,6 +100,7 @@
 
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex';
+import moment from 'moment';
 import Problem from '@/components/common/Problem';
 import Tag from './Tag';
 
@@ -159,15 +160,10 @@ export default {
       return String.fromCharCode(97 + num);
     },
     formatDate(date) {
-      const week = ['日', '月', '火', '水', '木', '金', '土'];
-      return (
-        `${date.getFullYear()}/` +
-        `${date.getMonth() + 1}/` +
-        `${`00${date.getDate()}`.slice(-2)} (` +
-        `${week[date.getDay()]}) ` +
-        `${`00${date.getHours()}`.slice(-2)}:` +
-        `${`00${date.getMinutes()}`.slice(-2)}`
-      );
+      return moment(date)
+        .locale('ja')
+        .format('YYYY/MM/DD(ddd) HH:mm')
+      ;
     },
   },
   components: {
