@@ -37,8 +37,11 @@
             {{ showDescription ? "閉じる" : "詳細" }}
           </button>
         </div>
-        <div class="message-body" v-show="showDescription">
+        <div class="message-body content" v-show="showDescription">
+          <h3 class="is-size-6">作問者</h3>
+          <ul>
             <li v-for="(writer, index) in writers" :key="index">{{writer.displayName}}</li>
+          </ul>
           <p>{{description}}</p>
         </div>
       </article>
@@ -66,6 +69,32 @@
         </div>
       </div>
     </div>
+    <div class="modal" :class="{ 'is-active': showRankingModal }">
+      <div class="modal-background" @click="closeRanking"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">順位</p>
+          <button class="delete" aria-label="close" @click="closeRanking"></button>
+        </header>
+        <section class="modal-card-body">
+
+        </section>
+        <footer class="modal-card-foot"></footer>
+      </div>
+    </div>
+    <div class="modal" :class="{ 'is-active': showSubmitListModal }">
+      <div class="modal-background" @click="closeSubmitList"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">提出一覧</p>
+          <button class="delete" aria-label="close" @click="closeSubmitList"></button>
+        </header>
+        <section class="modal-card-body">
+
+        </section>
+        <footer class="modal-card-foot"></footer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -79,6 +108,8 @@ export default {
   data() {
     return {
       showDescription: false,
+      showRankingModal: false,
+      showSubmitListModal: false,
       activeTab: 0,
     };
   },
@@ -111,6 +142,18 @@ export default {
     ]),
     toggleDescription() {
       this.showDescription = !this.showDescription;
+    },
+    showSubmitList() {
+      this.showSubmitListModal = true;
+    },
+    closeSubmitList() {
+      this.showSubmitListModal = false;
+    },
+    showRanking() {
+      this.showRankingModal = true;
+    },
+    closeRanking() {
+      this.showRankingModal = false;
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
