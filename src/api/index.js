@@ -72,4 +72,8 @@ export default {
     const res = await axios.put(`${API_ENDPOINT}/problems/${problem.id}`, problem, getConfig(sessionID));
     return res;
   },
+  async uploadTestCases(sessionID, problemID, file) {
+    const res = await axios.post(`${API_ENDPOINT}/problems/${problemID}/cases/upload`, file, getConfig(sessionID));
+    return res;
+  },
 };

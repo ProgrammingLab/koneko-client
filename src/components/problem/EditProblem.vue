@@ -29,6 +29,9 @@
       <div v-show="activeTab === 'preview'">
         <problem :problem="problem"/>
       </div>
+      <div v-show="activeTab === 'cases'">
+        <edit-test-cases :problem="problem"/>
+      </div>
     </div>
   </section>
 </template>
@@ -38,6 +41,7 @@ import { mapState, mapActions } from 'vuex';
 import api from '@/api';
 import Problem from './Problem';
 import EditProblemBody from './EditProblemBody';
+import EditTestCases from './EditTestCases';
 import ErrorNotification from '../common/ErrorNotification';
 import InformationModal from '../common/InformationModal';
 
@@ -46,6 +50,7 @@ export default {
   components: {
     Problem,
     EditProblemBody,
+    EditTestCases,
     ErrorNotification,
     InformationModal,
   },
