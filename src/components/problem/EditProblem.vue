@@ -1,8 +1,9 @@
 <template>
   <section class="section">
+    <information-modal/>
     <div class="container">
       <h1 class="title">Edit Problem</h1>
-      <edit-problem-body :error="error"/>
+      <error-notification :error="error"/>
       <div class="tabs">
         <ul>
           <li :class="{ 'is-active': activeTab === 'edit' }">
@@ -33,11 +34,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import api from '@/api';
 import Problem from './Problem';
 import EditProblemBody from './EditProblemBody';
 import ErrorNotification from '../common/ErrorNotification';
+import InformationModal from '../common/InformationModal';
 
 export default {
   name: 'EditProblem',
@@ -45,6 +47,7 @@ export default {
     Problem,
     EditProblemBody,
     ErrorNotification,
+    InformationModal,
   },
   data() {
     return {
@@ -66,6 +69,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions('koneko/informationModal', [
+      'openInformationModel',
+    ]),
     async fetchProblem() {
       try {
         this.problem = (await api.getProblem(this.sessionID, this.$route.params.id)).data;
@@ -76,6 +82,7 @@ export default {
     },
     async onSubmitted() {
       await this.fetchProblem();
+      this.openInformationModel('保存しました');
     },
   },
 };
