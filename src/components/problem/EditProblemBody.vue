@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form v-on:submit.prevent="onSubmit">
    <div class="field">
       <label class="label">Title</label>
       <div class="control">
@@ -88,7 +88,7 @@
         <hr>
         <label class="label">
           Sample #{{ index + 1 }}
-          <button class="button is-small is-danger" @click="onDeleteSample(index)">Delete</button>
+          <a class="button is-small is-danger" @click="onDeleteSample(index)">Delete</a>
         </label>
         <div class="field">
           <label class="label">Input</label>
@@ -126,7 +126,7 @@
       </div>
       <div class="field">
         <div class="control">
-          <button class="button is-primary" @click="onAddSample">Add new sample</button>
+          <a class="button is-primary" @click="onAddSample">Add new sample</a>
         </div>
       </div>
       <hr>
@@ -138,7 +138,6 @@
           type="submit"
           class="button is-link"
           :class="{ 'is-loading': sending }"
-          @click="onSubmit"
           >
           Submit
         </button>
