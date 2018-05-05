@@ -2,6 +2,7 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Edit Problem</h1>
+      <edit-problem-body :error="error"/>
       <div class="tabs">
         <ul>
           <li :class="{ 'is-active': activeTab === 'edit' }">
@@ -22,7 +23,7 @@
         </ul>
       </div>
       <div v-show="activeTab === 'edit'">
-        <edit-problem-body :problem="problem"/>
+        <edit-problem-body :problem="problem" @onSubmitted="onSubmitted"/>
       </div>
       <div v-show="activeTab === 'preview'">
         <problem :problem="problem"/>
@@ -36,20 +37,23 @@ import { mapState } from 'vuex';
 import api from '@/api';
 import Problem from './Problem';
 import EditProblemBody from './EditProblemBody';
+import ErrorNotification from '../common/ErrorNotification';
 
 export default {
   name: 'EditProblem',
   components: {
     Problem,
     EditProblemBody,
+    ErrorNotification,
   },
   data() {
     return {
       problem: null,
+      error: null,
     };
   },
   async created() {
-    this.problem = (await api.getProblem(this.sessionID, this.$route.params.id)).data;
+    await this.fetchProblem();
   },
   computed: {
     ...mapState('koneko', ['sessionID']),
@@ -59,6 +63,19 @@ export default {
         return tab.substring(1);
       }
       return 'edit';
+    },
+  },
+  methods: {
+    async fetchProblem() {
+      try {
+        this.problem = (await api.getProblem(this.sessionID, this.$route.params.id)).data;
+        this.error = null;
+      } catch (e) {
+        this.error = e;
+      }
+    },
+    async onSubmitted() {
+      await this.fetchProblem();
     },
   },
 };

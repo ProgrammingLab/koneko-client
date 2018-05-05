@@ -83,12 +83,12 @@
         />
       </div>
     </div>
-    <div c>
+    <div>
       <div class="field" v-for="(sample, index) in problem.samples" :key="index">
         <hr>
         <label class="label">
           Sample #{{ index + 1 }}
-          <button class="button is-small is-danger">Delete</button>
+          <button class="button is-small is-danger" @click="onDeleteSample(index)">Delete</button>
         </label>
         <div class="field">
           <label class="label">Input</label>
@@ -126,28 +126,50 @@
       </div>
       <div class="field">
         <div class="control">
-          <button class="button is-primary">Add new sample</button>
+          <button class="button is-primary" @click="onAddSample">Add new sample</button>
         </div>
       </div>
       <hr>
     </div>
     <div class="field">
+      <error-notification :error="error"/>
       <div class="control">
-        <button type="submit" class="button is-link" :disabled="sending">Submit</button>
+        <button
+          type="submit"
+          class="button is-link"
+          :class="{ 'is-loading': sending }"
+          @click="onSubmit"
+          >
+          Submit
+        </button>
       </div>
     </div>
   </form>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import api from '@/api';
+import ErrorNotification from '../common/ErrorNotification';
+
 const oneSec = 1000000000;
 
 export default {
   name: 'EditProblemBody',
+  components: {
+    ErrorNotification,
+  },
   props: [
     'problem',
   ],
+  data() {
+    return {
+      sending: false,
+      error: null,
+    };
+  },
   computed: {
+    ...mapState('koneko', ['sessionID']),
     timeLimit: {
       get() {
         return this.problem.timeLimit / oneSec;
@@ -155,6 +177,30 @@ export default {
       set(val) {
         this.problem.timeLimit = val * oneSec;
       },
+    },
+  },
+  methods: {
+    onDeleteSample(index) {
+      this.$delete(this.problem.samples, index);
+    },
+    onAddSample() {
+      this.problem.samples.push({
+        input: '',
+        output: '',
+        description: '',
+      });
+    },
+    async onSubmit() {
+      this.sending = true;
+      try {
+        await api.updateProblem(this.sessionID, this.problem);
+        this.error = null;
+        this.$emit('onSubmitted');
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.sending = false;
+      }
     },
   },
 };

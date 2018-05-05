@@ -68,4 +68,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/problems/${problemID}`, getConfig(sessionID));
     return res;
   },
+  async updateProblem(sessionID, problem) {
+    const res = await axios.put(`${API_ENDPOINT}/problems/${problem.id}`, problem, getConfig(sessionID));
+    return res;
+  },
 };
