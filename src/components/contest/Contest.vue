@@ -65,7 +65,7 @@
           </aside>
         </div>
         <div class="column">
-          <Problem/>
+          <Problem :problem="problems[activeTab]"/>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex';
 import moment from 'moment';
-import Problem from '@/components/common/Problem';
+import Problem from '@/components/problem/Problem';
 import Tag from './Tag';
 
 export default {
