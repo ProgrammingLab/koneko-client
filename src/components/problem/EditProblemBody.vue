@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="onSubmit">
+  <form v-on:submit.prevent="onSubmit" v-if="problem">
    <div class="field">
       <label class="label">Title</label>
       <div class="control">

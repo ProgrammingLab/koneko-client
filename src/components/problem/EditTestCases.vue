@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="problem">
     <div class="field">
       <label class="label">Upload test cases</label>
       <div class="field">
