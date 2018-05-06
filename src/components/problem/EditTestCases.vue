@@ -27,7 +27,7 @@
           </label>
         </div>
         <div class="help">
-          Please refer
+          Please see
           <a href="https://github.com/gedorinku/koneko-online-judge/wiki/Problems#%E3%83%86%E3%82%B9%E3%83%88%E3%82%B1%E3%83%BC%E3%82%B9%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89" target="_blank">
             Koneko API reference
           </a>
