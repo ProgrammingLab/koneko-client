@@ -12,6 +12,7 @@ export default {
     endAt: (new Date(0)),
     writers: [],
     problems: [],
+    participants: [],
     statusesWatcherFlag: false,
     requiredWatching: false,
     isWaitingJudge: false,
@@ -28,6 +29,7 @@ export default {
       state.description = contestData.description;
       state.problems = contestData.problems.map(v => ({ ...v, status: -1 }));
       state.writers = contestData.writers.map(v => ({ name: v.name, displayName: v.displayName }));
+      state.participants = contestData.participants;
     },
     setStatusesWatcherFlag(state) {
       state.statusesWatcherFlag = true;
