@@ -6,6 +6,7 @@ import Top from '@/components/Top';
 import NewContest from '@/components/contest/NewContest';
 import Contest from '@/components/contest/Contest';
 import EditContest from '@/components/contest/EditContest';
+import EditProblem from '@/components/problem/EditProblem';
 import NotFound from '@/components/NotFound';
 import store from '@/store';
 
@@ -46,6 +47,12 @@ const router = new Router({
       path: '/contests/:id/edit',
       name: 'EditContest',
       component: EditContest,
+      meta: { requiresAuth: true, admin: false },
+    },
+    {
+      path: '/problems/:id/edit',
+      name: 'EditProblem',
+      component: EditProblem,
       meta: { requiresAuth: true, admin: false },
     },
     {

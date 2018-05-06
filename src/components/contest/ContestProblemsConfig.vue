@@ -15,7 +15,7 @@
           <tr v-for="(problem, index) in this.contest.problems" :key="problem.id">
             <th>{{ problem.id }}</th>
             <td>
-              <router-link :to="`./problems/${problem.id}/edit`">
+              <router-link :to="`/problems/${problem.id}/edit`">
                 {{ problem.title }}
               </router-link>
             </td>
