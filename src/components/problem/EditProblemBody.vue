@@ -18,7 +18,7 @@
             max="60"
             min="1"
             step="1"
-            v-model="timeLimit"
+            v-model.number="timeLimit"
             />
         </div>
         <p class="control">
@@ -40,7 +40,7 @@
             max="512"
             min="64"
             step="1"
-            v-model="problem.memoryLimit"
+            v-model.number="problem.memoryLimit"
             />
         </div>
         <p class="control">
