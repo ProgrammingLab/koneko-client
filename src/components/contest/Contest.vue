@@ -70,32 +70,12 @@
         </div>
       </div>
     </div>
-    <div class="modal" :class="{ 'is-active': showRankingModal }">
-      <div class="modal-background" @click="closeRanking"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">順位</p>
-          <button class="delete" aria-label="close" @click="closeRanking"></button>
-        </header>
-        <section class="modal-card-body">
-
-        </section>
-        <footer class="modal-card-foot"></footer>
-      </div>
-    </div>
-    <div class="modal" :class="{ 'is-active': showSubmitListModal }">
-      <div class="modal-background" @click="closeSubmitList"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">提出一覧</p>
-          <button class="delete" aria-label="close" @click="closeSubmitList"></button>
-        </header>
-        <section class="modal-card-body">
-
-        </section>
-        <footer class="modal-card-foot"></footer>
-      </div>
-    </div>
+    <Modal :isActive="showRankingModal" @close="showRankingModal = false" title="順位">
+      <h1>aaa</h1>
+    </Modal>
+    <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
+      <h1>bbb</h1>
+    </Modal>
   </div>
 </template>
 
@@ -104,6 +84,8 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 import moment from 'moment';
 import Problem from '@/components/problem/Problem';
 import ErrorNotification from '@/components/common/ErrorNotification';
+import Modal from '@/components/common/Modal';
+
 import Tag from './Tag';
 
 export default {
@@ -149,14 +131,8 @@ export default {
     showSubmitList() {
       this.showSubmitListModal = true;
     },
-    closeSubmitList() {
-      this.showSubmitListModal = false;
-    },
     showRanking() {
       this.showRankingModal = true;
-    },
-    closeRanking() {
-      this.showRankingModal = false;
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
@@ -170,6 +146,7 @@ export default {
   },
   components: {
     Tag,
+    Modal,
     Problem,
     ErrorNotification,
   },
