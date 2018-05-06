@@ -1,6 +1,5 @@
 <template>
   <div v-if="problem">
-    <information-modal/>
     <div class="field">
       <label class="label">Upload test cases</label>
       <div class="field">
@@ -86,16 +85,14 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import api from '@/api';
 import ErrorNotification from '../common/ErrorNotification';
-import InformationModal from '../common/InformationModal';
 
 export default {
   name: 'EditTestCases',
   components: {
     ErrorNotification,
-    InformationModal,
   },
   data() {
     return {
@@ -121,9 +118,6 @@ export default {
     'problem',
   ],
   methods: {
-    ...mapActions('koneko/informationModal', [
-      'openInformationModel',
-    ]),
     onFileChange(e) {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) {
@@ -136,7 +130,7 @@ export default {
       try {
         await api.uploadTestCases(this.sessionID, this.problem.id, this.file);
         this.uploadError = null;
-        this.openInformationModel('ケースをアップロードしました。');
+        this.$emit('onSubmitted');
       } catch (e) {
         this.uploadError = e;
       } finally {
