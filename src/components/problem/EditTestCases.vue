@@ -88,11 +88,13 @@
 import { mapState, mapActions } from 'vuex';
 import api from '@/api';
 import ErrorNotification from '../common/ErrorNotification';
+import InformationModal from '../common/InformationModal';
 
 export default {
   name: 'EditTestCases',
   components: {
     ErrorNotification,
+    InformationModal,
   },
   data() {
     return {
