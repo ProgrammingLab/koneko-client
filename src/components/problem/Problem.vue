@@ -1,5 +1,5 @@
 <template>
-  <section class="section" v-show="problem">
+  <section class="section" v-if="problem">
     <h1 class="title">{{ problem.title }}</h1>
     <div>Score: {{ problem.point }}</div>
     <div>Time Limit: {{ timeLimit }} sec / Memory Limit: {{ problem.memoryLimit }} MiB</div>
