@@ -76,4 +76,9 @@ export default {
     const res = await axios.post(`${API_ENDPOINT}/problems/${problemID}/cases/upload`, file, getConfig(sessionID));
     return res;
   },
+  async updateCaseSetScores(sessionID, problem) {
+    const scores = problem.caseSets.map(val => val.point);
+    const res = await axios.put(`${API_ENDPOINT}/problems/${problem.id}/cases`, scores, getConfig(sessionID));
+    return res;
+  },
 };

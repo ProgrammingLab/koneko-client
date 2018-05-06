@@ -30,7 +30,7 @@
         <problem :problem="problem"/>
       </div>
       <div v-show="activeTab === 'cases'">
-        <edit-test-cases :problem="problem"/>
+        <edit-test-cases :problem="problem" @onSubmitted="onSubmitted"/>
       </div>
     </div>
   </section>
