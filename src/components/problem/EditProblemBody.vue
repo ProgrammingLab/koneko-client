@@ -136,7 +136,7 @@
       <div class="control">
         <button
           type="submit"
-          class="button is-link"
+          class="button"
           :class="{ 'is-loading': sending }"
           >
           Submit
