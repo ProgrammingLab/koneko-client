@@ -10,6 +10,7 @@
               class="file-input"
               type="file"
               name="resume"
+              accept="application/zip"
               @change="onFileChange"
               :disabled="sending"
               >
