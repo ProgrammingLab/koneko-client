@@ -47,6 +47,7 @@
       </article>
     </div>
     <div class="container">
+      <ErrorNotification :error="error"/>
       <div class="columns is-mobile">
         <div class="column is-1 tab">
           <aside>
@@ -102,6 +103,7 @@
 import { mapActions, mapState, mapMutations } from 'vuex';
 import moment from 'moment';
 import Problem from '@/components/problem/Problem';
+import ErrorNotification from '@/components/common/ErrorNotification';
 import Tag from './Tag';
 
 export default {
@@ -169,6 +171,7 @@ export default {
   components: {
     Tag,
     Problem,
+    ErrorNotification,
   },
 };
 </script>
