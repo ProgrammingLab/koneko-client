@@ -79,7 +79,14 @@ export default {
     ]),
     async fetchProblem() {
       try {
-        this.problem = (await api.getProblem(this.sessionID, this.$route.params.id)).data;
+        const res = (await api.getProblem(this.sessionID, this.$route.params.id)).data;
+        if (!res.samples) {
+          res.samples = [];
+        }
+        if (!res.caseSets) {
+          res.caseSets = [];
+        }
+        this.problem = res;
         this.error = null;
       } catch (e) {
         this.error = e;
