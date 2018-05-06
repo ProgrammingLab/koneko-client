@@ -48,7 +48,7 @@
     </div>
     <div class="container">
       <ErrorNotification :error="error"/>
-      <div class="columns is-mobile">
+      <div class="columns is-mobile" v-if="problems.length !== 0">
         <div class="column is-1 tab">
           <aside>
             <ul class="menu-list">
@@ -68,14 +68,14 @@
         <div class="column">
           <Problem :problem="problems[activeTab]"/>
         </div>
+        <Modal :isActive="showRankingModal" @close="showRankingModal = false" title="順位">
+          <h1>aaa</h1>
+        </Modal>
+        <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
+          <h1>bbb</h1>
+        </Modal>
       </div>
     </div>
-    <Modal :isActive="showRankingModal" @close="showRankingModal = false" title="順位">
-      <h1>aaa</h1>
-    </Modal>
-    <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
-      <h1>bbb</h1>
-    </Modal>
   </div>
 </template>
 
