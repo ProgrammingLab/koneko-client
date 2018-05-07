@@ -83,7 +83,7 @@
         </div>
         <div class="tile is-parent">
           <div class="tile is-child box">
-            <p class="title">コンテスト開始まで</p>
+            <p class="title">コンテスト開始まで <span>{{countDownTimer}}</span></p>
           </div>
         </div>
       </div>
@@ -108,6 +108,7 @@ export default {
       showRankingModal: false,
       showSubmitListModal: false,
       activeTab: 0,
+      now: moment(),
     };
   },
   computed: {
@@ -122,10 +123,26 @@ export default {
       'problems',
       'error',
     ]),
+    ...mapState('koneko/timeDiff', [
+      'timeDiff',
+    ]),
+    countDownTimer() {
+      const serverTime = this.now.add(this.timeDiff);
+      const diff = moment(this.startAt).diff(serverTime);
+      const DDD = `000${Math.floor(diff / 1000 / 60 / 60 / 24)}`.slice(-3);
+      const HH = `00${Math.floor(diff / 1000 / 60 / 60) % 24}`.slice(2);
+      const mm = `00${Math.floor(diff / 1000 / 60) % 60}`.slice(-2);
+      const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
+      return `${DDD}日${HH}時間${mm}分${ss}秒`;
+    },
   },
   created() {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
     this.getContest(this.$route.params.id);
+    let intervalId = setInterval(() => {
+      this.now = moment();
+      if (this.problems.length !== 0) clearInterval(intervalId);
+    },1000);
   },
   beforeDestroy() {
     this.setRequiredWatching(false);
