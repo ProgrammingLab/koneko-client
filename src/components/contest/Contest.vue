@@ -75,7 +75,7 @@
           <h1>bbb</h1>
         </Modal>
       </div>
-      <div class="tile is-ancestor">
+      <div v-else class="tile is-ancestor">
         <div class="tile is-4 is-parent">
           <div class="tile is-child box">
             <p class="title">参加者一覧</p>
