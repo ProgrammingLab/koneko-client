@@ -139,10 +139,10 @@ export default {
   created() {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
     this.getContest(this.$route.params.id);
-    let intervalId = setInterval(() => {
+    const intervalId = setInterval(() => {
       this.now = moment();
       if (this.problems.length !== 0) clearInterval(intervalId);
-    },1000);
+    }, 1000);
   },
   beforeDestroy() {
     this.setRequiredWatching(false);
