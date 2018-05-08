@@ -75,18 +75,31 @@
           <h1>bbb</h1>
         </Modal>
       </div>
-      <div v-else class="tile is-ancestor">
-        <div class="tile is-4 is-parent">
-          <div class="tile is-child box">
-            <p class="title">参加者一覧</p>
+      <div v-else class="columns is-mobile">
+        <div class="column is-4">
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <div class="tile is-child box content">
+                <p class="title">参加者一覧</p>
+                <ul>
+                  <li v-for="(participant, index) in participants" :key="index">
+                    {{participant.displayName}}
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="tile is-parent">
-          <div class="tile is-child box">
-            <p class="title has-text-centered">
-              <span v-if="countDownTimer !== ''">コンテスト開始まで {{countDownTimer}}</span>
-              <span v-else>コンテスト開催中</span>
-            </p>
+        <div class="column">
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <div class="tile is-child box">
+                <p class="title has-text-centered">
+                  <span v-if="countDownTimer !== ''">コンテスト開始まで {{countDownTimer}}</span>
+                  <span v-else>コンテスト開催中</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
