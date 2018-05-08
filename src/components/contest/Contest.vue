@@ -133,8 +133,8 @@ export default {
       const serverTime = this.now.add(this.timeDiff);
       const diff = moment(this.startAt).diff(serverTime);
       if (diff < 0) return '';
-      const DD = `00${Math.floor(diff / 1000 / 60 / 60 / 24)}`.slice(-3);
-      const HH = `00${Math.floor(diff / 1000 / 60 / 60) % 24}`.slice(2);
+      const DD = `00${Math.floor(diff / 1000 / 60 / 60 / 24)}`.slice(-2);
+      const HH = `00${Math.floor(diff / 1000 / 60 / 60) % 24}`.slice(-2);
       const mm = `00${Math.floor(diff / 1000 / 60) % 60}`.slice(-2);
       const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
       return `${DD}日${HH}時間${mm}分${ss}秒`;
