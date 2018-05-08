@@ -29,7 +29,9 @@ export default {
       state.description = contestData.description;
       state.problems = contestData.problems.map(v => ({ ...v, status: -1 }));
       state.writers = contestData.writers.map(v => ({ name: v.name, displayName: v.displayName }));
-      state.participants = contestData.participants;
+      state.participants = contestData.participants.map(v => ({
+        name: v.name, displayName: v.displayName,
+      }));
     },
     setStatusesWatcherFlag(state) {
       state.statusesWatcherFlag = true;

@@ -124,6 +124,7 @@ export default {
       'endAt',
       'writers',
       'problems',
+      'participants',
       'error',
     ]),
     ...mapState('koneko/timeDiff', [
