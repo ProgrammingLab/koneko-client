@@ -19,12 +19,17 @@
               </div>
             </div>
             <div class="navbar-end">
-              <span class="navbar-item">
+              <span v-if="isEntered" class="navbar-item">
                 <button @click="showSubmitList" class="button is-outlined">
                   提出一覧
                 </button>
                 <button @click="showRanking" class="button is-outlined">
                   順位
+                </button>
+              </span>
+              <span v-else class="navbar-item">
+                <button @click="enter()" class="button is-large is-outlined">
+                  コンテストに参加する
                 </button>
               </span>
             </div>
@@ -108,7 +113,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapActions, mapState, mapGetters, mapMutations } from 'vuex';
 import moment from 'moment';
 import Problem from '@/components/problem/Problem';
 import ErrorNotification from '@/components/common/ErrorNotification';
@@ -143,6 +148,9 @@ export default {
     ...mapState('koneko/timeDiff', [
       'timeDiff',
     ]),
+    ...mapGetters('koneko/contests', [
+      'isEntered',
+    ]),
     countDownTimer() {
       const serverTime = this.now.add(this.timeDiff);
       const diff = moment(this.startAt).diff(serverTime);
@@ -168,6 +176,7 @@ export default {
   methods: {
     ...mapActions('koneko/contests', [
       'getContest',
+      'enter',
     ]),
     ...mapMutations('koneko/contests', [
       'setRequiredWatching',

@@ -18,6 +18,11 @@ export default {
     isWaitingJudge: false,
     error: null,
   },
+  getters: {
+    isEntered({ participants }, _, rootState) {
+      return participants.some(({ id }) => id === rootState.koneko.user.id);
+    },
+  },
   mutations: {
     setContestData(state, contestData) {
       state.createdAt = new Date(contestData.createdAt);
@@ -30,7 +35,7 @@ export default {
       state.problems = contestData.problems.map(v => ({ ...v, status: -1 }));
       state.writers = contestData.writers.map(v => ({ name: v.name, displayName: v.displayName }));
       state.participants = contestData.participants.map(v => ({
-        name: v.name, displayName: v.displayName,
+        name: v.name, displayName: v.displayName, id: v.id,
       }));
     },
     setStatusesWatcherFlag(state) {
@@ -48,6 +53,11 @@ export default {
         }
       });
       state.isWaitingJudge = state.problems.some(({ status }) => status < 2 && status > -1);
+    },
+    setParticipants(state, participants) {
+      state.participants = participants.map(v => ({
+        name: v.name, displayName: v.displayName, id: v.id,
+      }));
     },
     setError(state, error) {
       state.error = error;
@@ -78,6 +88,14 @@ export default {
           const statuses = await api.getContestStatuses(rootState.koneko.sessionID, state.id);
           commit('setStatuses', statuses.data);
         }
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
+    async enter({ commit, rootState, state }) {
+      try {
+        const res = await api.enterContest(rootState.koneko.sessionID, state.id);
+        commit('setParticipants', res.data.participants);
       } catch (e) {
         commit('setError', e);
       }
