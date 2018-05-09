@@ -86,6 +86,17 @@ export default {
         if (!res.caseSets) {
           res.caseSets = [];
         }
+        if (!res.judgementConfig) {
+          res.judgementConfig = {
+            languageID: null,
+            judgeSourceCode: null,
+            difference: 0.0,
+          };
+        } else {
+          res.judgementConfig.languageID = res.judgementConfig.languageID || 1;
+          res.judgementConfig.judgeSourceCode = res.judgementConfig.judgeSourceCode || null;
+          res.judgementConfig.difference = res.judgementConfig.difference || 0.0;
+        }
         this.problem = res;
         this.error = null;
       } catch (e) {

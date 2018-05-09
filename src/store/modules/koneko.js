@@ -8,6 +8,7 @@ import informationModal from './information-modal';
 import deleteConfirmationModal from './delete-confirmation-modal';
 import timeDiff from './timeDiff';
 import user from './user';
+import languages from './languages';
 
 export default {
   namespaced: true,
@@ -73,5 +74,6 @@ export default {
     informationModal,
     deleteConfirmationModal,
     timeDiff,
+    languages,
   },
 };
