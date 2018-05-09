@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    id: -1,
+    id: null,
     displayName: '',
     name: '',
     email: '',
