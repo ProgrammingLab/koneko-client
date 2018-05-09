@@ -81,4 +81,8 @@ export default {
     const res = await axios.put(`${API_ENDPOINT}/problems/${problem.id}/cases`, scores, getConfig(sessionID));
     return res;
   },
+  async getLanguages(sessionID) {
+    const res = await axios.get(`${API_ENDPOINT}/languages`, getConfig(sessionID));
+    return res;
+  },
 };

@@ -4,6 +4,7 @@ import whiteEmails from './white-emails';
 import users from './users';
 import informationModal from './information-modal';
 import deleteConfirmationModal from './delete-confirmation-modal';
+import languages from './languages';
 
 export default {
   namespaced: true,
@@ -63,5 +64,6 @@ export default {
     users,
     informationModal,
     deleteConfirmationModal,
+    languages,
   },
 };
