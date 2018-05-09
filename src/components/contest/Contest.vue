@@ -100,8 +100,9 @@
             <div class="tile is-parent">
               <div class="tile is-child box">
                 <p class="title has-text-centered">
-                  <span v-if="countDownTimer !== ''">コンテスト開始まで {{countDownTimer}}</span>
-                  <span v-else>コンテスト開催中</span>
+                  <span v-if="countDownTimer == 'Already finished'">コンテスト終了</span>
+                  <span v-else-if="countDownTimer == 'Already started'">コンテスト開催中</span>
+                  <span v-else>コンテスト開催まで {{countDownTimer}}</span>
                 </p>
               </div>
             </div>
@@ -154,7 +155,12 @@ export default {
     countDownTimer() {
       const serverTime = this.now.add(this.timeDiff);
       const diff = moment(this.startAt).diff(serverTime);
-      if (diff < 0) return '';
+      if (diff < 0) {
+        if (moment(this.endAt).diff(serverTime) < 0) {
+          return 'Already finished';
+        }
+        return 'Already started';
+      }
       const DD = `00${Math.floor(diff / 1000 / 60 / 60 / 24)}`.slice(-2);
       const HH = `00${Math.floor(diff / 1000 / 60 / 60) % 24}`.slice(-2);
       const mm = `00${Math.floor(diff / 1000 / 60) % 60}`.slice(-2);
