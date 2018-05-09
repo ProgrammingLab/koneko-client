@@ -83,6 +83,41 @@
         />
       </div>
     </div>
+    <div class="field">
+      <label class="label">ジャッジ方法</label>
+      <div class="select">
+        <select v-model.number="problem.judgeType">
+          <option value="0">ノーマル</option>
+          <option value="1">誤差許容</option>
+          <option value="2">スペシャル</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" v-if="problem.judgeType === 1">
+      <label class="label">許容する相対誤差または絶対誤差の大きさ</label>
+      <div class="field has-addons">
+          <div class="control">
+            <a class="button is-static">
+              10^
+            </a>
+          </div>
+          <div class="control">
+            <input
+              required
+              class="input"
+              type="number"
+              placeholder="Difference"
+              max="0"
+              min="-20"
+              step="1"
+              v-model.number="difference"
+              />
+          </div>
+        </div>
+    </div>
+    <div class="field" v-if="problem.judgeType === 2">
+      <source-code-input title="ジャッジソースコード" v-model="specialJudgeConfig"/>
+    </div>
     <div>
       <div class="field" v-for="(sample, index) in problem.samples" :key="index">
         <hr>
@@ -150,6 +185,7 @@
 import { mapState } from 'vuex';
 import api from '@/api';
 import ErrorNotification from '../common/ErrorNotification';
+import SourceCodeInput from '../common/SourceCodeInput';
 
 const oneSec = 1000000000;
 
@@ -157,6 +193,7 @@ export default {
   name: 'EditProblemBody',
   components: {
     ErrorNotification,
+    SourceCodeInput,
   },
   props: [
     'problem',
@@ -175,6 +212,29 @@ export default {
       },
       set(val) {
         this.problem.timeLimit = val * oneSec;
+      },
+    },
+    difference: {
+      get() {
+        return Math.ceil(Math.log10(this.problem.judgementConfig.difference));
+      },
+      set(value) {
+        this.problem.judgementConfig.difference = 10 ** value;
+      },
+    },
+    specialJudgeConfig: {
+      get() {
+        const config = this.problem.judgementConfig;
+        const res = {
+          sourceCode: config.judgeSourceCode,
+          languageID: config.languageID,
+        };
+        return res;
+      },
+      set(value) {
+        const config = this.problem.judgementConfig;
+        config.judgeSourceCode = value.sourceCode;
+        config.languageID = value.languageID;
       },
     },
   },
