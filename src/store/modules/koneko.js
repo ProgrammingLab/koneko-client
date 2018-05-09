@@ -7,6 +7,7 @@ import contests from './contests';
 import informationModal from './information-modal';
 import deleteConfirmationModal from './delete-confirmation-modal';
 import timeDiff from './timeDiff';
+import user from './user';
 
 export default {
   namespaced: true,
@@ -53,6 +54,7 @@ export default {
         commit('setLoginStatus', true);
         commit('setIsAdmin', isAdmin);
         commit('timeDiff/setDiff', moment().diff(serverTime));
+        commit('user/setUserInfo', res.data);
       } catch (e) {
         if (e.response.status !== 401) {
           // eslint-disable-next-line no-console
@@ -66,6 +68,7 @@ export default {
     dashboard,
     whiteEmails,
     users,
+    user,
     contests,
     informationModal,
     deleteConfirmationModal,
