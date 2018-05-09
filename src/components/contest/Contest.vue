@@ -20,10 +20,10 @@
             </div>
             <div class="navbar-end">
               <span v-if="isEntered" class="navbar-item">
-                <button @click="showSubmitList" class="button is-outlined">
+                <button @click="showSubmitList" class="button is-outlined" :disabled="problems.length == 0">
                   提出一覧
                 </button>
-                <button @click="showRanking" class="button is-outlined">
+                <button @click="showRanking" class="button is-outlined" :disabled="problems.length == 0">
                   順位
                 </button>
               </span>
