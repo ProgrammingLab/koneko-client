@@ -28,14 +28,14 @@
                 <button
                   @click="showSubmitList"
                   class="button is-outlined"
-                  :disabled="problems.length == 0"
+                  :disabled="problems === null"
                 >
                   提出一覧
                 </button>
                 <button
                   @click="showRanking"
                   class="button is-outlined"
-                  :disabled="problems.length == 0"
+                  :disabled="problems === null"
                 >
                   順位
                 </button>
@@ -61,7 +61,7 @@
     </div>
     <div class="container">
       <ErrorNotification :error="error"/>
-      <div class="columns is-mobile" v-if="problems.length !== 0">
+      <div class="columns is-mobile" v-if="problems !== null">
         <div class="column is-1 tab">
           <aside>
             <ul class="menu-list">
@@ -108,8 +108,7 @@
             <div class="tile is-parent">
               <div class="tile is-child box">
                 <p class="title has-text-centered">
-                  <span v-if="countDownTimer == 'Already finished'">コンテスト終了</span>
-                  <span v-else-if="countDownTimer == 'Already started'">コンテスト開催中</span>
+                  <span v-if="countDownTimer == 'Already started'">コンテスト開催中</span>
                   <span v-else>コンテスト開催まで {{countDownTimer}}</span>
                 </p>
               </div>
@@ -138,7 +137,7 @@ export default {
       showRankingModal: false,
       showSubmitListModal: false,
       activeTab: 0,
-      now: moment(),
+      diff: this.createdAt,
     };
   },
   computed: {
@@ -159,20 +158,14 @@ export default {
     ]),
     ...mapGetters('koneko/contests', [
       'canEnter',
+      'isEntered',
     ]),
     countDownTimer() {
-      const serverTime = this.now.add(this.timeDiff);
-      const diff = moment(this.startAt).diff(serverTime);
-      if (diff < 0) {
-        if (moment(this.endAt).diff(serverTime) < 0) {
-          return 'Already finished';
-        }
-        return 'Already started';
-      }
-      const DD = `00${Math.floor(diff / 1000 / 60 / 60 / 24)}`.slice(-2);
-      const HH = `00${Math.floor(diff / 1000 / 60 / 60) % 24}`.slice(-2);
-      const mm = `00${Math.floor(diff / 1000 / 60) % 60}`.slice(-2);
-      const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
+      if (this.diff < 0) return 'Already started';
+      const DD = `00${Math.floor(this.diff / 1000 / 60 / 60 / 24)}`.slice(-2);
+      const HH = `00${Math.floor(this.diff / 1000 / 60 / 60) % 24}`.slice(-2);
+      const mm = `00${Math.floor(this.diff / 1000 / 60) % 60}`.slice(-2);
+      const ss = `00${Math.floor(this.diff / 1000) % 60}`.slice(-2);
       return `${DD}日${HH}時間${mm}分${ss}秒`;
     },
   },
@@ -180,8 +173,13 @@ export default {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
     this.getContest(this.$route.params.id);
     const intervalId = setInterval(() => {
-      this.now = moment();
-      if (this.problems.length !== 0) clearInterval(intervalId);
+      const serverTime = moment().add(this.timeDiff);
+      this.diff = moment(this.startAt).diff(serverTime);
+      if (this.diff <= 0 && this.isEntered) {
+        this.updateContest();
+        clearInterval(intervalId);
+      }
+      if (this.problems !== null) clearInterval(intervalId);
     }, 1000);
   },
   beforeDestroy() {
@@ -190,6 +188,7 @@ export default {
   methods: {
     ...mapActions('koneko/contests', [
       'getContest',
+      'updateContest',
       'enter',
     ]),
     ...mapMutations('koneko/contests', [

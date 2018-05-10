@@ -11,7 +11,7 @@ export default {
     startAt: (new Date(0)),
     endAt: (new Date(0)),
     writers: [],
-    problems: [],
+    problems: null,
     participants: [],
     statusesWatcherFlag: false,
     requiredWatching: false,
@@ -25,6 +25,9 @@ export default {
         writers.every(({ id }) => id !== rootState.koneko.user.id)
       );
     },
+    isEntered({ participants }, _, rootState) {
+      return participants.some(({ id }) => id === rootState.koneko.user.id);
+    },
   },
   mutations: {
     setContestData(state, contestData) {
@@ -35,7 +38,10 @@ export default {
       state.title = contestData.title;
       state.id = contestData.id;
       state.description = contestData.description;
-      state.problems = contestData.problems.map(v => ({ ...v, status: -1 }));
+      state.problems = contestData.problems === null ?
+        null :
+        contestData.problems.map(v => ({ ...v, status: -1 }))
+      ;
       state.writers = contestData.writers.map(v => ({
         name: v.name, displayName: v.displayName, id: v.id,
       }));
@@ -80,7 +86,7 @@ export default {
           commit('setStatusesWatcherFlag');
           // eslint-disable-next-line no-constant-condition
           while (true) {
-            if (state.requiredWatching) {
+            if (state.requiredWatching && state.problems !== null) {
               // eslint-disable-next-line no-await-in-loop
               const statuses = await api.getContestStatuses(rootState.koneko.sessionID, state.id);
               commit('setStatuses', statuses.data);
@@ -101,6 +107,14 @@ export default {
       try {
         const res = await api.enterContest(rootState.koneko.sessionID, state.id);
         commit('setParticipants', res.data.participants);
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
+    async updateContest({ commit, rootState, state }) {
+      try {
+        const res = await api.getContest(rootState.koneko.sessionID, state.id);
+        commit('setContestData', res.data);
       } catch (e) {
         commit('setError', e);
       }
