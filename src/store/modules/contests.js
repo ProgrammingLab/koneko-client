@@ -19,8 +19,11 @@ export default {
     error: null,
   },
   getters: {
-    isEntered({ participants }, _, rootState) {
-      return participants.some(({ id }) => id === rootState.koneko.user.id);
+    canEnter({ participants, writers }, _, rootState) {
+      return (
+        participants.every(({ id }) => id !== rootState.koneko.user.id) &&
+        writers.every(({ id }) => id !== rootState.koneko.user.id)
+      );
     },
   },
   mutations: {
@@ -33,7 +36,9 @@ export default {
       state.id = contestData.id;
       state.description = contestData.description;
       state.problems = contestData.problems.map(v => ({ ...v, status: -1 }));
-      state.writers = contestData.writers.map(v => ({ name: v.name, displayName: v.displayName }));
+      state.writers = contestData.writers.map(v => ({
+        name: v.name, displayName: v.displayName, id: v.id,
+      }));
       state.participants = contestData.participants.map(v => ({
         name: v.name, displayName: v.displayName, id: v.id,
       }));

@@ -19,7 +19,12 @@
               </div>
             </div>
             <div class="navbar-end">
-              <span v-if="isEntered" class="navbar-item">
+              <span v-if="canEnter" class="navbar-item">
+                <button @click.once="enter()" class="button is-large is-outlined">
+                  コンテストに参加する
+                </button>
+              </span>
+              <span v-else class="navbar-item">
                 <button
                   @click="showSubmitList"
                   class="button is-outlined"
@@ -33,11 +38,6 @@
                   :disabled="problems.length == 0"
                 >
                   順位
-                </button>
-              </span>
-              <span v-else class="navbar-item">
-                <button @click.once="log(this)" class="button is-large is-outlined">
-                  コンテストに参加する
                 </button>
               </span>
             </div>
@@ -158,7 +158,7 @@ export default {
       'timeDiff',
     ]),
     ...mapGetters('koneko/contests', [
-      'isEntered',
+      'canEnter',
     ]),
     countDownTimer() {
       const serverTime = this.now.add(this.timeDiff);
