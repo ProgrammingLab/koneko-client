@@ -28,14 +28,14 @@
                 <button
                   @click="showSubmitList"
                   class="button is-outlined"
-                  :disabled="problems === null"
+                  :disabled="problems === null || problems.length === 0"
                 >
                   提出一覧
                 </button>
                 <button
                   @click="showRanking"
                   class="button is-outlined"
-                  :disabled="problems === null"
+                  :disabled="problems === null || problems.length === 0"
                 >
                   順位
                 </button>
@@ -61,33 +61,35 @@
     </div>
     <div class="container">
       <ErrorNotification :error="error"/>
-      <div class="columns is-mobile" v-if="problems !== null">
-        <div class="column is-1 tab">
-          <aside>
-            <ul class="menu-list">
-              <li v-for="(problem, index) in problems" :key="index">
-                <a
-                  :href="'#' + num2alpha(index)"
-                  :class="['tab-button', index == activeTab ? 'active-tab-button': '']"
-                  @click="activeTab = index"
-                >
-                  {{ num2alpha(index).toUpperCase() }}
-                  <tag :status="problem.status"/>
-                </a>
-              </li>
-            </ul>
-          </aside>
+      <template v-if="problems !== null">
+        <div class="columns is-mobile" v-if="problems.length !== 0">
+          <div class="column is-1 tab">
+            <aside>
+              <ul class="menu-list">
+                <li v-for="(problem, index) in problems" :key="index">
+                  <a
+                    :href="'#' + num2alpha(index)"
+                    :class="['tab-button', index == activeTab ? 'active-tab-button': '']"
+                    @click="activeTab = index"
+                  >
+                    {{ num2alpha(index).toUpperCase() }}
+                    <tag :status="problem.status"/>
+                  </a>
+                </li>
+              </ul>
+            </aside>
+          </div>
+          <div class="column">
+            <Problem :problem="problems[activeTab]"/>
+          </div>
+          <Modal :isActive="showRankingModal" @close="showRankingModal = false" title="順位">
+            <h1>aaa</h1>
+          </Modal>
+          <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
+            <h1>bbb</h1>
+          </Modal>
         </div>
-        <div class="column">
-          <Problem :problem="problems[activeTab]"/>
-        </div>
-        <Modal :isActive="showRankingModal" @close="showRankingModal = false" title="順位">
-          <h1>aaa</h1>
-        </Modal>
-        <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
-          <h1>bbb</h1>
-        </Modal>
-      </div>
+      </template>
       <div v-else class="columns is-mobile">
         <div class="column is-4">
           <div class="tile is-ancestor">
