@@ -153,6 +153,7 @@ export default {
       'writers',
       'problems',
       'participants',
+      'id',
       'error',
     ]),
     ...mapState('koneko/timeDiff', [
@@ -171,9 +172,11 @@ export default {
       return `${DD}日${HH}時間${mm}分${ss}秒`;
     },
   },
-  created() {
+  async created() {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
-    this.getContest(this.$route.params.id);
+    await this.getContest(this.$route.params.id);
+    if (this.id === null)this.$router.push({ name: 'NotFound'});
+    this.statusesWatcher();
     const intervalId = setInterval(() => {
       const serverTime = moment().add(this.timeDiff);
       this.diff = moment(this.startAt).diff(serverTime);
@@ -190,6 +193,7 @@ export default {
   methods: {
     ...mapActions('koneko/contests', [
       'getContest',
+      'statusesWatcher',
       'updateContest',
       'getProblems',
       'enter',

@@ -78,32 +78,44 @@ export default {
     },
   },
   actions: {
-    async getContest({ commit, rootState, state }, contestID) {
-      const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
+    async getContest({ commit, rootState }, contestID) {
       try {
         const res = await api.getContest(rootState.koneko.sessionID, contestID);
         commit('setContestData', res.data);
         commit('setRequiredWatching', true);
-        // statusesの監視用ループが回ってなかったら回す
-        if (!state.statusesWatcherFlag) {
-          commit('setStatusesWatcherFlag');
-          // eslint-disable-next-line no-constant-condition
-          while (true) {
-            if (state.requiredWatching && state.problems !== null) {
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
+    async statusesWatcher({ commit, rootState, state }) {
+      const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
+      commit('setRequiredWatching', true);
+      // statusesの監視用ループが回ってなかったら回す
+      if (!state.statusesWatcherFlag) {
+        commit('setStatusesWatcherFlag');
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          if (state.requiredWatching && state.problems !== null) {
+            try {
               // eslint-disable-next-line no-await-in-loop
               const statuses = await api.getContestStatuses(rootState.koneko.sessionID, state.id);
               commit('setStatuses', statuses.data);
+            } catch (e) {
+              commit('setError', e);
             }
-            // eslint-disable-next-line no-await-in-loop
-            await sleep(state.isWaitingJudge ? 2000 : 60000);
           }
-        } else {
-        // すでにループが回っていたときはとりあえず現状を把握する
+          // eslint-disable-next-line no-await-in-loop
+          await sleep(state.isWaitingJudge ? 2000 : 60000);
+        }
+      } else {
+      // すでにループが回っていたときはとりあえず現状を把握する
+        try {
+          // eslint-disable-next-line no-await-in-loop
           const statuses = await api.getContestStatuses(rootState.koneko.sessionID, state.id);
           commit('setStatuses', statuses.data);
+        } catch (e) {
+          commit('setError', e);
         }
-      } catch (e) {
-        commit('setError', e);
       }
     },
     async enter({ commit, rootState, state }) {
