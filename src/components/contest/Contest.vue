@@ -178,7 +178,7 @@ export default {
       const serverTime = moment().add(this.timeDiff);
       this.diff = moment(this.startAt).diff(serverTime);
       if (this.diff <= 0 && this.isEntered) {
-        this.updateContest();
+        this.getProblems();
         clearInterval(intervalId);
       }
       if (this.problems !== null) clearInterval(intervalId);
@@ -191,6 +191,7 @@ export default {
     ...mapActions('koneko/contests', [
       'getContest',
       'updateContest',
+      'getProblems',
       'enter',
     ]),
     ...mapMutations('koneko/contests', [

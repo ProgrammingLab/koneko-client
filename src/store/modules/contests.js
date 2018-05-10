@@ -55,6 +55,9 @@ export default {
     setRequiredWatching(state, isRequierd) {
       state.requiredWatching = isRequierd;
     },
+    setProblems(state, problems) {
+      state.problems = problems.map(v => ({ ...v, status: -1 }));
+    },
     setStatuses(state, statuses) {
       statuses.forEach((statusElem) => {
         for (let i = 0; i < state.problems.length; i += 1) {
@@ -111,10 +114,10 @@ export default {
         commit('setError', e);
       }
     },
-    async updateContest({ commit, rootState, state }) {
+    async getProblems({ commit, rootState, state }) {
       try {
-        const res = await api.getContest(rootState.koneko.sessionID, state.id);
-        commit('setContestData', res.data);
+        const res = await api.getContestProblems(rootState.koneko.sessionID, state.id);
+        commit('setProblems', res.data);
       } catch (e) {
         commit('setError', e);
       }
