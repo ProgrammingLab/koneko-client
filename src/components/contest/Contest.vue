@@ -36,7 +36,7 @@
                 </button>
               </span>
               <span v-else class="navbar-item">
-                <button @click="enter()" class="button is-large is-outlined">
+                <button @click.once="log(this)" class="button is-large is-outlined">
                   コンテストに参加する
                 </button>
               </span>
