@@ -85,4 +85,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/languages`, getConfig(sessionID));
     return res;
   },
+  async sendPasswordResetMail(email) {
+    const res = await axios.post(`${API_ENDPOINT}/password_reset`, { email });
+    return res;
+  },
 };
