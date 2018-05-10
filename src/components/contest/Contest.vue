@@ -139,7 +139,7 @@ export default {
       showRankingModal: false,
       showSubmitListModal: false,
       activeTab: 0,
-      diff: this.createdAt,
+      diff: 300000,
     };
   },
   computed: {
