@@ -62,6 +62,17 @@
       </div>
     </div>
     <div class="field">
+      <label class="label">制約</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="制約"
+          rows="5"
+          v-model="problem.constraints"
+        />
+      </div>
+    </div>
+    <div class="field">
       <label class="label">Input</label>
       <div class="control">
         <textarea
