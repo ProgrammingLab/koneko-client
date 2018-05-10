@@ -175,7 +175,7 @@ export default {
   async created() {
     this.activeTab = this.$route.hash ? this.$route.hash.charCodeAt(1) - 97 : 0;
     await this.getContest(this.$route.params.id);
-    if (this.id === null)this.$router.push({ name: 'NotFound'});
+    if (this.id === null) this.$router.push({ name: 'NotFound' });
     this.statusesWatcher();
     const intervalId = setInterval(() => {
       const serverTime = moment().add(this.timeDiff);
