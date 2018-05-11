@@ -57,13 +57,7 @@ const router = new Router({
       meta: { requiresAuth: true, admin: false },
     },
     {
-      path: '/password_reset/:token',
-      name: 'PasswordReset',
-      component: PasswordReset,
-      meta: { requiresAuth: false, admin: false },
-    },
-    {
-      path: '/password_reset/',
+      path: '/password_reset/:token?',
       name: 'PasswordReset',
       component: PasswordReset,
       meta: { requiresAuth: false, admin: false },
