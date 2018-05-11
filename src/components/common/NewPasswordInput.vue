@@ -10,6 +10,7 @@
         placeholder="新しいパスワード"
         required
         max="72"
+        :disabled="disabled"
         :value="password"
         @input="onInputPassword"
         :class="{ 'is-danger': isErrorPassword }"
@@ -27,6 +28,7 @@
         type="password"
         placeholder="パスワードの再入力"
         required
+        :disabled="disabled"
         :value="passwordConfirmation"
         @input="onInputPasswordConfirmation"
         :class="{ 'is-danger': isErrorConfirmation }"
@@ -43,6 +45,7 @@ export default {
   name: 'NewPasswordInput',
   props: [
     'value',
+    'disabled',
   ],
   data() {
     return {

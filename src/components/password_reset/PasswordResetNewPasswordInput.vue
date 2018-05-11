@@ -1,7 +1,7 @@
 <template>
   <div>
     <form v-on:submit.prevent="onSubmit" v-show="verified">
-      <new-password-input v-model="password"/>
+      <new-password-input v-model="password" :disabled="sending"/>
       <div class="field">
         <button
           class="button is-info is-fullwidth"
