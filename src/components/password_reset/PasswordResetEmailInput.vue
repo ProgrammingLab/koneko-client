@@ -25,6 +25,9 @@
         </button>
       </div>
       <div class="field">
+        <div class="notification is-danger" v-show="isInvalidEmail">
+          メールアドレスが間違っています。
+        </div>
         <error-notification :error="error"/>
       </div>
     </form>
@@ -47,6 +50,7 @@ export default {
       sending: false,
       sended: false,
       error: null,
+      isInvalidEmail: false,
     };
   },
   computed: {
@@ -55,12 +59,18 @@ export default {
   methods: {
     async onSubmit() {
       this.sending = true;
+      this.isInvalidEmail = false;
       try {
         await api.sendPasswordResetMail(this.email);
         this.error = null;
         this.sended = true;
       } catch (e) {
-        this.error = e;
+        if (!e.response || e.response.status !== 404) {
+          this.error = e;
+          return;
+        }
+        this.error = null;
+        this.isInvalidEmail = true;
       } finally {
         this.sending = false;
       }
