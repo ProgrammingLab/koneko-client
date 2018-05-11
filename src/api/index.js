@@ -97,4 +97,16 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/languages`, getConfig(sessionID));
     return res;
   },
+  async sendPasswordResetMail(email) {
+    const res = await axios.post(`${API_ENDPOINT}/password_reset`, { email });
+    return res;
+  },
+  async resetPassword(password, token) {
+    const res = await axios.post(`${API_ENDPOINT}/password_reset/${token}`, { password });
+    return res;
+  },
+  async verifyPasswordResetToken(token) {
+    const res = await axios.get(`${API_ENDPOINT}/password_reset/${token}`);
+    return res;
+  },
 };

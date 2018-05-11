@@ -47,7 +47,7 @@
           </div>
           <p class="has-text-grey">
             <a href="../">Sign Up</a> &nbsp;·&nbsp;
-            <a href="../">Forgot Password</a>
+            <router-link to="/password_reset">Forgot Password</router-link>
           </p>
         </div>
       </div>
