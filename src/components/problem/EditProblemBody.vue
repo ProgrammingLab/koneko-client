@@ -1,20 +1,20 @@
 <template>
   <form v-on:submit.prevent="onSubmit" v-if="problem">
    <div class="field">
-      <label class="label">Title</label>
+      <label class="label">タイトル</label>
       <div class="control">
-        <input required class="input" type="text" placeholder="Title" v-model="problem.title">
+        <input required class="input" type="text" placeholder="タイトル" v-model="problem.title">
       </div>
     </div>
     <div class="field">
-      <label class="label">Time Limit</label>
+      <label class="label">時間制限</label>
       <div class="field has-addons">
         <div class="control">
           <input
             required
             class="input"
             type="number"
-            placeholder="Time Limit"
+            placeholder="時間制限"
             max="60"
             min="1"
             step="1"
@@ -29,14 +29,14 @@
       </div>
     </div>
     <div class="field">
-      <label class="label">Memory Limit</label>
+      <label class="label">メモリ制限</label>
       <div class="field has-addons">
         <div class="control">
           <input
             required
             class="input"
             type="number"
-            placeholder="Memory Limit"
+            placeholder="メモリ制限"
             max="512"
             min="64"
             step="1"
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="field">
-      <label class="label">Statement</label>
+      <label class="label">問題文</label>
       <div class="control">
         <textarea
           class="textarea"
@@ -73,22 +73,22 @@
       </div>
     </div>
     <div class="field">
-      <label class="label">Input</label>
+      <label class="label">入力形式</label>
       <div class="control">
         <textarea
           class="textarea"
-          placeholder="Input"
+          placeholder="入力形式"
           rows="5"
           v-model="problem.inputFormat"
         />
       </div>
     </div>
     <div class="field">
-      <label class="label">Output</label>
+      <label class="label">出力形式</label>
       <div class="control">
         <textarea
           class="textarea"
-          placeholder="Output"
+          placeholder="出力形式"
           rows="5"
           v-model="problem.outputFormat"
         />
@@ -133,37 +133,37 @@
       <div class="field" v-for="(sample, index) in problem.samples" :key="index">
         <hr>
         <label class="label">
-          Sample #{{ index + 1 }}
-          <a class="button is-small is-danger" @click="onDeleteSample(index)">Delete</a>
+          サンプル #{{ index + 1 }}
+          <a class="button is-small is-danger" @click="onDeleteSample(index)">削除</a>
         </label>
         <div class="field">
-          <label class="label">Input</label>
+          <label class="label">入力例</label>
           <div class="control">
             <textarea
               class="textarea"
-              placeholder="Sample Input"
+              placeholder="入力例"
               rows="5"
               v-model="sample.input"
             />
           </div>
         </div>
         <div class="field">
-          <label class="label">Output</label>
+          <label class="label">出力例</label>
           <div class="control">
             <textarea
               class="textarea"
-              placeholder="Sample Output"
+              placeholder="出力例"
               rows="5"
               v-model="sample.output"
             />
           </div>
         </div>
         <div class="field">
-          <label class="label">Description</label>
+          <label class="label">説明</label>
           <div class="control">
             <textarea
               class="textarea"
-              placeholder="Sample Description"
+              placeholder="説明"
               rows="5"
               v-model="sample.description"
             />
@@ -172,7 +172,7 @@
       </div>
       <div class="field">
         <div class="control">
-          <a class="button is-primary" @click="onAddSample">Add new sample</a>
+          <a class="button is-primary" @click="onAddSample">サンプルを追加</a>
         </div>
       </div>
       <hr>
@@ -185,7 +185,7 @@
           class="button"
           :class="{ 'is-loading': sending }"
           >
-          Submit
+          保存
         </button>
       </div>
     </div>
