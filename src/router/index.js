@@ -8,6 +8,7 @@ import Contest from '@/components/contest/Contest';
 import EditContest from '@/components/contest/EditContest';
 import EditProblem from '@/components/problem/EditProblem';
 import PasswordReset from '@/components/password_reset/PasswordReset';
+import Registration from '@/components/registration/Registration';
 import NotFound from '@/components/NotFound';
 import store from '@/store';
 
@@ -60,6 +61,12 @@ const router = new Router({
       path: '/password_reset/:token?',
       name: 'PasswordReset',
       component: PasswordReset,
+      meta: { requiresAuth: false, admin: false },
+    },
+    {
+      path: '/registration/:token',
+      name: 'Registration',
+      component: Registration,
       meta: { requiresAuth: false, admin: false },
     },
     {

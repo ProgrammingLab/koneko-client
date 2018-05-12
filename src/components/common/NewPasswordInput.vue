@@ -68,9 +68,9 @@ export default {
       if ((this.password && this.passwordConfirmation) === null) {
         return;
       }
-      this.isErrorConfirmation = this.password !== this.passwordConfirmation;
+      this.isErrorConfirmation = (this.password !== this.passwordConfirmation);
       this.isErrorPassword = !(/[A-Za-z]/.test(this.password) && /[0-9]/.test(this.password));
-      if (this.isErrorPassword || this.isErrorPassword) {
+      if (this.isErrorPassword || this.isErrorConfirmation) {
         return;
       }
       this.$emit('input', this.password);

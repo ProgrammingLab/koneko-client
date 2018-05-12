@@ -97,4 +97,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/password_reset/${token}`);
     return res;
   },
+  async verifyEmailConfirmationToken(token) {
+    const res = await axios.get(`${API_ENDPOINT}/registrations/${token}`);
+    return res;
+  },
 };
