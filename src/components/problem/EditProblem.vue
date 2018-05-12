@@ -2,23 +2,23 @@
   <section class="section">
     <information-modal/>
     <div class="container">
-      <h1 class="title">Edit Problem</h1>
+      <h1 class="title">問題を編集</h1>
       <error-notification :error="error"/>
       <div class="tabs">
         <ul>
           <li :class="{ 'is-active': activeTab === 'edit' }">
             <router-link to="#edit">
-              Edit Problem
+              問題
             </router-link>
           </li>
           <li :class="{ 'is-active': activeTab === 'preview' }">
             <router-link to="#preview">
-              Preview
+              プレビュー
             </router-link>
           </li>
           <li :class="{ 'is-active': activeTab === 'cases' }">
             <router-link to="#cases">
-              Edit Test Cases
+              テストケース
             </router-link>
           </li>
         </ul>
