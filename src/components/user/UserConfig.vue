@@ -8,7 +8,7 @@
           placeholder="表示名を入力"
           required
           :class="{ 'is-danger': showWarningDisplayName }"
-          :value="this.value.displayName"
+          :value="this.user.displayName"
           @input="onInputDisplayName"
           />
       <label class="help is-danger" v-show="showWarningDisplayName">
@@ -25,7 +25,7 @@
           min="3"
           :class="{ 'is-danger': showWarningName }"
           required
-          :value="this.value.name"
+          :value="this.user.name"
           @input="onInputName"
           />
       <label class="help is-danger" v-show="showWarningName">
@@ -33,7 +33,7 @@
       </label>
     </div>
     <div class="field">
-      <new-password-input v-model="this.value.password"/>
+      <new-password-input :value="this.user.password" @input="onInputPassword"/>
     </div>
   </div>
 </template>
@@ -46,36 +46,52 @@ export default {
   components: {
     NewPasswordInput,
   },
+  data() {
+    return {
+      user: {
+        displayName: null,
+        name: null,
+        password: null,
+      },
+    };
+  },
   props: [
     'value',
   ],
   computed: {
     isValidDisplayName() {
-      const displayName = this.value.displayName;
+      const displayName = this.user.displayName;
       return displayName && displayName.length >= 2 && displayName.length <= 25;
     },
     showWarningDisplayName() {
-      return this.value.displayName && !this.isValidDisplayName;
+      return this.user.displayName && !this.isValidDisplayName;
     },
     isValidName() {
-      const name = this.value.name;
+      const name = this.user.name;
       return name && /^[a-zA-Z0-9_\-.]{3,15}/.test(name);
     },
     showWarningName() {
-      return this.value.name && !this.isValidName;
+      return this.user.name && !this.isValidName;
     },
   },
   methods: {
     onInputDisplayName(event) {
-      this.value.displayName = event.target.value;
+      this.user.displayName = event.target.value;
       this.checkValid();
     },
     onInputName(event) {
-      this.value.name = event.target.value;
+      this.user.name = event.target.value;
+      this.checkValid();
+    },
+    onInputPassword(event) {
+      this.user.password = event.target.value;
       this.checkValid();
     },
     checkValid() {
-      const isValid = this.isValidDisplayName && this.isValidName && this.value.password !== null;
+      const isValid = this.isValidDisplayName && this.isValidName && this.user.password !== null;
+      if (isValid) {
+        this.$emit('input', this.user);
+      }
       this.$emit('validated', isValid);
     },
   },
