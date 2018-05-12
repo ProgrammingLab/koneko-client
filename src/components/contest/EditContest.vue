@@ -3,18 +3,18 @@
     <information-modal/>
     <div class="container">
       <h1 class="title">
-        Contest settings
+        コンテストの設定
       </h1>
       <div class="tabs">
           <ul>
             <li :class="{ 'is-active': activeTab === 'config' }">
               <router-link to="./edit#config">
-                Config
+                設定
               </router-link>
             </li>
             <li :class="{ 'is-active': activeTab === 'problems' }">
               <router-link to="./edit#problems">
-                Problems
+                問題
               </router-link>
             </li>
           </ul>
