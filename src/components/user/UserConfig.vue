@@ -83,8 +83,8 @@ export default {
       this.user.name = event.target.value;
       this.checkValid();
     },
-    onInputPassword(event) {
-      this.user.password = event.target.value;
+    onInputPassword(password) {
+      this.user.password = password;
       this.checkValid();
     },
     checkValid() {
