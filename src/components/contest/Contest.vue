@@ -33,7 +33,7 @@
                   提出一覧
                 </button>
                 <button
-                  @click="showRanking"
+                  @click="showStandings"
                   class="button is-outlined"
                   :disabled="problems === null || problems.length === 0"
                 >
@@ -83,8 +83,8 @@
             <Problem :problem="problems[activeTab]"/>
           </div>
           <Modal
-            :isActive="showRankingModal"
-            @close="showRankingModal = false"
+            :isActive="showStandingsModal"
+            @close="showStandingsModal = false"
             isWide
             title="順位"
           >
@@ -93,103 +93,21 @@
                 <tr>
                   <th>順位</th>
                   <th>名前</th>
-                  <th>A</th>
-                  <th>B</th>
-                  <th>C</th>
-                  <th>D</th>
+                  <th v-for="(_, i) in problems" :key="i">
+                    {{num2alpha(i).toUpperCase()}}
+                  </th>
                   <th>合計</th>
                 </tr>
               </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Fukusan</td>
-                <td>38</td>
-                <td>23</td>
-                <td>12</td>
-                <td>3</td>
-                <td>68</td>
+              <tr v-for="(column, i) in standings" :key="i">
+                <td>{{i + 1}}</td>
+                <td>{{column.displayName}}</td>
+                <td v-for="(detail, j) in column.details" :key="j" v-if="detail">
+                  {{detail.point}}
+                </td>
+                <td v-else>-</td>
+                <td>{{column.totalPoint}}</td>
               </tr>
             </tbody>
           </table>
@@ -245,7 +163,7 @@ export default {
   data() {
     return {
       showDescription: false,
-      showRankingModal: false,
+      showStandingsModal: false,
       showSubmitListModal: false,
       activeTab: 0,
       diff: 300000,
@@ -261,6 +179,7 @@ export default {
       'endAt',
       'writers',
       'problems',
+      'standings',
       'participants',
       'id',
       'error',
@@ -310,6 +229,7 @@ export default {
       'statusesWatcher',
       'updateContest',
       'getProblems',
+      'getStandings',
       'enter',
     ]),
     ...mapMutations('koneko/contests', [
@@ -321,8 +241,9 @@ export default {
     showSubmitList() {
       this.showSubmitListModal = true;
     },
-    showRanking() {
-      this.showRankingModal = true;
+    showStandings() {
+      this.showStandingsModal = true;
+      this.getStandings();
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);

@@ -13,6 +13,7 @@ export default {
     writers: [],
     problems: null,
     participants: [],
+    standings: [],
     statusesWatcherFlag: false,
     requiredWatching: false,
     isWaitingJudge: false,
@@ -57,6 +58,9 @@ export default {
     },
     setProblems(state, problems) {
       state.problems = problems.map(v => ({ ...v, status: -1 }));
+    },
+    setStandings(state, standings) {
+      state.standings = standings;
     },
     setStatuses(state, statuses) {
       statuses.forEach((statusElem) => {
@@ -130,6 +134,32 @@ export default {
       try {
         const res = await api.getContestProblems(rootState.koneko.sessionID, state.id);
         commit('setProblems', res.data);
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
+    async getStandings({ commit, rootState, state }) {
+      const getDetailsArray = (details, problemsMap, length) => {
+        const detailsArray = [];
+        detailsArray.length = length;
+        detailsArray.fill(null);
+        details.forEach((v) => {
+          detailsArray[problemsMap.get(v.problemID)] = v;
+        });
+        return detailsArray;
+      };
+      try {
+        const users = (await api.getUsers(rootState.koneko.sessionID)).data;
+        const usersMap = new Map(users.map(v => [v.id, v.displayName]));
+        const problemsMap = new Map(state.problems.map((v, index) => [v.id, index]));
+        const standings = (await api.getContestStandings(rootState.koneko.sessionID, state.id)).data
+          .map(v => ({
+            totalPoint: v.point,
+            displayName: usersMap.get(v.userID),
+            details: getDetailsArray(v.details, problemsMap, state.problems.length),
+          }))
+        ;
+        commit('setStandings', standings);
       } catch (e) {
         commit('setError', e);
       }
