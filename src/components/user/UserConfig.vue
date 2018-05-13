@@ -14,15 +14,15 @@
     <div class="field">
       <label class="label">表示名</label>
       <input
-          class="input"
-          type="text"
-          placeholder="表示名を入力"
-          required
-          :disabled="disabled"
-          :class="{ 'is-danger': showWarningDisplayName }"
-          :value="this.user.displayName"
-          @input="onInputDisplayName"
-          />
+        class="input"
+        type="text"
+        placeholder="表示名を入力"
+        required
+        :disabled="disabled"
+        :class="{ 'is-danger': showWarningDisplayName }"
+        :value="this.user.displayName"
+        @input="onInputDisplayName"
+        />
       <label class="help is-danger" v-show="showWarningDisplayName">
         2文字以上25文字以下である必要があります。
       </label>
