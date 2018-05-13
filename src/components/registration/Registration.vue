@@ -7,7 +7,7 @@
           <div v-if="!verifying && !verified" class="notification is-danger">
             招待リンクが無効です。
           </div>
-          <form v-else v-on:submit.prevent="onSubmit">
+          <form v-else-if="verified" v-on:submit.prevent="onSubmit">
             <div class="field">
               <user-config v-model="user" @validated="onValidated" :disabled="sending"/>
             </div>
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       user: {
+        email: null,
         displayName: null,
         name: null,
         password: null,
@@ -64,7 +65,8 @@ export default {
   async created() {
     this.verifying = true;
     try {
-      await api.verifyEmailConfirmationToken(this.token);
+      const res = (await api.verifyEmailConfirmationToken(this.token)).data;
+      this.user.email = res.email;
       this.verified = true;
     } catch (e) {
       if (!e.response || e.response.status !== 404) {

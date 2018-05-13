@@ -1,6 +1,17 @@
 <template>
   <div>
     <div class="field">
+      <label class="label">メールアドレス</label>
+      <input
+        class="input is-static"
+        type="email"
+        required
+        readonly
+        :disabled="disabled"
+        :value="this.value.email"
+        />
+    </div>
+    <div class="field">
       <label class="label">表示名</label>
       <input
           class="input"
@@ -54,6 +65,7 @@ export default {
   data() {
     return {
       user: {
+        email: null,
         displayName: null,
         name: null,
         password: null,
@@ -96,6 +108,7 @@ export default {
     checkValid() {
       const isValid = this.isValidDisplayName && this.isValidName && this.user.password !== null;
       if (isValid) {
+        this.user.email = this.value.email;
         this.$emit('input', this.user);
       }
       this.$emit('validated', isValid);
