@@ -69,7 +69,7 @@ export default {
         return;
       }
       this.isErrorConfirmation = (this.password !== this.passwordConfirmation);
-      this.isErrorPassword = !(/[A-Za-z]/.test(this.password) && /[0-9]/.test(this.password));
+      this.isErrorPassword = !(/[A-Za-z]/.test(this.password) && /[0-9]/.test(this.password) && this.password.length >= 8 && this.password.length <= 72);
       if (this.isErrorPassword || this.isErrorConfirmation) {
         return;
       }
