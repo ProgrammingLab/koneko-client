@@ -150,6 +150,7 @@ export default {
       };
       try {
         const users = (await api.getUsers(rootState.koneko.sessionID)).data;
+        // dispatch('koneko/users/fetchUsers', null, { root: true })にしたらエラーハンドリングどうするって思ったから
         const usersMap = new Map(users.map(v => [v.id, v.displayName]));
         const problemsMap = new Map(state.problems.map((v, index) => [v.id, index]));
         const standings = (await api.getContestStandings(rootState.koneko.sessionID, state.id)).data
