@@ -82,8 +82,13 @@
           <div class="column">
             <Problem :problem="problems[activeTab]"/>
           </div>
-          <Modal :isActive="showRankingModal" @close="showRankingModal = false" title="順位">
             <h1>aaa</h1>
+          <Modal
+            :isActive="showRankingModal"
+            @close="showRankingModal = false"
+            isWide
+            title="順位"
+          >
           </Modal>
           <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
             <h1>bbb</h1>
