@@ -68,9 +68,10 @@ export default {
       if ((this.password && this.passwordConfirmation) === null) {
         return;
       }
-      this.isErrorConfirmation = this.password !== this.passwordConfirmation;
-      this.isErrorPassword = !(/[A-Za-z]/.test(this.password) && /[0-9]/.test(this.password));
-      if (this.isErrorPassword || this.isErrorPassword) {
+      this.isErrorConfirmation = (this.password !== this.passwordConfirmation);
+      this.isErrorPassword = !(/[A-Za-z]/.test(this.password) && /[0-9]/.test(this.password) && this.password.length >= 8 && this.password.length <= 72);
+      if (this.isErrorPassword || this.isErrorConfirmation) {
+        this.$emit('input', null);
         return;
       }
       this.$emit('input', this.password);

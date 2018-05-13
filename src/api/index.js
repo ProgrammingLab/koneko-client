@@ -44,6 +44,10 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/users`, getConfig(sessionID));
     return res;
   },
+  async getUser(userName) {
+    const res = await axios.get(`${API_ENDPOINT}/users/${userName}`);
+    return res;
+  },
   async createContest(sessionID, contest) {
     const res = await axios.post(`${API_ENDPOINT}/contests`, contest, getConfig(sessionID));
     return res;
@@ -95,6 +99,14 @@ export default {
   },
   async verifyPasswordResetToken(token) {
     const res = await axios.get(`${API_ENDPOINT}/password_reset/${token}`);
+    return res;
+  },
+  async verifyEmailConfirmationToken(token) {
+    const res = await axios.get(`${API_ENDPOINT}/registrations/${token}`);
+    return res;
+  },
+  async registerUser(user, token) {
+    const res = await axios.post(`${API_ENDPOINT}/registrations/${token}`, user);
     return res;
   },
 };
