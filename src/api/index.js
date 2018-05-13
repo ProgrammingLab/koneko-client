@@ -44,6 +44,10 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/users`, getConfig(sessionID));
     return res;
   },
+  async getUser(userName) {
+    const res = await axios.get(`${API_ENDPOINT}/users/${userName}`);
+    return res;
+  },
   async createContest(sessionID, contest) {
     const res = await axios.post(`${API_ENDPOINT}/contests`, contest, getConfig(sessionID));
     return res;
