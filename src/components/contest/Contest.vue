@@ -103,8 +103,14 @@
               <tr v-for="(column, i) in standings" :key="i">
                 <td>{{i + 1}}</td>
                 <td>{{column.displayName}}</td>
-                <td v-for="(detail, j) in column.details" :key="j" v-if="detail">
-                  {{detail.point}}
+                <td
+                  v-for="(detail, j) in column.details"
+                  :key="j"
+                  v-if="detail"
+                  :class="{'is-success': detail.accepted}"
+                >
+                  {{detail.point}}<br>
+                  {{detail.wrongCount}} WA
                 </td>
                 <td v-else>-</td>
                 <td>{{column.totalPoint}}</td>
