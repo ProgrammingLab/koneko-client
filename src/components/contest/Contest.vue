@@ -20,7 +20,7 @@
             </div>
             <div class="navbar-end">
               <span v-if="canEnter && !isEntered && problems === null" class="navbar-item">
-                <button @click.once="enter()" class="button is-large is-outlined">
+                <button @click="enter" class="button is-large is-outlined">
                   コンテストに参加する
                 </button>
               </span>
