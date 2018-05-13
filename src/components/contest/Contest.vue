@@ -82,13 +82,117 @@
           <div class="column">
             <Problem :problem="problems[activeTab]"/>
           </div>
-            <h1>aaa</h1>
           <Modal
             :isActive="showRankingModal"
             @close="showRankingModal = false"
             isWide
             title="順位"
           >
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>順位</th>
+                  <th>名前</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>C</th>
+                  <th>D</th>
+                  <th>合計</th>
+                </tr>
+              </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fukusan</td>
+                <td>38</td>
+                <td>23</td>
+                <td>12</td>
+                <td>3</td>
+                <td>68</td>
+              </tr>
+            </tbody>
+          </table>
           </Modal>
           <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
             <h1>bbb</h1>
