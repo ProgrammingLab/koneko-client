@@ -289,11 +289,16 @@ export default {
     const intervalId = setInterval(() => {
       const serverTime = moment().add(this.timeDiff);
       this.diff = moment(this.startAt).diff(serverTime);
+      if (this.problems !== null) {
+        clearInterval(intervalId);
+        return false;
+      }
       if (this.diff <= 0 && this.isEntered) {
         this.getProblems();
         clearInterval(intervalId);
+        return false;
       }
-      if (this.problems !== null) clearInterval(intervalId);
+      return false;
     }, 1000);
   },
   beforeDestroy() {
