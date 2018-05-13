@@ -1,20 +1,20 @@
 <template>
   <form v-on:submit.prevent="onSubmit">
     <div class="field">
-      <label class="label">Title</label>
+      <label class="label">タイトル</label>
       <div class="control">
-        <input required class="input" type="text" placeholder="Title" v-model="contest.title">
+        <input required class="input" type="text" placeholder="タイトル" v-model="contest.title">
       </div>
     </div>
     <div class="field">
-      <label class="label">Time</label>
+      <label class="label">コンテスト期間</label>
       <div class="field is-horizontal">
         <div class="field-body">
           <div class="field is-grouped">
             <div class="control">
               <date-time-input
                 required="true"
-                placeholder="Starts at"
+                placeholder="開始日時"
                 v-model="contest.startAt"
               />
             </div>
@@ -24,7 +24,7 @@
             <div class="control">
               <date-time-input
                 required="true"
-                placeholder="Ends at"
+                placeholder="終了日時"
                 v-model="contest.endAt"
               />
             </div>
@@ -33,18 +33,18 @@
       </div>
     </div>
     <div class="field">
-      <label class="label">Description</label>
+      <label class="label">説明</label>
       <div class="control">
         <textarea
           class="textarea"
-          placeholder="Description"
+          placeholder="説明"
           rows="10"
           v-model="contest.description"
         />
       </div>
     </div>
     <div class="field">
-      <label class="label">Writers</label>
+      <label class="label">作問者</label>
         <table class="table is-striped is-hoverable">
           <thead>
             <th>ID</th>
@@ -72,13 +72,13 @@
           </div>
         </div>
         <div class="control">
-          <a class="button" @click="onAdd" :disabled="selected === null">Add</a>
+          <a class="button" @click="onAdd" :disabled="selected === null">追加</a>
         </div>
       </div>
     </div>
     <div class="field">
       <div class="control">
-        <button type="submit" class="button is-link" :disabled="sending">Submit</button>
+        <button type="submit" class="button is-link" :disabled="sending">保存</button>
       </div>
     </div>
     <div>

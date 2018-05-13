@@ -5,10 +5,10 @@
       <table class="table is-striped is-hoverable is-fullwidth">
         <thead>
           <th>ID</th>
-          <th>Title</th>
-          <th>Time limit</th>
-          <th>Memory limit</th>
-          <th>Point</th>
+          <th>タイトル</th>
+          <th>時間制限</th>
+          <th>メモリ制限</th>
+          <th>配点</th>
           <th></th>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
                 :disabled="sending"
                 @click="onClickDelete(index)"
                 >
-                Delete
+                削除
               </button>
             </td>
           </tr>
@@ -39,7 +39,7 @@
       <error-notification :error="error"/>
     </div>
     <div>
-      <button class="button is-primary" :disabled="sending" @click="onAdd">Add</button>
+      <button class="button is-primary" :disabled="sending" @click="onAdd">問題を追加</button>
     </div>
   </div>
 </template>
@@ -100,7 +100,7 @@ export default {
     },
     onClickDelete(index) {
       const problemTitle = this.contest.problems[index].title;
-      const body = `This action cannot be undone. This will permanently delete the ${problemTitle} problem, test cases, and submissions.`;
+      const body = `本当に問題 "${problemTitle}" とテストケース、この問題へのすべての提出を削除しますか?この操作は取り消せません。`;
       this.openDeleteConfirmationModal({ body, argument: index });
     },
     async onProceddToDelete(index) {

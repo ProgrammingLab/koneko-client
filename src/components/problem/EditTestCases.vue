@@ -1,7 +1,7 @@
 <template>
   <div v-if="problem">
     <div class="field">
-      <label class="label">Upload test cases</label>
+      <label class="label">テストケースをアップロード(*.zip)</label>
       <div class="field">
         <div class="file has-name">
           <label class="file-label">
@@ -18,7 +18,7 @@
                 <i class="fas fa-upload"></i>
               </span>
               <span class="file-label">
-                Choose a file…
+                ファイルを選択…
               </span>
             </span>
             <span class="file-name">
@@ -27,11 +27,11 @@
           </label>
         </div>
         <div class="help">
-          Please see
+          zipファイルの形式については
           <a href="https://github.com/gedorinku/koneko-online-judge/wiki/Problems#%E3%83%86%E3%82%B9%E3%83%88%E3%82%B1%E3%83%BC%E3%82%B9%E3%82%92%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89" target="_blank">
-            Koneko API reference
+            こねこのAPIリファレンス
           </a>
-          !
+          を参照してください。
         </div>
       </div>
       <error-notification :error="uploadError"/>
@@ -42,16 +42,17 @@
             @click="onUpload"
             :class="{ 'is-loading': sending }"
             :disabled="!file"
-            >Upload
+            >
+            アップロード
           </button>
         </div>
       </div>
     </div>
     <hr>
     <form v-on:submit.prevent="onSubmit">
-      <label class="label">Case set scores</label>
+      <label class="label">ケースセットの配点</label>
       <div class="field" v-for="(caseSet, index) in caseSets" :key="index">
-        <label class="label">Set #{{ index + 1 }}</label>
+        <label class="label">ケースセット #{{ index + 1 }}</label>
         <div class="field has-addons">
           <div class="control">
             <input
@@ -76,7 +77,7 @@
       <div class="field">
         <div class="control">
           <button class="button" :class="{ 'is-loading': sending }">
-            Submit
+            保存
           </button>
         </div>
       </div>
