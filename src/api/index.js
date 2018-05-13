@@ -101,4 +101,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/registrations/${token}`);
     return res;
   },
+  async registerUser(user, token) {
+    const res = await axios.post(`${API_ENDPOINT}/registrations/${token}`, user);
+    return res;
+  },
 };

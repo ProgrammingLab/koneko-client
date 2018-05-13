@@ -9,15 +9,21 @@
           </div>
           <form v-else v-on:submit.prevent="onSubmit">
             <div class="field">
-              <user-config v-model="user" @validated="onValidated"/>
+              <user-config v-model="user" @validated="onValidated" :disabled="sending"/>
             </div>
             <div class="field">
-              <button class="button" :disabled="!isValidUserDate">
+              <error-notification :error="error"/>
+            </div>
+            <div class="field">
+              <button
+                class="button"
+                :disabled="!isValidUserDate"
+                :class="{ 'is-loading': sending }"
+                >
                 登録
               </button>
             </div>
           </form>
-          <error-notification :error="error"/>
         </div>
       </div>
     </div>
@@ -25,6 +31,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import api from '@/api';
 import ErrorNotification from '../common/ErrorNotification';
 import UserConfig from '../user/UserConfig';
@@ -45,13 +52,19 @@ export default {
       verifying: true,
       verified: false,
       isValidUserDate: false,
+      sending: false,
       error: null,
     };
+  },
+  computed: {
+    token() {
+      return this.$route.params.token;
+    },
   },
   async created() {
     this.verifying = true;
     try {
-      await api.verifyEmailConfirmationToken(this.$route.params.token);
+      await api.verifyEmailConfirmationToken(this.token);
       this.verified = true;
     } catch (e) {
       if (!e.response || e.response.status !== 404) {
@@ -62,8 +75,22 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('koneko', [
+      'setSessionID',
+    ]),
     onValidated(isValid) {
       this.isValidUserDate = isValid;
+    },
+    async onSubmit() {
+      this.sending = true;
+      try {
+        const res = (await api.registerUser(this.user, this.token)).data;
+        this.setSessionID(res.token);
+        this.$router.push('/');
+      } catch (e) {
+        this.error = e;
+        this.sending = false;
+      }
     },
   },
 };

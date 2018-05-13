@@ -7,6 +7,7 @@
           type="text"
           placeholder="表示名を入力"
           required
+          :disabled="disabled"
           :class="{ 'is-danger': showWarningDisplayName }"
           :value="this.user.displayName"
           @input="onInputDisplayName"
@@ -21,8 +22,8 @@
           class="input"
           type="text"
           placeholder="ユーザー名を入力"
-          max="15"
-          min="3"
+          maxlength="15"
+          :disabled="disabled"
           :class="{ 'is-danger': showWarningName }"
           required
           :value="this.user.name"
@@ -33,7 +34,11 @@
       </label>
     </div>
     <div class="field">
-      <new-password-input :value="this.user.password" @input="onInputPassword"/>
+      <new-password-input
+        :disabled="disabled"
+        :value="this.user.password"
+        @input="onInputPassword"
+        />
     </div>
   </div>
 </template>
@@ -57,6 +62,7 @@ export default {
   },
   props: [
     'value',
+    'disabled',
   ],
   computed: {
     isValidDisplayName() {
