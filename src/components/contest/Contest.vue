@@ -110,10 +110,12 @@
                     :class="{'is-success': detail.accepted}"
                   >
                     {{detail.point}}<br>
-                    <template v-if="detail.accepted">
-                      {{formatDate(detail.updatedAt, 'HH:mm:ss')}}<br>
-                    </template>
-                    {{detail.wrongCount}} WA
+                    <span v-if="detail.accepted || true">
+                      {{getElapsedTime(detail.updatedAt)}}<br>
+                    </span>
+                    <span class="has-text-danger">
+                      (-{{detail.wrongCount}})
+                    </span>
                   </td>
                   <td v-else>-</td>
                   <td>{{column.totalPoint}}</td>
@@ -262,6 +264,13 @@ export default {
         .locale('ja')
         .format(format || 'YYYY/MM/DD(ddd) HH:mm')
       ;
+    },
+    getElapsedTime(data) {
+      const diff = moment(data).diff(this.startAt);
+      console.log(diff);
+      const mm = `${Math.floor(diff / 1000 / 60)}`;
+      const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
+      return `${mm}:${ss}`;
     },
   },
   components: {
