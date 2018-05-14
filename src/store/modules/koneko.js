@@ -1,9 +1,13 @@
+import moment from 'moment';
 import api from '@/api';
 import dashboard from './dashboard';
 import whiteEmails from './white-emails';
 import users from './users';
+import contests from './contests';
 import informationModal from './information-modal';
 import deleteConfirmationModal from './delete-confirmation-modal';
+import timeDiff from './timeDiff';
+import user from './user';
 import languages from './languages';
 
 export default {
@@ -47,8 +51,11 @@ export default {
       try {
         const res = await api.getSelf(state.sessionID);
         const isAdmin = res.data.authority === 1;
+        const serverTime = res.headers.date;
         commit('setLoginStatus', true);
         commit('setIsAdmin', isAdmin);
+        commit('timeDiff/setDiff', moment().diff(serverTime));
+        commit('user/setUserInfo', res.data);
       } catch (e) {
         if (e.response.status !== 401) {
           // eslint-disable-next-line no-console
@@ -62,8 +69,11 @@ export default {
     dashboard,
     whiteEmails,
     users,
+    user,
+    contests,
     informationModal,
     deleteConfirmationModal,
+    timeDiff,
     languages,
   },
 };
