@@ -267,7 +267,6 @@ export default {
     },
     getElapsedTime(data) {
       const diff = moment(data).diff(this.startAt);
-      console.log(diff);
       const mm = `${Math.floor(diff / 1000 / 60)}`;
       const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
       return `${mm}:${ss}`;
