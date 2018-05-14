@@ -88,7 +88,7 @@
             isWide
             title="順位"
           >
-            <table class="table is-fullwidth">
+            <table class="table is-fullwidth fixed-table">
               <thead>
                 <tr>
                   <th>順位</th>
