@@ -12,6 +12,7 @@ export default {
     sessionID: null,
     error: null,
     loginStatus: false,
+    user: null,
     isAdmin: false,
   },
   mutations: {
@@ -27,6 +28,9 @@ export default {
     setIsAdmin(state, isAdmin) {
       state.isAdmin = isAdmin;
     },
+    setUser(state, user) {
+      state.user = user;
+    },
   },
   actions: {
     async login({ commit }, { email, password }) {
@@ -39,14 +43,25 @@ export default {
         commit('setError', e);
       }
     },
+    async logout({ commit, state }) {
+      try {
+        await api.logout(state.sessionID);
+        commit('setSessionID', null);
+        commit('setError', null);
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
     async updateLoginStatus({ commit, state }) {
       if (!state.sessionID) {
         commit('setLoginStatus', false);
+        commit('setUser', null);
         return;
       }
       try {
         const res = await api.getSelf(state.sessionID);
         const isAdmin = res.data.authority === 1;
+        commit('setUser', res.data);
         commit('setLoginStatus', true);
         commit('setIsAdmin', isAdmin);
       } catch (e) {
@@ -54,6 +69,7 @@ export default {
           // eslint-disable-next-line no-console
           console.error(e);
         }
+        commit('setUser', null);
         commit('setLoginStatus', false);
       }
     },
