@@ -113,7 +113,7 @@
                     <span v-if="detail.accepted">
                       {{getElapsedTime(detail.updatedAt)}}<br>
                     </span>
-                    <span class="has-text-danger">
+                    <span class="has-text-danger" v-if="detail.wrongCount !== 0">
                       (-{{detail.wrongCount}})
                     </span>
                   </td>
