@@ -99,24 +99,27 @@
                   <th>合計</th>
                 </tr>
               </thead>
-            <tbody>
-              <tr v-for="(column, i) in standings" :key="i">
-                <td>{{i + 1}}</td>
-                <td>{{column.displayName}}</td>
-                <td
-                  v-for="(detail, j) in column.details"
-                  :key="j"
-                  v-if="detail"
-                  :class="{'is-success': detail.accepted}"
-                >
-                  {{detail.point}}<br>
-                  {{detail.wrongCount}} WA
-                </td>
-                <td v-else>-</td>
-                <td>{{column.totalPoint}}</td>
-              </tr>
-            </tbody>
-          </table>
+              <tbody>
+                <tr v-for="(column, i) in standings" :key="i">
+                  <td>{{i + 1}}</td>
+                  <td>{{column.displayName}}</td>
+                  <td
+                    v-for="(detail, j) in column.details"
+                    :key="j"
+                    v-if="detail"
+                    :class="{'is-success': detail.accepted}"
+                  >
+                    {{detail.point}}<br>
+                    <template v-if="detail.accepted">
+                      {{formatDate(detail.updatedAt, 'HH:mm:ss')}}<br>
+                    </template>
+                    {{detail.wrongCount}} WA
+                  </td>
+                  <td v-else>-</td>
+                  <td>{{column.totalPoint}}</td>
+                </tr>
+              </tbody>
+            </table>
           </Modal>
           <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
             <h1>bbb</h1>
@@ -254,10 +257,10 @@ export default {
     num2alpha(num) {
       return String.fromCharCode(97 + num);
     },
-    formatDate(date) {
+    formatDate(date, format) {
       return moment(date)
         .locale('ja')
-        .format('YYYY/MM/DD(ddd) HH:mm')
+        .format(format || 'YYYY/MM/DD(ddd) HH:mm')
       ;
     },
   },
@@ -291,5 +294,8 @@ export default {
   }
   .margin-bottom{
     margin-bottom: 20px;
+  }
+  .fixed-table{
+    table-layout: fixed;
   }
 </style>
