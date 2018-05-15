@@ -20,6 +20,10 @@ export default {
     });
     return res;
   },
+  async logout(sessionID) {
+    const res = await axios.delete(`${API_ENDPOINT}/sessions/logout`, getConfig(sessionID));
+    return res;
+  },
   async getSelf(sessionID) {
     const res = await axios.get(`${API_ENDPOINT}/user`, getConfig(sessionID));
     return res;
