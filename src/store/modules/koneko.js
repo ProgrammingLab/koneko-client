@@ -43,9 +43,19 @@ export default {
         commit('setError', e);
       }
     },
+    async logout({ commit, state }) {
+      try {
+        await api.logout(state.sessionID);
+        commit('setSessionID', null);
+        commit('setError', null);
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
     async updateLoginStatus({ commit, state }) {
       if (!state.sessionID) {
         commit('setLoginStatus', false);
+        commit('user/setUserInfo', null);
         return;
       }
       try {
@@ -61,6 +71,7 @@ export default {
           // eslint-disable-next-line no-console
           console.error(e);
         }
+        commit('user/setUserInfo', null);
         commit('setLoginStatus', false);
       }
     },
