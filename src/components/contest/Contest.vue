@@ -39,6 +39,12 @@
                 >
                   順位
                 </button>
+                <router-link
+                  class="button is-link is-hovered"
+                  :to="{ path: `${$route.path}/edit` }"
+                >
+                  編集
+                </router-link>
               </span>
             </div>
           </nav>
@@ -201,6 +207,7 @@ export default {
     ...mapGetters('koneko/contests', [
       'canEnter',
       'isEntered',
+      'isWriter',
     ]),
     countDownTimer() {
       if (this.diff < 0) return 'Already started';
