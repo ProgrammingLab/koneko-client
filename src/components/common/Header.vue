@@ -21,7 +21,7 @@
             </router-link>
             <div
               class="navbar-item has-dropdown is-right is-hoverable"
-              v-if="user"
+              v-if="id"
               >
               <a
                 class="navbar-link"
@@ -32,7 +32,7 @@
                   <span class="column icon is-small">
                     <i class="fas fa-user" aria-hidden="true"></i>
                   </span>
-                  <span class="column">{{ this.user.name }}</span>
+                  <span class="column">{{ this.name }}</span>
                 </div>
               </a>
               <div class="navbar-dropdown is-boxed">
@@ -62,7 +62,10 @@ import { mapActions, mapState } from 'vuex';
 export default {
   name: 'Header',
   computed: {
-    ...mapState('koneko', ['user']),
+    ...mapState('koneko/user', [
+      'id',
+      'name',
+    ]),
   },
   methods: {
     ...mapActions('koneko', [

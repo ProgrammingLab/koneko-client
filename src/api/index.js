@@ -60,6 +60,22 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}`, getConfig(sessionID));
     return res;
   },
+  async getContestProblems(sessionID, contestID) {
+    const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}/problems`, getConfig(sessionID));
+    return res;
+  },
+  async getContestStatuses(sessionID, contestID) {
+    const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}/statuses`, getConfig(sessionID));
+    return res;
+  },
+  async getContestStandings(sessionID, contestID) {
+    const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}/standings`, getConfig(sessionID));
+    return res;
+  },
+  async enterContest(sessionID, contestID) {
+    const res = await axios.post(`${API_ENDPOINT}/contests/${contestID}/enter`, {}, getConfig(sessionID));
+    return res;
+  },
   async updateContest(sessionID, contest) {
     const res = await axios.put(`${API_ENDPOINT}/contests/${contest.id}`, contest, getConfig(sessionID));
     return res;
