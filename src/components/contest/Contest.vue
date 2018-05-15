@@ -40,6 +40,7 @@
                   順位
                 </button>
                 <router-link
+                  v-if="isWriter"
                   class="button is-link is-hovered"
                   :to="{ path: `${$route.path}/edit` }"
                 >
