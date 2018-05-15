@@ -20,14 +20,14 @@ export default {
     error: null,
   },
   getters: {
-    canEnter({ participants, writers }, _, rootState) {
-      return (
-        participants.every(({ id }) => id !== rootState.koneko.user.id) &&
-        writers.every(({ id }) => id !== rootState.koneko.user.id)
-      );
+    isWriter({ writers }, _, rootState) {
+      return writers.some(({ id }) => id === rootState.koneko.user.id);
     },
     isEntered({ participants }, _, rootState) {
       return participants.some(({ id }) => id === rootState.koneko.user.id);
+    },
+    canEnter(_, { isWriter, isEntered }) {
+      return !isEntered && !isWriter;
     },
   },
   mutations: {
