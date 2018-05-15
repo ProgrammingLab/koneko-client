@@ -30,7 +30,11 @@
         <problem :problem="problem"/>
       </div>
       <div v-show="activeTab === 'cases'">
-        <edit-test-cases :problem="problem" @onSubmitted="onSubmitted"/>
+        <edit-test-cases
+          :problem="problem"
+          @onSubmitted="onSubmitted"
+          @onRejudgeStarted="onRejudgeStarted"
+          />
       </div>
     </div>
   </section>
@@ -106,6 +110,9 @@ export default {
     async onSubmitted() {
       await this.fetchProblem();
       this.openInformationModel('保存しました');
+    },
+    onRejudgeStarted() {
+      this.openInformationModel('リジャッジを開始しました');
     },
   },
 };

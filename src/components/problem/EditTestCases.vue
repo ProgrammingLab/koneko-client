@@ -82,6 +82,15 @@
         </div>
       </div>
     </form>
+    <hr>
+    <div class="field">
+      <label class="label">リジャッジ</label>
+      <div class="control">
+        <button class="button" :class="{ 'is-loading': sending }" @click="onRejudge">
+          リジャッジを開始する
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -144,6 +153,17 @@ export default {
         await api.updateCaseSetScores(this.sessionID, this.problem);
         this.submitError = null;
         this.$emit('onSubmitted');
+      } catch (e) {
+        this.submitError = e;
+      } finally {
+        this.sending = false;
+      }
+    },
+    async onRejudge() {
+      this.sending = true;
+      try {
+        await api.rejudgeProblem(this.sessionID, this.problem.id);
+        this.$emit('onRejudgeStarted');
       } catch (e) {
         this.submitError = e;
       } finally {
