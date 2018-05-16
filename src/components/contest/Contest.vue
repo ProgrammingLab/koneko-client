@@ -142,6 +142,7 @@
             :isActive="showSubmitModal"
             @close="showSubmitModal = false"
             :problem="problems[activeTab]"
+            @submit="submitCode"
           />
         </div>
       </template>
@@ -262,6 +263,7 @@ export default {
       'getProblems',
       'getStandings',
       'enter',
+      'submit',
     ]),
     ...mapMutations('koneko/contests', [
       'setRequiredWatching',
@@ -290,6 +292,9 @@ export default {
       const mm = `${Math.floor(diff / 1000 / 60)}`;
       const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
       return `${mm}:${ss}`;
+    },
+    submitCode(value) {
+      this.submit({ value, problemIndex: this.activeTab });
     },
   },
   components: {

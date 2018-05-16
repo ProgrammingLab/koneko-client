@@ -5,7 +5,7 @@
       :title="problem.title"
       @input="updateValue"
     />
-    <button slot="footer" class="button is-link" @click="$emit('submit')">
+    <button slot="footer" class="button is-link" @click="submit">
       提出
     </button>
   </Modal>
@@ -34,6 +34,10 @@ export default {
     close() {
       this.value.sourceCode = '';
       this.$emit('close');
+    },
+    submit() {
+      this.$emit('submit', this.value);
+      this.close();
     },
   },
   components: {

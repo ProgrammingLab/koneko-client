@@ -105,6 +105,10 @@ export default {
     const res = await axios.put(`${API_ENDPOINT}/problems/${problem.id}/cases`, scores, getConfig(sessionID));
     return res;
   },
+  async submit(sessionID, val, problemID) {
+    const res = await axios.post(`${API_ENDPOINT}/problems/${problemID}/submissions`, val, getConfig(sessionID));
+    return res;
+  },
   async rejudgeProblem(sessionID, problemID) {
     const res = await axios.post(`${API_ENDPOINT}/problems/${problemID}/rejudge`, null, getConfig(sessionID));
     return res;
