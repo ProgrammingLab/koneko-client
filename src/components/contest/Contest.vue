@@ -135,9 +135,9 @@
               </tbody>
             </table>
           </Modal>
-          <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
-            <h1>bbb</h1>
-          </Modal>
+          <SubmissionListModal
+            :isActive="true"
+          />
           <SubmitModal
             :isActive="showSubmitModal"
             @close="showSubmitModal = false"
@@ -185,6 +185,7 @@ import Problem from '@/components/problem/Problem';
 import ErrorNotification from '@/components/common/ErrorNotification';
 import Modal from '@/components/common/Modal';
 import SubmitModal from '@/components/problem/SubmitModal';
+import SubmissionListModal from './SubmissionListModal';
 
 import Tag from './Tag';
 
@@ -303,6 +304,7 @@ export default {
     Problem,
     ErrorNotification,
     SubmitModal,
+    SubmissionListModal,
   },
 };
 </script>
