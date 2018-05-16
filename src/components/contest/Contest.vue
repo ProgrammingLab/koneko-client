@@ -88,6 +88,9 @@
           </div>
           <div class="column">
             <Problem :problem="problems[activeTab]"/>
+            <button class="button is-link" @click="showSubmitModal = true">
+              提出
+            </button>
           </div>
           <Modal
             :isActive="showStandingsModal"
@@ -133,6 +136,11 @@
           <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
             <h1>bbb</h1>
           </Modal>
+          <SubmitModal
+            :isActive="showSubmitModal"
+            @close="showSubmitModal = false"
+            :problemTitle="`${problems[activeTab].title}[${num2alpha(activeTab).toUpperCase()}]`"
+          />
         </div>
       </template>
       <div v-else class="columns is-mobile">
@@ -173,6 +181,7 @@ import moment from 'moment';
 import Problem from '@/components/problem/Problem';
 import ErrorNotification from '@/components/common/ErrorNotification';
 import Modal from '@/components/common/Modal';
+import SubmitModal from '@/components/problem/SubmitModal';
 
 import Tag from './Tag';
 
@@ -183,6 +192,7 @@ export default {
       showDescription: false,
       showStandingsModal: false,
       showSubmitListModal: false,
+      showSubmitModal: false,
       activeTab: 0,
       diff: 300000,
     };
@@ -285,6 +295,7 @@ export default {
     Modal,
     Problem,
     ErrorNotification,
+    SubmitModal,
   },
 };
 </script>
