@@ -88,9 +88,11 @@
           </div>
           <div class="column">
             <Problem :problem="problems[activeTab]"/>
-            <button class="button is-link" @click="showSubmitModal = true">
-              提出
-            </button>
+            <section class="section">
+              <button class="button is-link" @click="showSubmitModal = true">
+                提出
+              </button>
+            </section>
           </div>
           <Modal
             :isActive="showStandingsModal"
