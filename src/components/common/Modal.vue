@@ -9,7 +9,9 @@
       <section class="modal-card-body">
         <slot></slot>
       </section>
-      <footer class="modal-card-foot"></footer>
+      <footer class="modal-card-foot">
+        <slot name="footer"></slot>
+      </footer>
     </div>
   </div>
 </template>

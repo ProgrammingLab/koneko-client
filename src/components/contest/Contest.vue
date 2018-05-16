@@ -88,6 +88,11 @@
           </div>
           <div class="column">
             <Problem :problem="problems[activeTab]"/>
+            <section class="section">
+              <button class="button is-link" @click="showSubmitModal = true">
+                提出
+              </button>
+            </section>
           </div>
           <Modal
             :isActive="showStandingsModal"
@@ -133,6 +138,12 @@
           <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
             <h1>bbb</h1>
           </Modal>
+          <SubmitModal
+            :isActive="showSubmitModal"
+            @close="showSubmitModal = false"
+            :problem="problems[activeTab]"
+            @submit="submitCode"
+          />
         </div>
       </template>
       <div v-else class="columns is-mobile">
@@ -173,6 +184,7 @@ import moment from 'moment';
 import Problem from '@/components/problem/Problem';
 import ErrorNotification from '@/components/common/ErrorNotification';
 import Modal from '@/components/common/Modal';
+import SubmitModal from '@/components/problem/SubmitModal';
 
 import Tag from './Tag';
 
@@ -183,6 +195,7 @@ export default {
       showDescription: false,
       showStandingsModal: false,
       showSubmitListModal: false,
+      showSubmitModal: false,
       activeTab: 0,
       diff: 300000,
     };
@@ -250,6 +263,7 @@ export default {
       'getProblems',
       'getStandings',
       'enter',
+      'submit',
     ]),
     ...mapMutations('koneko/contests', [
       'setRequiredWatching',
@@ -279,12 +293,16 @@ export default {
       const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
       return `${mm}:${ss}`;
     },
+    submitCode(value) {
+      this.submit({ value, problemIndex: this.activeTab });
+    },
   },
   components: {
     Tag,
     Modal,
     Problem,
     ErrorNotification,
+    SubmitModal,
   },
 };
 </script>
