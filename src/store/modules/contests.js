@@ -16,7 +16,7 @@ export default {
     standings: [],
     statusesWatcherFlag: false,
     requiredWatching: false,
-    isWaitingJudge: false,
+    isWaitingJudge: true,
     error: null,
   },
   getters: {
@@ -72,6 +72,9 @@ export default {
       });
       state.isWaitingJudge = state.problems.some(({ status }) => status < 2 && status > -1);
     },
+    waitJudge(state) {
+      state.isWaitingJudge = true;
+    },
     setParticipants(state, participants) {
       state.participants = participants.map(v => ({
         name: v.name, displayName: v.displayName, id: v.id,
@@ -93,13 +96,19 @@ export default {
     },
     async statusesWatcher({ commit, rootState, state }) {
       const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
+      let count = 0;
       commit('setRequiredWatching', true);
       // statusesの監視用ループが回ってなかったら回す
       if (!state.statusesWatcherFlag) {
         commit('setStatusesWatcherFlag');
         // eslint-disable-next-line no-constant-condition
         while (true) {
-          if (state.requiredWatching && state.problems !== null) {
+          if (
+            state.requiredWatching &&
+            state.problems !== null &&
+            (state.isWaitingJudge || count > 30)
+          ) {
+            count = 0;
             try {
               // eslint-disable-next-line no-await-in-loop
               const statuses = await api.getContestStatuses(rootState.koneko.sessionID, state.id);
@@ -109,16 +118,8 @@ export default {
             }
           }
           // eslint-disable-next-line no-await-in-loop
-          await sleep(state.isWaitingJudge ? 2000 : 60000);
-        }
-      } else {
-      // すでにループが回っていたときはとりあえず現状を把握する
-        try {
-          // eslint-disable-next-line no-await-in-loop
-          const statuses = await api.getContestStatuses(rootState.koneko.sessionID, state.id);
-          commit('setStatuses', statuses.data);
-        } catch (e) {
-          commit('setError', e);
+          await sleep(2000);
+          count += 1;
         }
       }
     },
@@ -161,6 +162,14 @@ export default {
           }))
         ;
         commit('setStandings', standings);
+      } catch (e) {
+        commit('setError', e);
+      }
+    },
+    async submit({ commit, rootState, state }, data) {
+      commit('waitJudge');
+      try {
+        api.submit(rootState.koneko.sessionID, data.value, state.problems[data.problemIndex].id);
       } catch (e) {
         commit('setError', e);
       }
