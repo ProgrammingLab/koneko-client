@@ -17,10 +17,10 @@
             </router-link>
           </th>
           <td>
-            {{ contest.startAt }}
+            {{ contest.startAt | time }}
           </td>
           <td>
-            {{ contest.endAt }}
+            {{ contest.endAt | time }}
           </td>
           <td>
             {{ contestStatusMap.get(contest.id) }}
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -54,6 +55,11 @@ export default {
         }));
       }
       return null;
+    },
+  },
+  filters: {
+    time(value) {
+      return moment(value).format('YYYY年M月D日 HH:mm');
     },
   },
 };
