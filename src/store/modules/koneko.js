@@ -4,6 +4,7 @@ import dashboard from './dashboard';
 import whiteEmails from './white-emails';
 import users from './users';
 import contests from './contests';
+import contestList from './contest-list';
 import informationModal from './information-modal';
 import deleteConfirmationModal from './delete-confirmation-modal';
 import timeDiff from './timeDiff';
@@ -82,6 +83,7 @@ export default {
     users,
     user,
     contests,
+    contestList,
     informationModal,
     deleteConfirmationModal,
     timeDiff,

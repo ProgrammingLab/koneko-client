@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default {
   namespaced: true,
   state: {
@@ -6,6 +8,11 @@ export default {
   mutations: {
     setDiff(state, diff) {
       state.diff = diff;
+    },
+  },
+  getters: {
+    serverTime(state) {
+      return moment().add(state.diff);
     },
   },
 };

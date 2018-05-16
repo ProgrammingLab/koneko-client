@@ -9,6 +9,7 @@ import EditContest from '@/components/contest/EditContest';
 import EditProblem from '@/components/problem/EditProblem';
 import PasswordReset from '@/components/password_reset/PasswordReset';
 import Registration from '@/components/registration/Registration';
+import ContestsTop from '@/components/contest/ContestsTop';
 import NotFound from '@/components/NotFound';
 import store from '@/store';
 
@@ -32,6 +33,12 @@ const router = new Router({
       name: 'Admin',
       component: Admin,
       meta: { requiresAuth: true, admin: true },
+    },
+    {
+      path: '/contests',
+      name: 'ContestsTop',
+      component: ContestsTop,
+      meta: { requiresAuth: false, admin: false },
     },
     {
       path: '/contests/new',
