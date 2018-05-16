@@ -46,10 +46,10 @@ export default {
       if (this.contests) {
         return new Map(this.contests.map((c) => {
           let status = '予定';
-          if (this.serverTime.isSameOrAfter(c.startAt)) {
-            status = '開催中';
-          } else if (this.serverTime.isSameOrAfter(c.endAt)) {
+          if (this.serverTime.isSameOrAfter(c.endAt)) {
             status = '終了';
+          } else if (this.serverTime.isSameOrAfter(c.startAt)) {
+            status = '開催中';
           }
           return [c.id, status];
         }));
