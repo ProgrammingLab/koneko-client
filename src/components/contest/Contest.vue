@@ -26,7 +26,7 @@
               </span>
               <span v-else class="navbar-item">
                 <button
-                  @click="showSubmitList"
+                  @click="showSubmissionListModal = true;"
                   class="button is-outlined"
                   :disabled="problems === null || problems.length === 0"
                 >
@@ -136,7 +136,8 @@
             </table>
           </Modal>
           <SubmissionListModal
-            :isActive="true"
+            :isActive="showSubmissionListModal"
+            @close="showSubmissionListModal = false"
           />
           <SubmitModal
             :isActive="showSubmitModal"
@@ -195,7 +196,7 @@ export default {
     return {
       showDescription: false,
       showStandingsModal: false,
-      showSubmitListModal: false,
+      showSubmissionListModal: false,
       showSubmitModal: false,
       activeTab: 0,
       diff: 300000,
@@ -271,9 +272,6 @@ export default {
     ]),
     toggleDescription() {
       this.showDescription = !this.showDescription;
-    },
-    showSubmitList() {
-      this.showSubmitListModal = true;
     },
     showStandings() {
       this.showStandingsModal = true;
