@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section class="section">
-      <h1 class="title">コンテスト一覧</h1>
+      <h1 class="title">すべてのコンテスト</h1>
       <contest-list :contests="contests"/>
     </section>
   </div>
