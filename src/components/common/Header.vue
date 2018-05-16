@@ -13,7 +13,7 @@
       <div class="navbar-end">
         <div id="navMenu" class="navbar-menu">
           <div class="navbar-start">
-            <router-link class="navbar-item" to="#">
+            <router-link class="navbar-item" to="/contests">
               Contests
             </router-link>
             <router-link class="navbar-item" to="#">
