@@ -36,7 +36,8 @@ export default {
       this.$emit('close');
     },
     submit() {
-      this.$emit('submit', this.value);
+      const val = Object.assign({}, this.value);
+      this.$emit('submit', val);
       this.close();
     },
   },
