@@ -1,6 +1,6 @@
 <template>
   <Modal title="提出" :isActive="isActive" @close="$emit('close')">
-    <SourceCodeInput value="{languageID: 1, sourceCode: ''}" :title="problem.title"></SourceCodeInput>
+    <SourceCodeInput value="{languageID: 1, sourceCode: ''}" :title="problem.title"/>
     <button class="button is-link" @click="$emit('submit')">
       提出
     </button>
@@ -18,6 +18,6 @@ export default {
   components: {
     Modal,
     SourceCodeInput,
-  }
-}
+  },
+};
 </script>
