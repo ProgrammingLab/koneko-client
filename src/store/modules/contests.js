@@ -16,7 +16,7 @@ export default {
     standings: [],
     statusesWatcherFlag: false,
     requiredWatching: false,
-    isWaitingJudge: false,
+    isWaitingJudge: true,
     error: null,
   },
   getters: {
