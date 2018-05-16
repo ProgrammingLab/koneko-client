@@ -1,5 +1,5 @@
 <template>
-  <Modal title="提出" :isActive="isActive" @close="$emit('close')">
+  <Modal title="提出" :isActive="isActive" @close="close">
     <SourceCodeInput
       :value="value"
       :title="problem.title"
@@ -30,6 +30,10 @@ export default {
   methods: {
     updateValue(newValue) {
       this.value = newValue;
+    },
+    close() {
+      this.value.sourceCode = '';
+      this.$emit('close');
     },
   },
   components: {
