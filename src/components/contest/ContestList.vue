@@ -11,10 +11,20 @@
       </thead>
       <tbody>
         <tr v-for="contest in contests" :key="contest.id">
-          <th>{{ contest.title }}</th>
-          <td>{{ contest.startAt }}</td>
-          <td>{{ contest.endAt }}</td>
-          <td>TODO</td>
+          <th>
+            <router-link :to="'/contests/' + contest.id">
+              {{ contest.title }}
+            </router-link>
+          </th>
+          <td>
+            {{ contest.startAt }}
+          </td>
+          <td>
+            {{ contest.endAt }}
+          </td>
+          <td>
+            {{ contestStatusMap.get(contest.id) }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -31,9 +41,17 @@ export default {
   ],
   computed: {
     ...mapGetters('koneko/timeDiff', ['serverTime']),
-    contestMap() {
+    contestStatusMap() {
       if (this.contests) {
-        return new Map(this.contests.map(v => [v.id, this.serverTime.isBetween(v.startAt, v.EndAt)]));
+        return new Map(this.contests.map((c) => {
+          let status = '予定';
+          if (this.serverTime.isSameOrAfter(c.startAt)) {
+            status = '開催中';
+          } else if (this.serverTime.isSameOrAfter(c.endAt)) {
+            status = '終了';
+          }
+          return [c.id, status];
+        }));
       }
       return null;
     },
