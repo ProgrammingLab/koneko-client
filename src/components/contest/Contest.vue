@@ -139,7 +139,7 @@
           <SubmitModal
             :isActive="showSubmitModal"
             @close="showSubmitModal = false"
-            :problemTitle="`${problems[activeTab].title}[${num2alpha(activeTab).toUpperCase()}]`"
+            :problem="problems[activeTab]"
           />
         </div>
       </template>

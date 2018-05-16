@@ -1,6 +1,6 @@
 <template>
   <Modal title="提出" :isActive="isActive" @close="$emit('close')">
-    <SourceCodeInput value="{languageID: 1, sourceCode: ''}" :title="problemTitle"></SourceCodeInput>
+    <SourceCodeInput value="{languageID: 1, sourceCode: ''}" :title="problem.title"></SourceCodeInput>
     <button class="button is-link" @click="$emit('submit')">
       提出
     </button>
@@ -13,7 +13,7 @@ import SourceCodeInput from '@/components/common/SourceCodeInput';
 export default {
   props: [
     'isActive',
-    'problemTitle',
+    'problem',
   ],
   components: {
     Modal,
