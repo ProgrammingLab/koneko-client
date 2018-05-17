@@ -26,7 +26,7 @@
               </span>
               <span v-else class="navbar-item">
                 <button
-                  @click="showSubmitList"
+                  @click="showSubmissionList"
                   class="button is-outlined"
                   :disabled="problems === null || problems.length === 0"
                 >
@@ -80,7 +80,7 @@
                     @click="activeTab = index"
                   >
                     {{ num2alpha(index).toUpperCase() }}
-                    <tag :status="problem.status"/>
+                    <tag :status="problem.status" class="float-right"/>
                   </a>
                 </li>
               </ul>
@@ -135,9 +135,10 @@
               </tbody>
             </table>
           </Modal>
-          <Modal :isActive="showSubmitListModal" @close="showSubmitListModal = false" title="提出一覧">
-            <h1>bbb</h1>
-          </Modal>
+          <SubmissionListModal
+            :isActive="showSubmissionListModal"
+            @close="showSubmissionListModal = false"
+          />
           <SubmitModal
             :isActive="showSubmitModal"
             @close="showSubmitModal = false"
@@ -185,6 +186,7 @@ import Problem from '@/components/problem/Problem';
 import ErrorNotification from '@/components/common/ErrorNotification';
 import Modal from '@/components/common/Modal';
 import SubmitModal from '@/components/problem/SubmitModal';
+import SubmissionListModal from './SubmissionListModal';
 
 import Tag from './Tag';
 
@@ -194,7 +196,7 @@ export default {
     return {
       showDescription: false,
       showStandingsModal: false,
-      showSubmitListModal: false,
+      showSubmissionListModal: false,
       showSubmitModal: false,
       activeTab: 0,
       diff: 300000,
@@ -265,18 +267,22 @@ export default {
       'enter',
       'submit',
     ]),
+    ...mapActions('koneko/contests/submissions', [
+      'getSubmissions',
+    ]),
     ...mapMutations('koneko/contests', [
       'setRequiredWatching',
     ]),
     toggleDescription() {
       this.showDescription = !this.showDescription;
     },
-    showSubmitList() {
-      this.showSubmitListModal = true;
-    },
     showStandings() {
       this.showStandingsModal = true;
       this.getStandings();
+    },
+    showSubmissionList() {
+      this.showSubmissionListModal = true;
+      this.getSubmissions();
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
@@ -303,6 +309,7 @@ export default {
     Problem,
     ErrorNotification,
     SubmitModal,
+    SubmissionListModal,
   },
 };
 </script>
@@ -312,6 +319,9 @@ export default {
     padding-right: 0;
     border-right: 5px solid hsl(204, 86%, 53%);
     min-width: 100px;
+  }
+  .float-right {
+    float: right;
   }
   .tab-button{
     border: 1px solid silver;
