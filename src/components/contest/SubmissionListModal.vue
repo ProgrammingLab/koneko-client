@@ -134,8 +134,7 @@ export default {
       ;
     },
     movePage(page) {
-      const limit = this.pageLimit;
-      this.getSubmissions({ page, limit });
+      this.getSubmissions({ page });
       document.getElementById('navi').scrollIntoView(true);
     },
     updateSubmissionTable(){
