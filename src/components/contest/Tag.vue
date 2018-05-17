@@ -22,7 +22,7 @@ export default {
         '', '', 'is-success', 'is-warning', 'is-warning', 'is-warning',
         'is-warning', 'is-danger', 'is-danger', 'is-danger', 'is-danger',
       ];
-      return [style[this.status], 'tag', 'is-rounded', 'is-pulled-right'];
+      return [style[this.status], 'tag', 'is-rounded'];
     },
   },
 };

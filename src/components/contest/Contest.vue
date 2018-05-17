@@ -80,7 +80,7 @@
                     @click="activeTab = index"
                   >
                     {{ num2alpha(index).toUpperCase() }}
-                    <tag :status="problem.status"/>
+                    <tag :status="problem.status" class="float-right"/>
                   </a>
                 </li>
               </ul>
@@ -319,6 +319,9 @@ export default {
     padding-right: 0;
     border-right: 5px solid hsl(204, 86%, 53%);
     min-width: 100px;
+  }
+  .float-right {
+    float: right;
   }
   .tab-button{
     border: 1px solid silver;
