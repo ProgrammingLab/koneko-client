@@ -22,15 +22,15 @@
       </thead>
       <tbody>
         <tr v-for="(submission, index) in submissions" :key="index">
-          <td>{{submission.createdAt}}</td>
+          <td>{{formatDate(submission.createdAt)}}</td>
           <td>{{submission.problem.title}}</td>
           <td>{{submission.user.displayName}}</td>
           <td>{{submission.language.displayName}}</td>
           <td>{{submission.point}}</td>
-          <td>{{submission.codeBytes}}</td>
+          <td>{{`${submission.codeBytes} Byte`}}</td>
           <td><Tag :status="submission.status" /></td>
-          <td>{{submission.execTime}}</td>
-          <td>{{submission.memoryUsage}}</td>
+          <td>{{`${submission.execTime / 1000000} ms`}}</td>
+          <td>{{`${submission.memoryUsage} KB`}}</td>
           <td>{{submission.id}}</td>
         </tr>
       </tbody>
@@ -40,10 +40,15 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import moment from 'moment';
 import Modal from '@/components/common/Modal';
 import Tag from './Tag';
 
+
 export default {
+  props: [
+    'isActive',
+  ],
   computed: {
     ...mapState('koneko/contests/submissions', [
       'submissions',
@@ -54,9 +59,16 @@ export default {
       'pageLength',
     ]),
   },
-  props: [
-    'isActive',
-  ],
+  methods: {
+    // contest.vueでも使ってるからmixinとか使って使いまわしたい,
+    // 今はどういう感じにするか悩んだのでコピペでとりあえず書いておく
+    formatDate(date, format) {
+      return moment(date)
+        .locale('ja')
+        .format(format || 'YYYY/MM/DD(ddd) HH:mm')
+      ;
+    },
+  },
   components: {
     Modal,
     Tag,
