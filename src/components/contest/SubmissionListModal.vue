@@ -7,11 +7,16 @@
     <table class="table is-fullwidth fixed-table">
       <thead>
         <tr>
-          <th>提出ID</th>
-          <th>名前</th>
+          <th>提出日時</th>
           <th>問題</th>
-          <th>結果</th>
+          <th>ユーザー</th>
           <th>言語</th>
+          <th>得点</th>
+          <th>コード長</th>
+          <th>結果</th>
+          <th>実行時間</th>
+          <th>メモリ</th>
+          <th>提出ID</th>
         </tr>
       </thead>
       <tbody>
