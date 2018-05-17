@@ -5,7 +5,7 @@
     title="提出一覧"
     @close="$emit('close')"
   >
-    <table class="table is-fullwidth fixed-table">
+    <table class="table is-fullwidth fixed-table" id="table">
       <thead>
         <tr>
           <th>提出日時</th>
@@ -76,6 +76,7 @@ export default {
     },
     movePage(page) {
       this.getSubmittions({ page });
+      document.getElementById('table').scrollIntoView(true);
     },
   },
   components: {
