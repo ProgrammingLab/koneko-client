@@ -5,7 +5,62 @@
     title="提出一覧"
     @close="$emit('close')"
   >
-    <table class="table is-fullwidth fixed-table" id="table">
+    <nav class="level" id="navi">
+      <div class="level-left">
+        <div class="level-item">
+          <div class="field">
+            <label class="label">表示件数</label>
+            <p class="control">
+              <div class="select">
+                <select>
+                  <option>25</option>
+                  <option>50</option>
+                  <option>75</option>
+                  <option>100</option>
+                </select>
+              </div>
+            </p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="field">
+            <label class="label">ユーザー検索</label>
+            <p class="control">
+              <div class="select">
+                <select>
+                  <option>未実装</option>
+                </select>
+              </div>
+            </p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="field">
+            <label class="label">問題検索</label>
+            <p class="control">
+              <div class="select">
+                <select>
+                  <option>未実装</option>
+                </select>
+              </div>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <div class="field">
+            <p class="control">
+              <button　class="button">
+                更新
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <table class="table is-fullwidth fixed-table">
       <thead>
         <tr>
           <th>提出日時</th>
@@ -76,7 +131,7 @@ export default {
     },
     movePage(page) {
       this.getSubmissions({ page });
-      document.getElementById('table').scrollIntoView(true);
+      document.getElementById('navi').scrollIntoView(true);
     },
   },
   components: {
