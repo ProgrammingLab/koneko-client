@@ -10,7 +10,7 @@
         <div class="level-item">
           <div class="field">
             <label class="label">表示件数</label>
-            <p class="control">
+            <div class="control">
               <div class="select">
                 <select v-model.number="pageLimit">
                   <option>25</option>
@@ -19,42 +19,42 @@
                   <option>100</option>
                 </select>
               </div>
-            </p>
+            </div>
           </div>
         </div>
         <div class="level-item">
           <div class="field">
             <label class="label">ユーザー検索</label>
-            <p class="control">
+            <div class="control">
               <div class="select">
                 <select>
                   <option>未実装</option>
                 </select>
               </div>
-            </p>
+            </div>
           </div>
         </div>
         <div class="level-item">
           <div class="field">
             <label class="label">問題検索</label>
-            <p class="control">
+            <div class="control">
               <div class="select">
                 <select>
                   <option>未実装</option>
                 </select>
               </div>
-            </p>
+            </div>
           </div>
         </div>
       </div>
       <div class="level-right">
         <div class="level-item">
           <div class="field">
-            <p class="control">
-              <button　class="button" @click="updateSubmissionTable">
+            <div class="control">
+              <button class="button" @click="updateSubmissionTable">
                 更新
               </button>
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -137,10 +137,10 @@ export default {
       this.getSubmissions({ page });
       document.getElementById('navi').scrollIntoView(true);
     },
-    updateSubmissionTable(){
+    updateSubmissionTable() {
       const limit = this.pageLimit;
       this.getSubmissions({ limit, page: 1 });
-    }
+    },
   },
   components: {
     Modal,

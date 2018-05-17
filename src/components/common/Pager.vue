@@ -10,7 +10,7 @@
           <span class="pagination-ellipsis">&hellip;</span>
         </li>
         <li v-if="current !== 1">
-          <a@click="$emit('movePage', current - 1)" class="pagination-link">
+          <a @click="$emit('movePage', current - 1)" class="pagination-link">
             {{current - 1}}
           </a>
         </li>
@@ -42,7 +42,7 @@ export default {
     length: Number,
     current: Number,
   },
-}
+};
 </script>
 
 <style lang="css">
