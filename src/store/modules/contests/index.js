@@ -1,4 +1,5 @@
 import api from '@/api';
+import submissions from './submissions';
 
 export default {
   namespaced: true,
@@ -174,5 +175,8 @@ export default {
         commit('setError', e);
       }
     },
+  },
+  modules: {
+    submissions,
   },
 };

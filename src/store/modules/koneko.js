@@ -3,7 +3,7 @@ import api from '@/api';
 import dashboard from './dashboard';
 import whiteEmails from './white-emails';
 import users from './users';
-import contests from './contests';
+import contests from './contests/';
 import contestList from './contest-list';
 import informationModal from './information-modal';
 import deleteConfirmationModal from './delete-confirmation-modal';

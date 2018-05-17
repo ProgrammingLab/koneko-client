@@ -76,6 +76,10 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}/standings`, getConfig(sessionID));
     return res;
   },
+  async getContestSubmittions(sessionID, contestID, options) {
+    const res = axios.get(`${API_ENDPOINT}/contests/${contestID}/submissions`, { ...getConfig(sessionID), ...options });
+    return res;
+  },
   async enterContest(sessionID, contestID) {
     const res = await axios.post(`${API_ENDPOINT}/contests/${contestID}/enter`, {}, getConfig(sessionID));
     return res;

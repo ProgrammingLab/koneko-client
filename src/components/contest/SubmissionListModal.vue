@@ -1,7 +1,8 @@
 <template>
   <Modal
     :isActive="isActive"
-    isWide title="提出一覧"
+    isWide
+    title="提出一覧"
     @close="$emit('close')"
   >
     <table class="table is-fullwidth fixed-table">
@@ -20,17 +21,28 @@
         </tr>
       </thead>
       <tbody>
-        
+        {{submissions}}
       </tbody>
     </table>
   </Modal>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 import Modal from '@/components/common/Modal';
 import Tag from './Tag';
 
 export default {
+  computed: {
+    ...mapState('koneko/contests/submissions', [
+      'submissions',
+      'pageLimit',
+      'submissionLength',
+    ]),
+    ...mapGetters('koneko/contets/submissions', [
+      'pageLength',
+    ]),
+  },
   props: [
     'isActive',
   ],

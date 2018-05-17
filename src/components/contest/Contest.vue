@@ -26,7 +26,7 @@
               </span>
               <span v-else class="navbar-item">
                 <button
-                  @click="showSubmissionListModal = true;"
+                  @click="showSubmissionList"
                   class="button is-outlined"
                   :disabled="problems === null || problems.length === 0"
                 >
@@ -267,6 +267,9 @@ export default {
       'enter',
       'submit',
     ]),
+    ...mapActions('koneko/contests/submissions', [
+      'getSubmittions',
+    ]),
     ...mapMutations('koneko/contests', [
       'setRequiredWatching',
     ]),
@@ -276,6 +279,10 @@ export default {
     showStandings() {
       this.showStandingsModal = true;
       this.getStandings();
+    },
+    showSubmissionList() {
+      this.showSubmissionListModal = true;
+      this.getSubmittions();
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
