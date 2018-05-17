@@ -35,13 +35,15 @@
         </tr>
       </tbody>
     </table>
+    <Pager @movePage="movePage" :length="pageLength" :current="currentPage"></Pager>
   </Modal>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import moment from 'moment';
 import Modal from '@/components/common/Modal';
+import Pager from '@/components/common/Pager';
 import Tag from './Tag';
 
 
@@ -54,12 +56,16 @@ export default {
       'submissions',
       'pageLimit',
       'submissionLength',
+      'currentPage',
     ]),
-    ...mapGetters('koneko/contets/submissions', [
+    ...mapGetters('koneko/contests/submissions', [
       'pageLength',
     ]),
   },
   methods: {
+    ...mapActions('koneko/contests/submissions', [
+      'getSubmittions',
+    ]),
     // contest.vueでも使ってるからmixinとか使って使いまわしたい,
     // 今はどういう感じにするか悩んだのでコピペでとりあえず書いておく
     formatDate(date, format) {
@@ -68,10 +74,14 @@ export default {
         .format(format || 'YYYY/MM/DD(ddd) HH:mm')
       ;
     },
+    movePage(page) {
+      this.getSubmittions({ page });
+    },
   },
   components: {
     Modal,
     Tag,
+    Pager,
   },
 };
 </script>

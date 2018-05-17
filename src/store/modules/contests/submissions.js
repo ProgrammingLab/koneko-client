@@ -6,6 +6,7 @@ export default {
     submissions: [],
     pageLimit: 25,
     submissionLength: 0,
+    currentPage: 1,
   },
   mutations: {
     setSubmissions(state, submissions) {
@@ -17,6 +18,9 @@ export default {
     setSubmissioonLength(state, length) {
       state.submissionLength = length;
     },
+    setCurrentPage(state, currentPage) {
+      state.currentPage = currentPage;
+    },
   },
   getters: {
     pageLength({ pageLimit, submissionLength }) {
@@ -26,6 +30,7 @@ export default {
   actions: {
     async getSubmittions({ commit, rootState }, options = {}) {
       commit('setPageLimit', options.limit || 25);
+      commit('setCurrentPage', options.page || 1);
       try {
         const res = await api.getContestSubmittions(
           rootState.koneko.sessionID,
