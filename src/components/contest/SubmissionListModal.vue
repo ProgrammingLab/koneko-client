@@ -12,7 +12,7 @@
             <label class="label">表示件数</label>
             <p class="control">
               <div class="select">
-                <select>
+                <select v-model.number="pageLimit">
                   <option>25</option>
                   <option>50</option>
                   <option>75</option>
@@ -51,7 +51,7 @@
         <div class="level-item">
           <div class="field">
             <p class="control">
-              <button　class="button">
+              <button　class="button" @click="updateSubmissionTable">
                 更新
               </button>
             </p>
@@ -103,13 +103,17 @@ import Tag from './Tag';
 
 
 export default {
+  data() {
+    return {
+      pageLimit: 25,
+    };
+  },
   props: [
     'isActive',
   ],
   computed: {
     ...mapState('koneko/contests/submissions', [
       'submissions',
-      'pageLimit',
       'submissionLength',
       'currentPage',
     ]),
@@ -130,9 +134,14 @@ export default {
       ;
     },
     movePage(page) {
-      this.getSubmissions({ page });
+      const limit = this.pageLimit;
+      this.getSubmissions({ page, limit });
       document.getElementById('navi').scrollIntoView(true);
     },
+    updateSubmissionTable(){
+      const limit = this.pageLimit;
+      this.getSubmissions({ limit });
+    }
   },
   components: {
     Modal,
