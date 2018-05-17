@@ -21,7 +21,18 @@
         </tr>
       </thead>
       <tbody>
-        {{submissions}}
+        <tr v-for="(submission, index) in submissions" :key="index">
+          <td>{{submission.createdAt}}</td>
+          <td>{{submission.problem.title}}</td>
+          <td>{{submission.user.displayName}}</td>
+          <td>{{submission.language.displayName}}</td>
+          <td>{{submission.point}}</td>
+          <td>{{submission.codeBytes}}</td>
+          <td><Tag :status="submission.status" /></td>
+          <td>{{submission.execTime}}</td>
+          <td>{{submission.memoryUsage}}</td>
+          <td>{{submission.id}}</td>
+        </tr>
       </tbody>
     </table>
   </Modal>
