@@ -76,8 +76,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}/standings`, getConfig(sessionID));
     return res;
   },
-  async getContestSubmittions(sessionID, contestID, options) {
-    const res = axios.get(`${API_ENDPOINT}/contests/${contestID}/submissions`, { ...getConfig(sessionID), ...options });
+  async getContestSubmittions(sessionID, contestID, params) {
+    const res = axios.get(`${API_ENDPOINT}/contests/${contestID}/submissions`, { ...getConfig(sessionID), params });
     return res;
   },
   async enterContest(sessionID, contestID) {
