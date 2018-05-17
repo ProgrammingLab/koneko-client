@@ -268,7 +268,7 @@ export default {
       'submit',
     ]),
     ...mapActions('koneko/contests/submissions', [
-      'getSubmittions',
+      'getSubmissions',
     ]),
     ...mapMutations('koneko/contests', [
       'setRequiredWatching',
@@ -282,7 +282,7 @@ export default {
     },
     showSubmissionList() {
       this.showSubmissionListModal = true;
-      this.getSubmittions();
+      this.getSubmissions();
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);

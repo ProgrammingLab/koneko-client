@@ -28,11 +28,11 @@ export default {
     },
   },
   actions: {
-    async getSubmittions({ commit, rootState }, options = {}) {
+    async getSubmissions({ commit, rootState }, options = {}) {
       commit('setPageLimit', options.limit || 25);
       commit('setCurrentPage', options.page || 1);
       try {
-        const res = await api.getContestSubmittions(
+        const res = await api.getContestSubmissions(
           rootState.koneko.sessionID,
           rootState.koneko.contests.id,
           options,

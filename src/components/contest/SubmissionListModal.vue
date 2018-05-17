@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     ...mapActions('koneko/contests/submissions', [
-      'getSubmittions',
+      'getSubmissions',
     ]),
     // contest.vueでも使ってるからmixinとか使って使いまわしたい,
     // 今はどういう感じにするか悩んだのでコピペでとりあえず書いておく
@@ -75,7 +75,7 @@ export default {
       ;
     },
     movePage(page) {
-      this.getSubmittions({ page });
+      this.getSubmissions({ page });
       document.getElementById('table').scrollIntoView(true);
     },
   },
