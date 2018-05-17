@@ -139,7 +139,7 @@ export default {
     },
     updateSubmissionTable(){
       const limit = this.pageLimit;
-      this.getSubmissions({ limit });
+      this.getSubmissions({ limit, page: 1 });
     }
   },
   components: {
