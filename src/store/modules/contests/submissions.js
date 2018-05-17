@@ -35,7 +35,7 @@ export default {
         commit('setSubmissions', res.data.submissions);
         commit('setSubmissioonLength', res.data.total);
       } catch (e) {
-        commit('koneko/contests/setError', null, { root: true });
+        commit('koneko/contests/setError', e, { root: true });
       }
     },
   },
