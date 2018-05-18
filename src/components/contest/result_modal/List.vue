@@ -67,7 +67,7 @@
           <th>結果</th>
           <th>実行時間</th>
           <th>メモリ</th>
-          <th>提出ID</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
