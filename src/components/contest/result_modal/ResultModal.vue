@@ -6,7 +6,15 @@
     @close="close"
   >
     <List v-if="isList" @showDetail="showDetail"/>
-    <Detail v-else />
+    <template v-else >
+      <Detail />
+      <a slot="footer" class="button" @click="isList = true">
+       <span class="icon">
+         <i class="fas fa-arrow-circle-left"></i>
+       </span>
+       <span>一覧に戻る</span>
+     </a>
+    </template>
   </Modal>
 </template>
 
@@ -35,8 +43,8 @@ export default {
     },
     close(){
       this.isList = true;
-      this.$emit('close')
-    }
+      this.$emit('close');
+    },
   },
   components: {
     List,
