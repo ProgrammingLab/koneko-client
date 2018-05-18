@@ -1,51 +1,65 @@
 <template lang="html">
   <div>
-    <router-link to="/admin">Go to Foo</router-link>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Koneko Online Judge
+          </h1>
+        </div>
+      </div>
+    </section>
     <div class="container">
-      problem id:<input v-model='problemID'/>
-      <error-notification :error="error"/>
-      <problem :problem="problem"/>
+      <section class="section">
+        <div>
+          <h2 class="subtitle">
+            開催中のコンテスト
+          </h2>
+          <contest-list :contests="activeContests"/>
+        </div>
+      </section>
+      <section class="section">
+        <div>
+          <h2 class="subtitle">
+            予定されたコンテスト
+          </h2>
+          <contest-list :contests="upcomingContests"/>
+        </div>
+      </section>
+      <section class="section">
+        <div>
+          <h2 class="subtitle">
+            終了したコンテスト(5件)
+          </h2>
+          <contest-list :contests="recentContests"/>
+        </div>
+        <router-link to="/contests">すべてのコンテストを表示</router-link>
+      </section>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import api from '@/api';
-import Markdown from './common/Markdown';
-import Problem from './problem/Problem';
-import ErrorNotification from './common/ErrorNotification';
+import { mapActions, mapGetters } from 'vuex';
+import ContestList from './contest/ContestList';
 
 export default {
+  name: 'Top',
   components: {
-    Markdown,
-    Problem,
-    ErrorNotification,
-  },
-  data() {
-    return {
-      problemID: null,
-      problem: null,
-      error: null,
-    };
+    ContestList,
   },
   created() {
-    this.problemID = 11;
+    this.fetchAllContests();
   },
   computed: {
-    ...mapState('koneko', [
-      'sessionID',
+    ...mapGetters('koneko/contestList', [
+      'activeContests',
+      'upcomingContests',
+      'recentContests',
     ]),
   },
-  watch: {
-    async problemID(val) {
-      try {
-        this.problem = (await api.getProblem(this.sessionID, val)).data;
-        this.error = null;
-      } catch (e) {
-        this.error = e;
-      }
-    },
+  methods: {
+    ...mapActions('koneko/contestList', ['fetchAllContests']),
   },
 };
 </script>
