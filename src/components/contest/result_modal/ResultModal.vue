@@ -41,7 +41,7 @@ export default {
       this.getDetail(id);
       this.isList = false;
     },
-    close(){
+    close() {
       this.isList = true;
       this.$emit('close');
     },
