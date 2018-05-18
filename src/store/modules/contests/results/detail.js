@@ -3,7 +3,7 @@ import api from '@/api';
 export default {
   namespaced: true,
   state: {
-    detail: null,
+    detail: {},
   },
   mutations: {
     setDetail(state, detail) {
