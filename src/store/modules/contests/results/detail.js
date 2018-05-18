@@ -8,7 +8,6 @@ export default {
   mutations: {
     setDetail(state, detail) {
       state.detail = detail;
-      console.log(detail);
     },
   },
   actions: {
