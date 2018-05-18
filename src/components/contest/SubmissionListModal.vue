@@ -86,7 +86,11 @@
           <td><Tag :status="submission.status" /></td>
           <td>{{`${submission.execTime / 1000000} ms`}}</td>
           <td>{{`${submission.memoryUsage} KB`}}</td>
-          <td>{{submission.id}}</td>
+          <td>
+            <button class="button is-info" @click="showDetail(submission.id)">
+              詳細
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
