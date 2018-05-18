@@ -3,7 +3,7 @@
     :isActive="isActive"
     isWide
     title="提出一覧"
-    @close="$emit('close')"
+    @close="close"
   >
     <List v-if="isList" @showDetail="showDetail"/>
     <Detail v-else />
@@ -33,6 +33,10 @@ export default {
       this.getDetail(id);
       this.isList = false;
     },
+    close(){
+      this.isList = true;
+      this.$emit('close')
+    }
   },
   components: {
     List,
