@@ -1,5 +1,5 @@
 import api from '@/api';
-import submissions from './submissions';
+import results from './results/';
 
 export default {
   namespaced: true,
@@ -177,6 +177,6 @@ export default {
     },
   },
   modules: {
-    submissions,
+    results,
   },
 };
