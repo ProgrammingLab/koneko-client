@@ -59,7 +59,7 @@
             <th colspan="4">ケース</th>
           </tr>
           <tr>
-            <th>id</th>
+            <th>インデックス</th>
             <th>結果</th>
             <th>ポイント</th>
             <th>インデックス</th>
@@ -70,8 +70,8 @@
           <template v-for="(caseSet, i) in detail.judgeSetResults">
             <tr v-for="(caseData, j) in caseSet.judgeResults" :key="`${i}-${j}`">
               <template v-if="j == 0">
-                <td :rowspan="caseSet.judgeResults.length">
-                  {{caseSet.caseSetID}}
+                <td :rowspan="setData.judgeResults.length">
+                  {{i}}
                 </td>
                 <td :rowspan="caseSet.judgeResults.length">
                   <Tag :status="caseSet.status"/>
