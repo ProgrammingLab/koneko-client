@@ -1,10 +1,5 @@
 <template>
-  <Modal
-    :isActive="isActive"
-    isWide
-    title="提出一覧"
-    @close="$emit('close')"
-  >
+  <div>
     <nav class="level" id="navi">
       <div class="level-left">
         <div class="level-item">
@@ -51,7 +46,7 @@
         <div class="level-item">
           <div class="field">
             <div class="control">
-              <button class="button" @click="updateSubmissionTable">
+              <button class="button" @click="updateResultTable">
                 更新
               </button>
             </div>
@@ -72,11 +67,11 @@
           <th>結果</th>
           <th>実行時間</th>
           <th>メモリ</th>
-          <th>提出ID</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(submission, index) in submissions" :key="index">
+        <tr v-for="(submission, index) in results" :key="index">
           <td>{{formatDate(submission.createdAt)}}</td>
           <td>{{submission.problem.title}}</td>
           <td>{{submission.user.displayName}}</td>
@@ -86,21 +81,23 @@
           <td><Tag :status="submission.status" /></td>
           <td>{{`${submission.execTime / 1000000} ms`}}</td>
           <td>{{`${submission.memoryUsage} KB`}}</td>
-          <td>{{submission.id}}</td>
+          <td>
+            <button class="button is-info" @click="$emit('showDetail',submission.id)">
+              詳細
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
     <Pager @movePage="movePage" :length="pageLength" :current="currentPage"></Pager>
-  </Modal>
+  </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import moment from 'moment';
-import Modal from '@/components/common/Modal';
 import Pager from '@/components/common/Pager';
-import Tag from './Tag';
-
+import Tag from '../Tag';
 
 export default {
   data() {
@@ -108,22 +105,19 @@ export default {
       pageLimit: 25,
     };
   },
-  props: [
-    'isActive',
-  ],
   computed: {
-    ...mapState('koneko/contests/submissions', [
-      'submissions',
-      'submissionLength',
+    ...mapState('koneko/contests/results', [
+      'results',
+      'resultLength',
       'currentPage',
     ]),
-    ...mapGetters('koneko/contests/submissions', [
+    ...mapGetters('koneko/contests/results', [
       'pageLength',
     ]),
   },
   methods: {
-    ...mapActions('koneko/contests/submissions', [
-      'getSubmissions',
+    ...mapActions('koneko/contests/results', [
+      'getResults',
     ]),
     // contest.vueでも使ってるからmixinとか使って使いまわしたい,
     // 今はどういう感じにするか悩んだのでコピペでとりあえず書いておく
@@ -134,18 +128,20 @@ export default {
       ;
     },
     movePage(page) {
-      this.getSubmissions({ page });
+      this.getResults({ page });
       document.getElementById('navi').scrollIntoView(true);
     },
-    updateSubmissionTable() {
+    updateResultTable() {
       const limit = this.pageLimit;
-      this.getSubmissions({ limit, page: 1 });
+      this.getResults({ limit, page: 1 });
     },
   },
   components: {
-    Modal,
     Tag,
     Pager,
   },
 };
 </script>
+
+<style lang="css">
+</style>

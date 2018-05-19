@@ -26,7 +26,7 @@
               </span>
               <span v-else class="navbar-item">
                 <button
-                  @click="showSubmissionList"
+                  @click="showResultList"
                   class="button is-outlined"
                   :disabled="problems === null || problems.length === 0"
                 >
@@ -135,9 +135,9 @@
               </tbody>
             </table>
           </Modal>
-          <SubmissionListModal
-            :isActive="showSubmissionListModal"
-            @close="showSubmissionListModal = false"
+          <ResultModal
+            :isActive="showResultListModal"
+            @close="showResultListModal = false"
           />
           <SubmitModal
             :isActive="showSubmitModal"
@@ -186,7 +186,7 @@ import Problem from '@/components/problem/Problem';
 import ErrorNotification from '@/components/common/ErrorNotification';
 import Modal from '@/components/common/Modal';
 import SubmitModal from '@/components/problem/SubmitModal';
-import SubmissionListModal from './SubmissionListModal';
+import ResultModal from './result_modal/ResultModal';
 
 import Tag from './Tag';
 
@@ -196,7 +196,7 @@ export default {
     return {
       showDescription: false,
       showStandingsModal: false,
-      showSubmissionListModal: false,
+      showResultListModal: false,
       showSubmitModal: false,
       activeTab: 0,
       diff: 300000,
@@ -267,8 +267,8 @@ export default {
       'enter',
       'submit',
     ]),
-    ...mapActions('koneko/contests/submissions', [
-      'getSubmissions',
+    ...mapActions('koneko/contests/results', [
+      'getResults',
     ]),
     ...mapMutations('koneko/contests', [
       'setRequiredWatching',
@@ -276,13 +276,13 @@ export default {
     toggleDescription() {
       this.showDescription = !this.showDescription;
     },
-    showStandings() {
+    async showStandings() {
+      await this.getStandings();
       this.showStandingsModal = true;
-      this.getStandings();
     },
-    showSubmissionList() {
-      this.showSubmissionListModal = true;
-      this.getSubmissions();
+    async showResultList() {
+      await this.getResults();
+      this.showResultListModal = true;
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
@@ -309,7 +309,7 @@ export default {
     Problem,
     ErrorNotification,
     SubmitModal,
-    SubmissionListModal,
+    ResultModal,
   },
 };
 </script>

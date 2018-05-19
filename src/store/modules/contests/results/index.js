@@ -1,34 +1,35 @@
 import api from '@/api';
+import detail from './detail';
 
 export default {
   namespaced: true,
   state: {
-    submissions: [],
+    results: [],
     pageLimit: 25,
-    submissionLength: 0,
+    resultLength: 0,
     currentPage: 1,
   },
   mutations: {
-    setSubmissions(state, submissions) {
-      state.submissions = submissions;
+    setResults(state, results) {
+      state.results = results;
     },
     setPageLimit(state, pageLimit) {
       state.pageLimit = pageLimit;
     },
-    setSubmissioonLength(state, length) {
-      state.submissionLength = length;
+    setResultLength(state, length) {
+      state.resultLength = length;
     },
     setCurrentPage(state, currentPage) {
       state.currentPage = currentPage;
     },
   },
   getters: {
-    pageLength({ pageLimit, submissionLength }) {
-      return Math.ceil(submissionLength / pageLimit);
+    pageLength({ pageLimit, resultLength }) {
+      return Math.ceil(resultLength / pageLimit);
     },
   },
   actions: {
-    async getSubmissions({ commit, rootState, state }, options = {}) {
+    async getResults({ commit, rootState, state }, options = {}) {
       const localOptions = {
         limit: options.limit || state.pageLimit,
         page: options.page || state.currentPage,
@@ -36,16 +37,19 @@ export default {
       commit('setPageLimit', localOptions.limit);
       commit('setCurrentPage', localOptions.page);
       try {
-        const res = await api.getContestSubmissions(
+        const res = await api.getContestResults(
           rootState.koneko.sessionID,
           rootState.koneko.contests.id,
           localOptions,
         );
-        commit('setSubmissions', res.data.submissions);
-        commit('setSubmissioonLength', res.data.total);
+        commit('setResults', res.data.submissions);
+        commit('setResultLength', res.data.total);
       } catch (e) {
         commit('koneko/contests/setError', e, { root: true });
       }
     },
+  },
+  modules: {
+    detail,
   },
 };
