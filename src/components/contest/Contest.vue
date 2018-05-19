@@ -276,13 +276,13 @@ export default {
     toggleDescription() {
       this.showDescription = !this.showDescription;
     },
-    showStandings() {
+    async showStandings() {
+      await this.getStandings();
       this.showStandingsModal = true;
-      this.getStandings();
     },
-    showResultList() {
+    async showResultList() {
+      await this.getResults();
       this.showResultListModal = true;
-      this.getResults();
     },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
