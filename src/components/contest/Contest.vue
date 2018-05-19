@@ -122,7 +122,7 @@
                     :class="{'is-success': detail.accepted}"
                   >
                     {{detail.point}}<br>
-                    <span v-if="detail.accepted">
+                    <span v-if="detail.point > 0">
                       {{getElapsedTime(detail.updatedAt)}}<br>
                     </span>
                     <span class="has-text-danger" v-if="detail.wrongCount !== 0">
@@ -295,10 +295,9 @@ export default {
     },
     getElapsedTime(data) {
       const diff = moment(data).diff(this.startAt);
-      const HH = `${Math.floor(diff / 1000 / 60 / 60)}`;
-      const mm = `00${Math.floor(diff / 1000 / 60) % 60}`.slice(-2);
+      const mm = `${Math.floor(diff / 1000 / 60)}`;
       const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
-      return `${HH}:${mm}:${ss}`;
+      return `${mm}:${ss}`;
     },
     submitCode(value) {
       this.submit({ value, problemIndex: this.activeTab });
