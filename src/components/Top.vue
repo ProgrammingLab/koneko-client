@@ -29,7 +29,7 @@
       <section class="section">
         <div>
           <h2 class="subtitle">
-            終了したコンテスト(5件)
+            最近終了したコンテスト(5件)
           </h2>
           <contest-list :contests="recentContests"/>
         </div>
