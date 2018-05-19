@@ -45,9 +45,9 @@ export default {
     },
   },
   actions: {
-    async fetchAllContests({ commit, rootState }) {
+    async fetchAllContests({ commit }) {
       try {
-        const res = await api.getContests(rootState.koneko.sessionID);
+        const res = await api.getContests();
         commit('setContests', res.data);
         commit('setError', null);
       } catch (e) {

@@ -60,8 +60,8 @@ export default {
     const res = await axios.get(`${API_ENDPOINT}/contests/${contestID}`, getConfig(sessionID));
     return res;
   },
-  async getContests(sessionID) {
-    const res = await axios.get(`${API_ENDPOINT}/contests`, getConfig(sessionID));
+  async getContests() {
+    const res = await axios.get(`${API_ENDPOINT}/contests`);
     return res;
   },
   async getContestProblems(sessionID, contestID) {
