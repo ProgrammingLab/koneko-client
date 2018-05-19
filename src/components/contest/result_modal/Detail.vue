@@ -67,17 +67,17 @@
             <th>実行時間</th>
             <th>メモリ</th>
           </tr>
-          <template v-for="(caseSet, i) in detail.judgeSetResults">
-            <tr v-for="(caseData, j) in caseSet.judgeResults" :key="`${i}-${j}`">
+          <template v-for="(setData, i) in detail.judgeSetResults">
+            <tr v-for="(caseData, j) in setData.judgeResults" :key="`${i}-${j}`">
               <template v-if="j == 0">
                 <td :rowspan="setData.judgeResults.length">
                   {{i}}
                 </td>
-                <td :rowspan="caseSet.judgeResults.length">
-                  <Tag :status="caseSet.status"/>
+                <td :rowspan="setData.judgeResults.length">
+                  <Tag :status="setData.status"/>
                 </td>
-                <td :rowspan="caseSet.judgeResults.length">
-                  {{caseSet.point}}
+                <td :rowspan="setData.judgeResults.length">
+                  {{setData.point}}/{{setData.caseSet.point}}
                 </td>
               </template>
               <td>{{j}}</td>
