@@ -25,7 +25,8 @@ export default {
   },
   getters: {
     pageLength({ pageLimit, resultLength }) {
-      return Math.ceil(resultLength / pageLimit);
+      // 0件の時でも1ページはある
+      return Math.max(Math.ceil(resultLength / pageLimit), 1);
     },
   },
   actions: {
