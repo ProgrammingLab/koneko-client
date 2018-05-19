@@ -122,7 +122,7 @@
                     :class="{'is-success': detail.accepted}"
                   >
                     {{detail.point}}<br>
-                    <span v-if="detail.accepted">
+                    <span v-if="detail.point > 0">
                       {{getElapsedTime(detail.updatedAt)}}<br>
                     </span>
                     <span class="has-text-danger" v-if="detail.wrongCount !== 0">
