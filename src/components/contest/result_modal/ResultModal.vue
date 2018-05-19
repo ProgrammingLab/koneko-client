@@ -37,8 +37,8 @@ export default {
     ...mapActions('koneko/contests/results/detail', [
       'getDetail',
     ]),
-    showDetail(id) {
-      this.getDetail(id);
+    async showDetail(id) {
+      await this.getDetail(id);
       this.isList = false;
     },
     close() {
