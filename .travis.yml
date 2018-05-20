@@ -15,6 +15,7 @@ after_success:
       git config --global user.name "gedorinku";
       git clone git@github.com:ProgrammingLab/koneko-website.git;
       cd koneko-website;
+      rm -rf static/;
       cp -aR ../dist/* .;
       git add --all;
       git commit -m "built by Travis CI JOB #$TRAVIS_JOB_NUMBER";
