@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div>デプロイできたかな?</div>
     <white-emails></white-emails>
     <worker-dashboard></worker-dashboard>
   </div>
