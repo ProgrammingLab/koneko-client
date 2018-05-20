@@ -6,6 +6,8 @@ export default {
   state: {
     results: [],
     pageLimit: 25,
+    userFilter: undefined,
+    problemFilter: undefined,
     resultLength: 0,
     currentPage: 1,
   },
@@ -22,6 +24,12 @@ export default {
     setCurrentPage(state, currentPage) {
       state.currentPage = currentPage;
     },
+    setUserFilter(state, userFilter) {
+      state.userFilter = userFilter;
+    },
+    setProblemFilter(state, problemFilter) {
+      state.problemFilter = problemFilter;
+    },
   },
   getters: {
     pageLength({ pageLimit, resultLength }) {
@@ -30,14 +38,17 @@ export default {
     },
   },
   actions: {
-    async getResults({ commit, rootState }, options = {}) {
-      commit('setPageLimit', options.limit || 25);
-      commit('setCurrentPage', options.page || 1);
+    async getResults({ commit, rootState, state }) {
       try {
         const res = await api.getContestResults(
           rootState.koneko.sessionID,
           rootState.koneko.contests.id,
-          options,
+          {
+            limit: state.pageLimit,
+            page: state.currentPage,
+            userID: state.userFilter,
+            problemID: state.problemFilter,
+          },
         );
         commit('setResults', res.data.submissions);
         commit('setResultLength', res.data.total);
