@@ -7,17 +7,17 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    openssl aes-256-cbc -K $encrypted_00e52e4d153a_key -iv $encrypted_00e52e4d153a_iv -in travis_koneko_client.enc -out ~\/.ssh/id_ed25519 -d
-    chmod 600 ~/.ssh/id_ed25519
-    echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    git config --global user.email "gedorinku@yahoo.co.jp"
-    git config --global user.name "gedorinku"
-    git clone git@github.com:ProgrammingLab/koneko-website.git
-    cd koneko-website
-    cp -aR ../dist/* .
-    git add --all
-    git commit -m "built by Travis CI JOB #$TRAVIS_JOB_NUMBER"
-    git push origin master
+    openssl aes-256-cbc -K $encrypted_00e52e4d153a_key -iv $encrypted_00e52e4d153a_iv -in travis_koneko_client.enc -out ~\/.ssh/id_ed25519 -d;
+    chmod 600 ~/.ssh/id_ed25519;
+    echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config;
+    git config --global user.email "gedorinku@yahoo.co.jp";
+    git config --global user.name "gedorinku";
+    git clone git@github.com:ProgrammingLab/koneko-website.git;
+    cd koneko-website;
+    cp -aR ../dist/* .;
+    git add --all;
+    git commit -m "built by Travis CI JOB #$TRAVIS_JOB_NUMBER";
+    git push origin master;
     fi
 
 notifications:
