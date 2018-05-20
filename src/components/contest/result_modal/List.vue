@@ -147,8 +147,8 @@ export default {
       },
       get() {
         return this.$store.state
-        .koneko.contests.results.currentPage;
-      }
+          .koneko.contests.results.currentPage;
+      },
     },
     pageLimit: {
       set(val) {
@@ -159,7 +159,7 @@ export default {
       },
       get() {
         return this.$store.state
-        .koneko.contests.results.pageLimit;
+          .koneko.contests.results.pageLimit;
       },
     },
     userFilter: {
@@ -171,7 +171,7 @@ export default {
       },
       get() {
         return this.$store.state
-        .koneko.contests.results.userFilter;
+          .koneko.contests.results.userFilter;
       },
     },
     problemFilter: {
@@ -183,7 +183,7 @@ export default {
       },
       get() {
         return this.$store.state
-        .koneko.contests.results.problemFilter;
+          .koneko.contests.results.problemFilter;
       },
     },
   },
@@ -208,8 +208,7 @@ export default {
       this.currentPage = 1;
       this.getResults();
       document.getElementById('navi').scrollIntoView(true);
-    }
-
+    },
   },
   components: {
     Tag,
