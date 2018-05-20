@@ -7,7 +7,7 @@
             <label class="label">表示件数</label>
             <div class="control">
               <div class="select">
-                <select v-model.number="pageLimit">
+                <select v-model="pageLimit" @change="updateResults">
                   <option>25</option>
                   <option>50</option>
                   <option>75</option>
@@ -22,8 +22,24 @@
             <label class="label">ユーザー検索</label>
             <div class="control">
               <div class="select">
-                <select>
-                  <option>未実装</option>
+                <select v-model="userFilter" @change="updateResults">
+                  <option :value="undefined">
+                    全て
+                  </option>
+                  <option
+                    v-for="writer in writers"
+                    :value="writer.id"
+                    :key="writer.id"
+                  >
+                    {{writer.displayName}}(作問者)
+                  </option>
+                  <option
+                    v-for="participant in participants"
+                    :value="participant.id"
+                    :key="participant.id"
+                  >
+                    {{participant.displayName}}
+                  </option>
                 </select>
               </div>
             </div>
@@ -34,8 +50,17 @@
             <label class="label">問題検索</label>
             <div class="control">
               <div class="select">
-                <select>
-                  <option>未実装</option>
+                <select v-model="problemFilter" @change="updateResults">
+                  <option :value="undefined">
+                    全て
+                  </option>
+                  <option
+                    v-for="problem in problems"
+                    :value="problem.id"
+                    :key="problem.id"
+                  >
+                    {{problem.title}}
+                  </option>
                 </select>
               </div>
             </div>
@@ -46,7 +71,7 @@
         <div class="level-item">
           <div class="field">
             <div class="control">
-              <button class="button" @click="updateResultTable">
+              <button class="button" @click="updateResults">
                 更新
               </button>
             </div>
@@ -89,7 +114,7 @@
         </tr>
       </tbody>
     </table>
-    <Pager @movePage="movePage" :length="pageLength" :current="currentPage"></Pager>
+    <Pager @movePage="movePage" :length="pageLength" :current="currentPage" />
   </div>
 </template>
 
@@ -100,20 +125,67 @@ import Pager from '@/components/common/Pager';
 import Tag from '../Tag';
 
 export default {
-  data() {
-    return {
-      pageLimit: 25,
-    };
-  },
   computed: {
     ...mapState('koneko/contests/results', [
       'results',
       'resultLength',
-      'currentPage',
+    ]),
+    ...mapState('koneko/contests', [
+      'problems',
+      'participants',
+      'writers',
     ]),
     ...mapGetters('koneko/contests/results', [
       'pageLength',
     ]),
+    currentPage: {
+      set(val) {
+        this.$store.commit(
+          'koneko/contests/results/setCurrentPage',
+          val,
+        );
+      },
+      get() {
+        return this.$store.state
+          .koneko.contests.results.currentPage;
+      },
+    },
+    pageLimit: {
+      set(val) {
+        this.$store.commit(
+          'koneko/contests/results/setPageLimit',
+          val,
+        );
+      },
+      get() {
+        return this.$store.state
+          .koneko.contests.results.pageLimit;
+      },
+    },
+    userFilter: {
+      set(val) {
+        this.$store.commit(
+          'koneko/contests/results/setUserFilter',
+          val,
+        );
+      },
+      get() {
+        return this.$store.state
+          .koneko.contests.results.userFilter;
+      },
+    },
+    problemFilter: {
+      set(val) {
+        this.$store.commit(
+          'koneko/contests/results/setProblemFilter',
+          val,
+        );
+      },
+      get() {
+        return this.$store.state
+          .koneko.contests.results.problemFilter;
+      },
+    },
   },
   methods: {
     ...mapActions('koneko/contests/results', [
@@ -128,12 +200,14 @@ export default {
       ;
     },
     movePage(page) {
-      this.getResults({ page });
+      this.currentPage = page;
+      this.getResults();
       document.getElementById('navi').scrollIntoView(true);
     },
-    updateResultTable() {
-      const limit = this.pageLimit;
-      this.getResults({ limit, page: 1 });
+    updateResults() {
+      this.currentPage = 1;
+      this.getResults();
+      document.getElementById('navi').scrollIntoView(true);
     },
   },
   components: {
