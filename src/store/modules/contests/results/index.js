@@ -30,18 +30,14 @@ export default {
     },
   },
   actions: {
-    async getResults({ commit, rootState, state }, options = {}) {
-      const localOptions = {
-        limit: options.limit || state.pageLimit,
-        page: options.page || state.currentPage,
-      };
-      commit('setPageLimit', localOptions.limit);
-      commit('setCurrentPage', localOptions.page);
+    async getResults({ commit, rootState }, options = {}) {
+      commit('setPageLimit', options.limit || 25);
+      commit('setCurrentPage', options.page || 1);
       try {
         const res = await api.getContestResults(
           rootState.koneko.sessionID,
           rootState.koneko.contests.id,
-          localOptions,
+          options,
         );
         commit('setResults', res.data.submissions);
         commit('setResultLength', res.data.total);
