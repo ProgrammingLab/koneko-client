@@ -7,7 +7,7 @@
             <label class="label">表示件数</label>
             <div class="control">
               <div class="select">
-                <select v-model="pageLimit" @change="getResults">
+                <select v-model="pageLimit" @change="updateResults">
                   <option>25</option>
                   <option>50</option>
                   <option>75</option>
@@ -22,7 +22,7 @@
             <label class="label">ユーザー検索</label>
             <div class="control">
               <div class="select">
-                <select v-model="userFilter" @change="getResults">
+                <select v-model="userFilter" @change="updateResults">
                   <option :value="undefined">
                     全て
                   </option>
@@ -50,7 +50,7 @@
             <label class="label">問題検索</label>
             <div class="control">
               <div class="select">
-                <select v-model="problemFilter" @change="getResults">
+                <select v-model="problemFilter" @change="updateResults">
                   <option :value="undefined">
                     全て
                   </option>
@@ -71,7 +71,7 @@
         <div class="level-item">
           <div class="field">
             <div class="control">
-              <button class="button" @click="getResults">
+              <button class="button" @click="updateResults">
                 更新
               </button>
             </div>
@@ -204,6 +204,11 @@ export default {
       this.getResults();
       document.getElementById('navi').scrollIntoView(true);
     },
+    updateResults() {
+      this.currentPage = 1;
+      this.getResults();
+      document.getElementById('navi').scrollIntoView(true);
+    }
 
   },
   components: {
