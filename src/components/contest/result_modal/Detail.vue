@@ -52,6 +52,13 @@
     </section>
     <section class="section">
       <div>
+        <button
+          class="button is-outlined"
+          id="updateButton"
+          @click="getDetail"
+        >
+          更新
+        </button>
         <h4 class="title is-5">テストケース</h4>
         <table class="table is-fullwidth is-bordered">
           <tr>
@@ -93,7 +100,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import moment from 'moment';
 import Tag from '../Tag';
 
@@ -107,6 +114,9 @@ export default {
     Tag,
   },
   methods: {
+    ...mapActions('koneko/contests/results/detail', [
+      'getDetail',
+    ]),
     formatDate(date, format) {
       return moment(date)
         .locale('ja')
@@ -117,5 +127,8 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style scoped>
+  #updateButton{
+    float: right;
+  }
 </style>

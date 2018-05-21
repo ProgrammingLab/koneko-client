@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import Modal from '@/components/common/Modal';
 import List from './List';
 import Detail from './Detail';
@@ -37,8 +37,12 @@ export default {
     ...mapActions('koneko/contests/results/detail', [
       'getDetail',
     ]),
+    ...mapMutations('koneko/contests/results/detail', [
+      'setSubmissionID',
+    ]),
     async showDetail(id) {
-      await this.getDetail(id);
+      this.setSubmissionID(id);
+      await this.getDetail();
       this.isList = false;
     },
     close() {
