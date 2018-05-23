@@ -295,9 +295,10 @@ export default {
     },
     getElapsedTime(data) {
       const diff = moment(data).diff(this.startAt);
-      const mm = `${Math.floor(diff / 1000 / 60)}`;
+      const HH = `${Math.floor(diff / 1000 / 60 / 60)}`;
+      const mm = `00${Math.floor(diff / 1000 / 60) % 60}`.slice(-2);
       const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
-      return `${mm}:${ss}`;
+      return `${HH}:${mm}:${ss}`;
     },
     submitCode(value) {
       this.submit({ value, problemIndex: this.activeTab });
