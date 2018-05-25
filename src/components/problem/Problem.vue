@@ -1,7 +1,7 @@
 <template>
   <section class="section" v-if="problem">
     <h1 class="title">{{ problem.title }}</h1>
-    <div>配点: {{ problem.point }}</div>
+    <div>配点: {{ score }} 点</div>
     <div>時間制限: {{ timeLimit }} sec / メモリ制限: {{ problem.memoryLimit }} MiB</div>
     <hr>
     <div class="content">
@@ -63,6 +63,15 @@ export default {
   computed: {
     timeLimit() {
       return this.problem.timeLimit / 1000000000;
+    },
+    score() {
+      if (!this.problem.caseSets || this.problem.caseSets.length === 0) {
+        return 0;
+      }
+      return this.problem
+        .caseSets
+        .map(s => s.point)
+        .reduce((accumulator, currentValue) => accumulator + currentValue);
     },
   },
 };
