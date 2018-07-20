@@ -20,6 +20,7 @@ export default {
     isWaitingJudge: true,
     error: null,
     duration: null,
+    flexibleCreatedAt: null,
   },
   getters: {
     isWriter({ writers }, _, rootState) {
@@ -33,6 +34,12 @@ export default {
     },
     isFlexibleContest({ duration }) {
       return !!duration;
+    },
+    flexibleEndAt({ flexibleCreatedAt, duration }) {
+      if (flexibleCreatedAt === null) return null;
+      const tmp = new Date(flexibleCreatedAt);
+      tmp.setSeconds(tmp.getSeconds() + duration);
+      return tmp;
     },
   },
   mutations: {
@@ -54,7 +61,7 @@ export default {
       state.participants = contestData.participants.map(v => ({
         name: v.user.name, displayName: v.user.displayName, id: v.user.id,
       }));
-      state.duration = contestData.duration ? contestData.duration / 3600000000000 : null;
+      state.duration = contestData.duration ? contestData.duration / 1000000000 : null;
     },
     setStatusesWatcherFlag(state) {
       state.statusesWatcherFlag = true;
@@ -78,6 +85,9 @@ export default {
       });
       state.isWaitingJudge = state.problems.some(({ status }) => status < 2 && status > -1);
     },
+    setFlexibleCreatedAt(state, createdAt) {
+      state.flexibleCreatedAt = createdAt;
+    },
     waitJudge(state) {
       state.isWaitingJudge = true;
     },
@@ -91,10 +101,18 @@ export default {
     },
   },
   actions: {
-    async getContest({ commit, rootState }, contestID) {
+    async getContest({ state, commit, rootState }, contestID) {
       try {
         const res = await api.getContest(rootState.koneko.sessionID, contestID);
         commit('setContestData', res.data);
+        if (state.duration) {
+          for (let i = 0; i < res.data.participants.length; i += 1) {
+            if (rootState.koneko.user.id === res.data.participants[i].user.id) {
+              commit('setFlexibleCreatedAt', new Date(res.data.participants[i].createdAt));
+              break;
+            }
+          }
+        }
         commit('setRequiredWatching', true);
       } catch (e) {
         commit('setError', e);
@@ -133,6 +151,14 @@ export default {
       try {
         const res = await api.enterContest(rootState.koneko.sessionID, state.id);
         commit('setParticipants', res.data.participants);
+        if (state.duration) {
+          for (let i = 0; i < res.data.participants.length; i += 1) {
+            if (rootState.koneko.user.id === res.data.participants[i].user.id) {
+              commit('setFlexibleCreatedAt', new Date(res.data.participants[i].createdAt));
+              break;
+            }
+          }
+        }
       } catch (e) {
         commit('setError', e);
       }

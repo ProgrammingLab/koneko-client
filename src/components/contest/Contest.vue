@@ -11,6 +11,9 @@
                   <span class="is-size-5 has-text-weight-bold">
                     期間: {{formatDate(startAt)}} ~ {{formatDate(endAt)}}<br>
                   </span>
+                  <span v-if="isFlexibleContest && isEntered" class="is-size-5 has-text-weight-bold">
+                    参加時間: {{formatDate(flexibleCreatedAt)}} ~ {{formatDate(flexibleEndAt)}}<br>
+                  </span>
                   <span class="is-size-7">
                     作成日時: {{formatDate(createdAt)}}<br>
                     最終更新: {{formatDate(updatedAt)}}
@@ -230,6 +233,7 @@ export default {
       'id',
       'error',
       'duration',
+      'flexibleCreatedAt',
     ]),
     ...mapState('koneko/timeDiff', [
       'timeDiff',
@@ -239,6 +243,7 @@ export default {
       'isEntered',
       'isWriter',
       'isFlexibleContest',
+      'flexibleEndAt',
     ]),
     enterable() {
       return this.canEnter &&
