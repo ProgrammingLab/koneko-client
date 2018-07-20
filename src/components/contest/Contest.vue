@@ -11,7 +11,10 @@
                   <span class="is-size-5 has-text-weight-bold">
                     期間: {{formatDate(startAt)}} ~ {{formatDate(endAt)}}<br>
                   </span>
-                  <span v-if="isFlexibleContest && isEntered" class="is-size-5 has-text-weight-bold">
+                  <span
+                    v-if="isFlexibleContest && isEntered"
+                    class="is-size-5 has-text-weight-bold"
+                  >
                     参加時間: {{formatDate(flexibleCreatedAt)}} ~ {{formatDate(flexibleEndAt)}}<br>
                   </span>
                   <span class="is-size-7">
