@@ -15,7 +15,9 @@
                     v-if="isFlexibleContest && isEntered"
                     class="is-size-5 has-text-weight-bold"
                   >
-                    あなたのコンテスト時間: {{formatDate(flexibleCreatedAt)}} ~ {{formatDate(flexibleEndAt)}}<br>
+                    あなたのコンテスト時間:
+                    {{formatDate(flexibleCreatedAt)}} ~
+                    {{formatDate(flexibleEndAt)}}<br>
                   </span>
                   <span class="is-size-7">
                     作成日時: {{formatDate(createdAt)}}<br>
