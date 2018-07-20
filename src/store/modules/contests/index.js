@@ -19,6 +19,7 @@ export default {
     requiredWatching: false,
     isWaitingJudge: true,
     error: null,
+    duration: null,
   },
   getters: {
     isWriter({ writers }, _, rootState) {
@@ -29,6 +30,9 @@ export default {
     },
     canEnter(_, { isWriter, isEntered }) {
       return !isEntered && !isWriter;
+    },
+    isFlexibleContest({ duration }) {
+      return !!duration;
     },
   },
   mutations: {
@@ -50,6 +54,7 @@ export default {
       state.participants = contestData.participants.map(v => ({
         name: v.name, displayName: v.displayName, id: v.id,
       }));
+      state.duration = contestData.duration ? contestData.duration / 3600000000000 : null;
     },
     setStatusesWatcherFlag(state) {
       state.statusesWatcherFlag = true;
@@ -78,7 +83,7 @@ export default {
     },
     setParticipants(state, participants) {
       state.participants = participants.map(v => ({
-        name: v.name, displayName: v.displayName, id: v.id,
+        name: v.user.name, displayName: v.user.displayName, id: v.user.id,
       }));
     },
     setError(state, error) {
@@ -127,6 +132,7 @@ export default {
     async enter({ commit, rootState, state }) {
       try {
         const res = await api.enterContest(rootState.koneko.sessionID, state.id);
+        console.log(res.data.participants);
         commit('setParticipants', res.data.participants);
       } catch (e) {
         commit('setError', e);
