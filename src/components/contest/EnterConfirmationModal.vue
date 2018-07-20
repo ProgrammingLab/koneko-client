@@ -4,7 +4,10 @@
     title="参加確認"
     @close="close"
   >
-    <p>参加するとすぐにコンテストが始まります。</p>
+    <p>
+      参加するとすぐにコンテストが始まります。<br/>
+      コンテスト時間は、参加から{{Math.floor(duration / 60)}}分です
+    </p>
     <div slot="footer">
       <button class="button is-success" @click="myEnter">参加する</button>
       <button class="button" @click="close">キャンセル</button>
@@ -22,6 +25,7 @@ export default {
   ],
   computed: {
     ...mapState('koneko/contests', [
+      'duration',
       'id',
     ]),
   },
