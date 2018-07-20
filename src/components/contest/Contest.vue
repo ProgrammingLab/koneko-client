@@ -23,7 +23,11 @@
                 v-if="enterable"
                 class="navbar-item"
               >
-                <button @click="myEnter" class="button is-large is-outlined">
+                <button
+                  @click="myEnter"
+                  class="button is-large is-outlined"
+                  :disabled="this.isFlexibleContest && this.countDownTimer !== 'Already started'"
+                >
                   コンテストに参加する
                 </button>
               </span>
@@ -239,11 +243,7 @@ export default {
     enterable() {
       return this.canEnter &&
         !this.isEntered &&
-        this.problems === null &&
-        !(
-          this.isFlexibleContest &&
-          this.countDownTimer !== 'Already started'
-        )
+        this.problems === null
       ;
     },
     countDownTimer() {
