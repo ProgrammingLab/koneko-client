@@ -191,6 +191,7 @@ export default {
             totalPoint: v.point,
             displayName: usersMap.get(v.userID),
             details: getDetailsArray(v.details, problemsMap, state.problems.length),
+            scoreTime: v.scoreTime,
           }))
         ;
         commit('setStandings', standings);
