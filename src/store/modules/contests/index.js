@@ -132,7 +132,6 @@ export default {
     async enter({ commit, rootState, state }) {
       try {
         const res = await api.enterContest(rootState.koneko.sessionID, state.id);
-        console.log(res.data.participants);
         commit('setParticipants', res.data.participants);
       } catch (e) {
         commit('setError', e);
