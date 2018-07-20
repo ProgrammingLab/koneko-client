@@ -52,7 +52,7 @@ export default {
         name: v.name, displayName: v.displayName, id: v.id,
       }));
       state.participants = contestData.participants.map(v => ({
-        name: v.name, displayName: v.displayName, id: v.id,
+        name: v.user.name, displayName: v.user.displayName, id: v.user.id,
       }));
       state.duration = contestData.duration ? contestData.duration / 3600000000000 : null;
     },
