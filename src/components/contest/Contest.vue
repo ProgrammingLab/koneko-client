@@ -11,6 +11,14 @@
                   <span class="is-size-5 has-text-weight-bold">
                     期間: {{formatDate(startAt)}} ~ {{formatDate(endAt)}}<br>
                   </span>
+                  <span
+                    v-if="isFlexibleContest && isEntered"
+                    class="is-size-5 has-text-weight-bold"
+                  >
+                    あなたのコンテスト時間:
+                    {{formatDate(flexibleCreatedAt)}} ~
+                    {{formatDate(flexibleEndAt)}}<br>
+                  </span>
                   <span class="is-size-7">
                     作成日時: {{formatDate(createdAt)}}<br>
                     最終更新: {{formatDate(updatedAt)}}
@@ -19,8 +27,15 @@
               </div>
             </div>
             <div class="navbar-end">
-              <span v-if="canEnter && !isEntered && problems === null" class="navbar-item">
-                <button @click="enter" class="button is-large is-outlined">
+              <span
+                v-if="enterable"
+                class="navbar-item"
+              >
+                <button
+                  @click="myEnter"
+                  class="button is-large is-outlined"
+                  :disabled="this.isFlexibleContest && this.countDownTimer !== 'Already started'"
+                >
                   コンテストに参加する
                 </button>
               </span>
@@ -67,6 +82,10 @@
       </article>
     </div>
     <div class="container">
+      <EnterConfirmationModal
+        :isActive="showConfirmationModal"
+        @close="showConfirmationModal = false"
+      />
       <ErrorNotification :error="error"/>
       <template v-if="problems !== null">
         <div class="columns is-mobile" v-if="problems.length !== 0">
@@ -191,6 +210,7 @@ import ErrorNotification from '@/components/common/ErrorNotification';
 import Modal from '@/components/common/Modal';
 import SubmitModal from '@/components/problem/SubmitModal';
 import ResultModal from './result_modal/ResultModal';
+import EnterConfirmationModal from './EnterConfirmationModal';
 
 import Tag from './Tag';
 
@@ -202,6 +222,7 @@ export default {
       showStandingsModal: false,
       showResultListModal: false,
       showSubmitModal: false,
+      showConfirmationModal: false,
       activeTab: 0,
       diff: 300000,
     };
@@ -220,6 +241,8 @@ export default {
       'participants',
       'id',
       'error',
+      'duration',
+      'flexibleCreatedAt',
     ]),
     ...mapState('koneko/timeDiff', [
       'timeDiff',
@@ -228,7 +251,15 @@ export default {
       'canEnter',
       'isEntered',
       'isWriter',
+      'isFlexibleContest',
+      'flexibleEndAt',
     ]),
+    enterable() {
+      return this.canEnter &&
+        !this.isEntered &&
+        this.problems === null
+      ;
+    },
     countDownTimer() {
       if (this.diff < 0) return 'Already started';
       const DD = `00${Math.floor(this.diff / 1000 / 60 / 60 / 24)}`.slice(-2);
@@ -288,6 +319,13 @@ export default {
       await this.getResults();
       this.showResultListModal = true;
     },
+    myEnter() {
+      if (this.isFlexibleContest) {
+        this.showConfirmationModal = true;
+      } else {
+        this.enter();
+      }
+    },
     num2alpha(num) {
       return String.fromCharCode(97 + num);
     },
@@ -315,6 +353,7 @@ export default {
     Tag,
     Modal,
     Problem,
+    EnterConfirmationModal,
     ErrorNotification,
     SubmitModal,
     ResultModal,
