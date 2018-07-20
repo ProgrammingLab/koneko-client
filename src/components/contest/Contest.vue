@@ -123,14 +123,18 @@
                   >
                     {{detail.point}}<br>
                     <span v-if="detail.point > 0">
-                      {{getElapsedTime(detail.updatedAt)}}<br>
+                      {{ detail.scoreTime | formatDuration }}<br>
                     </span>
                     <span class="has-text-danger" v-if="detail.wrongCount !== 0">
                       (-{{detail.wrongCount}})
                     </span>
                   </td>
                   <td v-else>-</td>
-                  <td>{{column.totalPoint}}</td>
+                  <td>
+                    {{column.totalPoint}}<br>
+                    <span v-if="column.totalPoint > 0">
+                      {{ column.scoreTime | formatDuration }}<br>
+                    </span></td>
                 </tr>
               </tbody>
             </table>
@@ -293,15 +297,18 @@ export default {
         .format(format || 'YYYY/MM/DD(ddd) HH:mm')
       ;
     },
-    getElapsedTime(data) {
-      const diff = moment(data).diff(this.startAt);
-      const HH = `${Math.floor(diff / 1000 / 60 / 60)}`;
-      const mm = `00${Math.floor(diff / 1000 / 60) % 60}`.slice(-2);
-      const ss = `00${Math.floor(diff / 1000) % 60}`.slice(-2);
-      return `${HH}:${mm}:${ss}`;
-    },
     submitCode(value) {
       this.submit({ value, problemIndex: this.activeTab });
+    },
+  },
+  filters: {
+    formatDuration(duration) {
+      const sec = Math.floor(duration / 1000000000);
+      const min = Math.floor(sec / 60);
+      const hour = Math.floor(min / 60);
+      const mm = `00${min % 60}`.slice(-2);
+      const ss = `00${sec % 60}`.slice(-2);
+      return `${hour}:${mm}:${ss}`;
     },
   },
   components: {
