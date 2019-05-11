@@ -30,7 +30,7 @@
                 >
                 <div class="columns">
                   <span class="column icon is-small">
-                    <i class="fas fa-user" aria-hidden="true"></i>
+                    <font-awesome-icon icon="user" />
                   </span>
                   <span class="column">{{ this.name }}</span>
                 </div>
