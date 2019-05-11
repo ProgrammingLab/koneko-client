@@ -44,7 +44,7 @@
             <router-link v-else class="navbar-item" to="/login">
               <div class="columns">
                 <span class="column icon">
-                  <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                  <font-awesome-icon icon="sign-in-alt" />
                 </span>
                 <span class="column is-11">ログイン</span>
               </div>
