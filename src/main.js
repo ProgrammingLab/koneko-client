@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faUser, faUpload, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Vue from 'vue';
 import VueHead from 'vue-head';
@@ -16,7 +16,7 @@ Vue.use(VueHead);
 Vue.use(VueClipboard);
 Vue.use(VueHighlightJS);
 
-library.add(faSignInAlt, faUser);
+library.add(faSignInAlt, faUser, faUpload, faArrowCircleLeft);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;

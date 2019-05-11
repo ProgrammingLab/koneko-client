@@ -10,7 +10,7 @@
       <Detail />
       <a slot="footer" class="button" @click="isList = true">
        <span class="icon">
-         <i class="fas fa-arrow-circle-left"></i>
+         <font-awesome-icon icon="arrow-circle-left" />
        </span>
        <span>一覧に戻る</span>
      </a>
