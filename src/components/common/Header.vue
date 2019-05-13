@@ -30,7 +30,7 @@
                 >
                 <div class="columns">
                   <span class="column icon is-small">
-                    <i class="fas fa-user" aria-hidden="true"></i>
+                    <font-awesome-icon icon="user" />
                   </span>
                   <span class="column">{{ this.name }}</span>
                 </div>
@@ -44,7 +44,7 @@
             <router-link v-else class="navbar-item" to="/login">
               <div class="columns">
                 <span class="column icon">
-                  <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                  <font-awesome-icon icon="sign-in-alt" />
                 </span>
                 <span class="column is-11">ログイン</span>
               </div>
