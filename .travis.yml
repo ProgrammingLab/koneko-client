@@ -8,7 +8,7 @@ script:
 after_success:
   - |
     if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-      openssl aes-256-cbc -K $encrypted_00e52e4d153a_key -iv $encrypted_00e52e4d153a_iv -in travis_koneko_client.enc -out /home/travis/.ssh/id_ed25519 -d;
+      openssl aes-256-cbc -K $encrypted_0be7659e51c5_key -iv $encrypted_0be7659e51c5_iv -in travis_koneko_client.enc -out /home/travis/.ssh/id_ed25519 -d;
       chmod 600 ~/.ssh/id_ed25519;
       echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config;
       git config --global user.email "gedorinku@yahoo.co.jp";
