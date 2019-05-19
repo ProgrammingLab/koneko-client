@@ -11,8 +11,8 @@ after_success:
       openssl aes-256-cbc -K $encrypted_0be7659e51c5_key -iv $encrypted_0be7659e51c5_iv -in id_ed25519_koneko-website.enc -out /home/travis/.ssh/id_ed25519 -d;
       chmod 600 ~/.ssh/id_ed25519;
       echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config;
-      git config --global user.email "gedorinku@yahoo.co.jp";
-      git config --global user.name "gedorinku";
+      git config --global user.email "48376527+knctprolab-bot@users.noreply.github.com";
+      git config --global user.name "knctprolab-bot";
       git clone git@github.com:ProgrammingLab/koneko-website.git;
       cd koneko-website;
       rm -rf static/;
