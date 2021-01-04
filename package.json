@@ -14,7 +14,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "github-markdown-css": "^2.10.0",
     "highlightjs-themes": "^1.0.0",
     "markdown-it": "^8.4.1",
